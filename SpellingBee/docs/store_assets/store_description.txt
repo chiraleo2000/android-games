@@ -1,0 +1,7 @@
+SpellingBee is an English spelling practice game. Words come from everyday topics such as animals, food, nature, and sports. Choose easy, medium, or hard. Each hint tells you how many letters the word has and which letter it starts with. Easier levels show more letter tiles.
+
+Spell the word before the timer ends. Correct spellings add points and extend your streak. Five misses in a row, or the end of the timed round, finishes the game. You can play again from the results screen.
+
+SpellingBee does not require an account. It does not show ads. Progress and preferences stay on your device and are not transmitted off the device. Settings can delete all local progress and preferences after you confirm, then the app starts fresh.
+
+Support: [SUPPORT_EMAIL]

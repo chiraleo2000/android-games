@@ -1,0 +1,11 @@
+Inventors Workshop is an educational physics sandbox for kids and families. Place gears, a motor, pulleys, wheels, springs, hinges, switches, and blocks on a touch workspace. Connect them, then press Play and watch motion travel through the machine.
+
+Gear size changes speed. A larger gear turns slower than a smaller gear driven by the same motor. Pause to adjust the build, rotate parts, and try again.
+
+Twenty challenges cover four themes: transmit power, lift with springs and hinges, hit a switch, and reach a target. Each goal has its own win condition. A short tutorial introduces the tools on first launch.
+
+Save a machine on the device or load it later. Export and import a JSON file when you want to share a design locally. There is no account, no online community, no advertising, and no analytics that leave the device.
+
+Clear All Data in Settings erases the saved machine and challenge progress. After you clear data, progress is not restored.
+
+Inventors Workshop is designed for learning on a phone or tablet. Play data stays on the device.

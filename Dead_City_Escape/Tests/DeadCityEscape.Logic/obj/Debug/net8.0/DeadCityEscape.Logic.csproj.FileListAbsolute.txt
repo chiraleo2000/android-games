@@ -1,0 +1,11 @@
+C:\Users\chira\Documents\visualstudiocode\SideProjects\Android_Games\Dead_City_Escape\Tests\DeadCityEscape.Logic\bin\Debug\net8.0\DeadCityEscape.Logic.deps.json
+C:\Users\chira\Documents\visualstudiocode\SideProjects\Android_Games\Dead_City_Escape\Tests\DeadCityEscape.Logic\bin\Debug\net8.0\DeadCityEscape.Logic.dll
+C:\Users\chira\Documents\visualstudiocode\SideProjects\Android_Games\Dead_City_Escape\Tests\DeadCityEscape.Logic\bin\Debug\net8.0\DeadCityEscape.Logic.pdb
+C:\Users\chira\Documents\visualstudiocode\SideProjects\Android_Games\Dead_City_Escape\Tests\DeadCityEscape.Logic\obj\Debug\net8.0\DeadCityEscape.Logic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\chira\Documents\visualstudiocode\SideProjects\Android_Games\Dead_City_Escape\Tests\DeadCityEscape.Logic\obj\Debug\net8.0\DeadCityEscape.Logic.AssemblyInfoInputs.cache
+C:\Users\chira\Documents\visualstudiocode\SideProjects\Android_Games\Dead_City_Escape\Tests\DeadCityEscape.Logic\obj\Debug\net8.0\DeadCityEscape.Logic.AssemblyInfo.cs
+C:\Users\chira\Documents\visualstudiocode\SideProjects\Android_Games\Dead_City_Escape\Tests\DeadCityEscape.Logic\obj\Debug\net8.0\DeadCityEscape.Logic.csproj.CoreCompileInputs.cache
+C:\Users\chira\Documents\visualstudiocode\SideProjects\Android_Games\Dead_City_Escape\Tests\DeadCityEscape.Logic\obj\Debug\net8.0\DeadCityEscape.Logic.dll
+C:\Users\chira\Documents\visualstudiocode\SideProjects\Android_Games\Dead_City_Escape\Tests\DeadCityEscape.Logic\obj\Debug\net8.0\refint\DeadCityEscape.Logic.dll
+C:\Users\chira\Documents\visualstudiocode\SideProjects\Android_Games\Dead_City_Escape\Tests\DeadCityEscape.Logic\obj\Debug\net8.0\DeadCityEscape.Logic.pdb
+C:\Users\chira\Documents\visualstudiocode\SideProjects\Android_Games\Dead_City_Escape\Tests\DeadCityEscape.Logic\obj\Debug\net8.0\ref\DeadCityEscape.Logic.dll

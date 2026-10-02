@@ -1,0 +1,12 @@
+# Non-secret Gradle settings plus empty release-signing placeholders.
+# Copy this file to android/gradle.properties and fill in the RELEASE_* values
+# before a release build. Debug builds do not read the RELEASE_* values.
+# Do not commit android/gradle.properties or any *.jks keystore.
+
+org.gradle.jvmargs=-Xmx1536m
+android.useAndroidX=true
+
+RELEASE_STORE_FILE=
+RELEASE_STORE_PASSWORD=
+RELEASE_KEY_ALIAS=
+RELEASE_KEY_PASSWORD=

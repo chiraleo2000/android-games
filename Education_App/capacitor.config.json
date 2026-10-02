@@ -1,0 +1,8 @@
+{
+  "appId": "com.logiclabs.codeescape",
+  "appName": "LogicLabs",
+  "webDir": "www",
+  "android": {
+    "path": "android"
+  }
+}

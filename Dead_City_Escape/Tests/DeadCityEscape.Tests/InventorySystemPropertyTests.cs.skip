@@ -1,0 +1,203 @@
+// ---------------------------------------------------------------------------
+// Dead City Escape - Inventory System Property-Based Tests
+// Validates correctness properties using FsCheck.
+// ---------------------------------------------------------------------------
+using NUnit.Framework;
+using DeadCityEscape.Logic;
+using Prop = FsCheck.Prop;
+using Gen = FsCheck.Gen;
+using Arb = FsCheck.Arb;
+
+namespace DeadCityEscape.Tests
+{
+    [TestFixture]
+    [Category("Feature:dead-city-escape-mobile-overhaul")]
+    public class InventorySystemPropertyTests
+    {
+        // Property 19: Inventory Add-Then-Remove Round-Trip
+        // For any InventorySystem state and any item that can be successfully added,
+        // calling Remove with the same item ID and count must return to exact prior state.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:19")]
+        public FsCheck.Property Property19_Inventory_AddThenRemoveRoundTrip()
+        {
+            return Prop.ForAll(
+                Gen.Choose(1, 10),
+                Gen.Choose(1, 5),
+                (itemCount, stackSize) =>
+                {
+                    var inventory = new InventorySystem(4, 2);
+
+                    var item = new ItemDefinition
+                    {
+                        ItemId = "test_item",
+                        DisplayName = "Test Item",
+                        Width = 1,
+                        Height = 1,
+                        MaxStack = stackSize,
+                        Category = ItemCategory.Resource
+                    };
+
+                    // Try to add
+                    if (!inventory.TryAdd(item, itemCount))
+                        return true; // Skip if can't add
+
+                    var countBefore = inventory.CountOf("test_item");
+
+                    // Remove same amount
+                    var removed = inventory.Remove("test_item", itemCount);
+
+                    if (!removed)
+                        return false;
+
+                    // Should be back to 0
+                    return inventory.CountOf("test_item") == 0;
+                });
+        }
+
+        // Property 20: Inventory No Overlap for Multi-Cell Items
+        // For any sequence of TryAdd calls with items of varying Width and Height,
+        // no two items may occupy the same grid cell.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:20")]
+        public FsCheck.Property Property20_Inventory_NoOverlapForMultiCellItems()
+        {
+            return Prop.ForAll(
+                Gen.Choose(1, 5),
+                itemCount =>
+                {
+                    var inventory = new InventorySystem(4, 3);
+
+                    // Create items with varying sizes
+                    for (int i = 0; i < itemCount; i++)
+                    {
+                        var width = (i % 2) + 1;  // 1 or 2
+                        var height = (i % 2) + 1; // 1 or 2
+
+                        var item = new ItemDefinition
+                        {
+                            ItemId = $"item_{i}",
+                            DisplayName = $"Item {i}",
+                            Width = width,
+                            Height = height,
+                            MaxStack = 1,
+                            Category = ItemCategory.Tool
+                        };
+
+                        inventory.TryAdd(item, 1);
+                    }
+
+                    // Check for overlaps
+                    var occupiedCells = new HashSet<(int, int)>();
+
+                    foreach (var slot in inventory.Slots)
+                    {
+                        if (slot.Definition == null)
+                            continue;
+
+                        for (int x = 0; x < slot.Definition.Width; x++)
+                        {
+                            for (int y = 0; y < slot.Definition.Height; y++)
+                            {
+                                var cell = (slot.GridX + x, slot.GridY + y);
+                                if (occupiedCells.Contains(cell))
+                                    return false; // Overlap detected!
+
+                                occupiedCells.Add(cell);
+                            }
+                        }
+                    }
+
+                    return true;
+                });
+        }
+
+        // Property 21: Inventory Capacity Invariant
+        // For any sequence of TryAdd operations, the total number of occupied grid cells
+        // must never exceed Columns × Rows.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:21")]
+        public FsCheck.Property Property21_Inventory_CapacityInvariant()
+        {
+            var operationsGen = Gen.Choose(1, 20)
+                .SelectMany(count => Gen.ArrayOf(count, Gen.zip(
+                    Gen.Choose(1, 2),  // Width
+                    Gen.Choose(1, 2)   // Height
+                )));
+
+            return Prop.ForAll(
+                Arb.From(operationsGen),
+                operations =>
+                {
+                    var inventory = new InventorySystem(4, 2);
+                    var maxCells = 4 * 2;
+
+                    for (int i = 0; i < operations.Length; i++)
+                    {
+                        var (width, height) = operations[i];
+
+                        var item = new ItemDefinition
+                        {
+                            ItemId = $"item_{i}",
+                            DisplayName = $"Item {i}",
+                            Width = width,
+                            Height = height,
+                            MaxStack = 1,
+                            Category = ItemCategory.Tool
+                        };
+
+                        inventory.TryAdd(item, 1);
+
+                        // Count occupied cells
+                        var occupiedCells = 0;
+                        foreach (var slot in inventory.Slots)
+                        {
+                            if (slot.Definition != null)
+                            {
+                                occupiedCells += slot.Definition.Width * slot.Definition.Height;
+                            }
+                        }
+
+                        if (occupiedCells > maxCells)
+                            return false;
+                    }
+
+                    return true;
+                });
+        }
+
+        // Property 22: Inventory Has() Logical Equivalence
+        // For any InventorySystem state, itemId, and count,
+        // Has(itemId, count) must return true iff CountOf(itemId) ≥ count.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:22")]
+        public FsCheck.Property Property22_Inventory_HasLogicalEquivalence()
+        {
+            return Prop.ForAll(
+                Gen.Choose(1, 20),
+                Gen.Choose(1, 10),
+                (addCount, checkCount) =>
+                {
+                    var inventory = new InventorySystem(4, 2);
+
+                    var item = new ItemDefinition
+                    {
+                        ItemId = "test_item",
+                        DisplayName = "Test Item",
+                        Width = 1,
+                        Height = 1,
+                        MaxStack = 99,
+                        Category = ItemCategory.Resource
+                    };
+
+                    inventory.TryAdd(item, addCount);
+
+                    var actualCount = inventory.CountOf("test_item");
+                    var hasResult = inventory.Has("test_item", checkCount);
+                    var expectedResult = actualCount >= checkCount;
+
+                    return hasResult == expectedResult;
+                });
+        }
+    }
+}

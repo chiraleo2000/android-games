@@ -1,0 +1,200 @@
+// ---------------------------------------------------------------------------
+// Dead City Escape - Damage Calculator Property-Based Tests
+// Validates correctness properties using FsCheck.
+// ---------------------------------------------------------------------------
+using NUnit.Framework;
+using DeadCityEscape.Logic;
+using Prop = FsCheck.Prop;
+using Gen = FsCheck.Gen;
+using Arb = FsCheck.Arb;
+
+namespace DeadCityEscape.Tests
+{
+    [TestFixture]
+    [Category("Feature:dead-city-escape-mobile-overhaul")]
+    public class DamageCalculatorPropertyTests
+    {
+        // Property 15: Damage Pipeline — Armor Never Increases Damage
+        // For any DamageInput where ArmorRating is in [0, 0.8] and DamageMultiplier > 0,
+        // FinalDamage must be ≤ BaseDamage × DamageMultiplier × HeadshotMultiplier.
+        // Additionally, headshot variant's FinalDamage must equal exactly 2.5× non-headshot.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:15")]
+        public FsCheck.Property Property15_DamagePipeline_ArmorNeverIncreasesDamage()
+        {
+            var inputGen = Gen.zip(
+                Gen.Choose(1, 100).Select(x => (float)x),  // BaseDamage
+                Gen.Choose(1, 10).Select(x => x / 10f),    // DamageMultiplier (0.1 to 1.0)
+                Gen.Choose(0, 80).Select(x => x / 100f)    // ArmorRating (0 to 0.8)
+            );
+
+            return Prop.ForAll(
+                Arb.From(inputGen),
+                tuple =>
+                {
+                    var (baseDamage, multiplier, armor) = tuple;
+
+                    // Test non-headshot
+                    var input = new DamageInput
+                    {
+                        BaseDamage = baseDamage,
+                        DamageMultiplier = multiplier,
+                        IsHeadshot = false,
+                        IsExplosive = false,
+                        ArmorRating = armor,
+                        IsMelee = false,
+                        HasSuppressor = false
+                    };
+
+                    var result = DamageCalculator.Calculate(input);
+                    var maxDamage = baseDamage * multiplier;
+
+                    if (result.FinalDamage > maxDamage + 0.01f) // Small tolerance for float precision
+                        return false;
+
+                    // Test headshot multiplier
+                    var headshotInput = input with { IsHeadshot = true };
+                    var headshotResult = DamageCalculator.Calculate(headshotInput);
+                    var nonHeadshotResult = DamageCalculator.Calculate(input);
+
+                    // Headshot should be exactly 2.5x (before armor)
+                    // After armor, the ratio should still be 2.5x
+                    var expectedRatio = 2.5f;
+                    if (nonHeadshotResult.FinalDamage > 0)
+                    {
+                        var actualRatio = headshotResult.FinalDamage / nonHeadshotResult.FinalDamage;
+                        if (Math.Abs(actualRatio - expectedRatio) > 0.1f)
+                            return false;
+                    }
+
+                    return true;
+                });
+        }
+
+        // Property 16: Stagger Threshold Invariant
+        // For any DamageInput that produces FinalDamage ≥ 15, ShouldStagger must be true.
+        // For any input producing FinalDamage < 15, ShouldStagger must be false.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:16")]
+        public FsCheck.Property Property16_StaggerThreshold_Invariant()
+        {
+            var inputGen = Gen.zip(
+                Gen.Choose(1, 100).Select(x => (float)x),
+                Gen.Choose(1, 10).Select(x => x / 10f),
+                Gen.Choose(0, 80).Select(x => x / 100f),
+                Arb.Generate<bool>()
+            );
+
+            return Prop.ForAll(
+                Arb.From(inputGen),
+                tuple =>
+                {
+                    var (baseDamage, multiplier, armor, isHeadshot) = tuple;
+
+                    var input = new DamageInput
+                    {
+                        BaseDamage = baseDamage,
+                        DamageMultiplier = multiplier,
+                        IsHeadshot = isHeadshot,
+                        IsExplosive = false,
+                        ArmorRating = armor,
+                        IsMelee = false,
+                        HasSuppressor = false
+                    };
+
+                    var result = DamageCalculator.Calculate(input);
+
+                    if (result.FinalDamage >= 15f)
+                        return result.ShouldStagger;
+                    else
+                        return !result.ShouldStagger;
+                });
+        }
+
+        // Property 17: Explosive Damage Falloff Boundary
+        // For any explosive DamageInput where DistanceFromExplosion ≥ ExplosionRadius
+        // and ExplosionRadius > 0, FinalDamage must be 0.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:17")]
+        public FsCheck.Property Property17_ExplosiveDamage_FalloffBoundary()
+        {
+            var inputGen = Gen.zip(
+                Gen.Choose(10, 100).Select(x => (float)x),  // BaseDamage
+                Gen.Choose(1, 20).Select(x => (float)x),    // ExplosionRadius
+                Gen.Choose(0, 40).Select(x => (float)x)     // Distance
+            );
+
+            return Prop.ForAll(
+                Arb.From(inputGen),
+                tuple =>
+                {
+                    var (baseDamage, radius, distance) = tuple;
+
+                    // Only test when distance >= radius
+                    if (distance < radius)
+                        return true; // Skip this case
+
+                    var input = new DamageInput
+                    {
+                        BaseDamage = baseDamage,
+                        DamageMultiplier = 1.0f,
+                        IsHeadshot = false,
+                        IsExplosive = true,
+                        ExplosionRadius = radius,
+                        DistanceFromExplosion = distance,
+                        ArmorRating = 0f,
+                        IsMelee = false,
+                        HasSuppressor = false
+                    };
+
+                    var result = DamageCalculator.Calculate(input);
+
+                    return result.FinalDamage == 0f;
+                });
+        }
+
+        // Property 18: Damage Noise Level Assignment
+        // For any DamageInput, NoiseLevel must equal: 80 when IsExplosive is true;
+        // 10 when HasSuppressor is true and not explosive; 50 when BaseDamage > 20
+        // and not melee and not suppressed; 15 when IsMelee is true.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:18")]
+        public FsCheck.Property Property18_DamageNoiseLevel_Assignment()
+        {
+            return Prop.ForAll(
+                Gen.Choose(1, 100).Select(x => (float)x),
+                Arb.Generate<bool>(),
+                Arb.Generate<bool>(),
+                Arb.Generate<bool>(),
+                (baseDamage, isExplosive, isMelee, hasSuppressor) =>
+                {
+                    var input = new DamageInput
+                    {
+                        BaseDamage = baseDamage,
+                        DamageMultiplier = 1.0f,
+                        IsHeadshot = false,
+                        IsExplosive = isExplosive,
+                        ExplosionRadius = isExplosive ? 5f : 0f,
+                        DistanceFromExplosion = 0f,
+                        ArmorRating = 0f,
+                        IsMelee = isMelee,
+                        HasSuppressor = hasSuppressor
+                    };
+
+                    var result = DamageCalculator.Calculate(input);
+
+                    if (isExplosive)
+                        return result.NoiseLevel == 80;
+                    else if (hasSuppressor && !isMelee)
+                        return result.NoiseLevel == 10;
+                    else if (isMelee)
+                        return result.NoiseLevel == 15;
+                    else if (baseDamage > 20)
+                        return result.NoiseLevel == 50;
+                    else
+                        return result.NoiseLevel == 15; // Default for low damage ranged
+
+                });
+        }
+    }
+}

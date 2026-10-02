@@ -1,0 +1,5 @@
+<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="200" fill="#1a1a2e"/>
+  <text x="150" y="100" font-family="Arial" font-size="48" fill="#ff6b6b" text-anchor="middle">❌</text>
+  <text x="150" y="140" font-family="Arial" font-size="16" fill="#ffffff" text-anchor="middle">Try Again</text>
+</svg>

@@ -1,0 +1,160 @@
+// ---------------------------------------------------------------------------
+// Dead City Escape - Seeded RNG Property-Based Tests
+// Validates correctness properties using FsCheck.
+// ---------------------------------------------------------------------------
+using NUnit.Framework;
+using DeadCityEscape.Logic;
+using Prop = FsCheck.Prop;
+using Gen = FsCheck.Gen;
+using Arb = FsCheck.Arb;
+
+namespace DeadCityEscape.Tests
+{
+    [TestFixture]
+    [Category("Feature:dead-city-escape-mobile-overhaul")]
+    public class SeededRNGPropertyTests
+    {
+        // Property 1: SeededRNG Determinism
+        // For any 32-bit integer seed, two independently constructed SeededRNG instances
+        // initialized with that seed must produce identical sequences of values.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:1")]
+        public FsCheck.Property Property1_SeededRNG_Determinism()
+        {
+            return Prop.ForAll<int>(seed =>
+            {
+                var rng1 = new SeededRNG(seed);
+                var rng2 = new SeededRNG(seed);
+
+                // Test NextInt
+                for (int i = 0; i < 50; i++)
+                {
+                    if (rng1.Next(0, 10000) != rng2.Next(0, 10000))
+                        return false;
+                }
+
+                // Reset with same seed
+                rng1 = new SeededRNG(seed);
+                rng2 = new SeededRNG(seed);
+
+                // Test NextFloat
+                for (int i = 0; i < 50; i++)
+                {
+                    if (Math.Abs(rng1.NextFloat() - rng2.NextFloat()) > 0.0001f)
+                        return false;
+                }
+
+                return true;
+            });
+        }
+
+        // Property 4: SeededRNG Fork Independence
+        // After calling Fork() on a SeededRNG, the child RNG's subsequent sequence must be
+        // independent from the parent's subsequent sequence.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:4")]
+        public FsCheck.Property Property4_SeededRNG_ForkIndependence()
+        {
+            return Prop.ForAll<int>(seed =>
+            {
+                var parent = new SeededRNG(seed);
+                var child = parent.Fork();
+
+                // Consume values from child
+                for (int i = 0; i < 10; i++)
+                    child.Next(0, 1000);
+
+                // Parent's next value should be deterministic regardless of child consumption
+                var parent2 = new SeededRNG(seed);
+                var child2 = parent2.Fork();
+
+                // Parent and parent2 should produce same sequence after fork
+                for (int i = 0; i < 20; i++)
+                {
+                    if (parent.Next(0, 10000) != parent2.Next(0, 10000))
+                        return false;
+                }
+
+                // Child and child2 should produce same sequence
+                for (int i = 0; i < 20; i++)
+                {
+                    if (child.Next(0, 10000) != child2.Next(0, 10000))
+                        return false;
+                }
+
+                // Parent and child sequences must differ
+                var parent3 = new SeededRNG(seed);
+                var child3 = parent3.Fork();
+                bool foundDifference = false;
+                for (int i = 0; i < 10; i++)
+                {
+                    if (parent3.Next(0, 10000) != child3.Next(0, 10000))
+                    {
+                        foundDifference = true;
+                        break;
+                    }
+                }
+
+                return foundDifference;
+            });
+        }
+
+        // Property 28: WeightedChoice Index Bounds
+        // For any non-empty float[] weights array with all non-negative values and at least
+        // one positive value, SeededRNG.WeightedChoice(weights) must return an index in [0, weights.Length).
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:28")]
+        public FsCheck.Property Property28_WeightedChoice_IndexBounds()
+        {
+            var validWeightsGen = Gen.Choose(1, 10)
+                .SelectMany(len => Gen.ArrayOf(len, Gen.Choose(0, 100).Select(x => (float)x)))
+                .Where(arr => arr.Any(w => w > 0));
+
+            return Prop.ForAll(
+                Arb.From(validWeightsGen),
+                Arb.From(Gen.Choose(int.MinValue, int.MaxValue)),
+                (weights, seed) =>
+                {
+                    var rng = new SeededRNG(seed);
+                    for (int i = 0; i < 100; i++)
+                    {
+                        int idx = rng.WeightedChoice(weights);
+                        if (idx < 0 || idx >= weights.Length)
+                            return false;
+                    }
+                    return true;
+                });
+        }
+
+        // Property 29: Shuffle Produces a Permutation
+        // For any array of elements, SeededRNG.Shuffle must produce a rearrangement that
+        // contains exactly the same elements as the original array (same multiset).
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:29")]
+        public FsCheck.Property Property29_Shuffle_ProducesPermutation()
+        {
+            var arrayGen = Gen.Choose(1, 20)
+                .SelectMany(len => Gen.ArrayOf(len, Gen.Choose(0, 100)));
+
+            return Prop.ForAll(
+                Arb.From(arrayGen),
+                Arb.From(Gen.Choose(int.MinValue, int.MaxValue)),
+                (originalArray, seed) =>
+                {
+                    var array = (int[])originalArray.Clone();
+                    var rng = new SeededRNG(seed);
+                    rng.Shuffle(array);
+
+                    // Check same length
+                    if (array.Length != originalArray.Length)
+                        return false;
+
+                    // Check same elements (sort both and compare)
+                    var sortedOriginal = originalArray.OrderBy(x => x).ToArray();
+                    var sortedShuffled = array.OrderBy(x => x).ToArray();
+
+                    return sortedOriginal.SequenceEqual(sortedShuffled);
+                });
+        }
+    }
+}

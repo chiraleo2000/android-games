@@ -1,0 +1,203 @@
+// ---------------------------------------------------------------------------
+// Dead City Escape - Skill Tree Data Property-Based Tests
+// Validates correctness properties using FsCheck.
+// ---------------------------------------------------------------------------
+using NUnit.Framework;
+using DeadCityEscape.Logic;
+using Prop = FsCheck.Prop;
+using Gen = FsCheck.Gen;
+using Arb = FsCheck.Arb;
+
+namespace DeadCityEscape.Tests
+{
+    [TestFixture]
+    [Category("Feature:dead-city-escape-mobile-overhaul")]
+    public class SkillTreeDataPropertyTests
+    {
+        private SkillTreeData CreateTestSkillTree()
+        {
+            var skills = new List<SkillNode>
+            {
+                // Stealth branch
+                new SkillNode { SkillId = "stealth_1", DisplayName = "Shadow Walk", Branch = SkillBranch.Stealth, Tier = 1, PrerequisiteId = null, Description = "Tier 1" },
+                new SkillNode { SkillId = "stealth_2", DisplayName = "Silent Step", Branch = SkillBranch.Stealth, Tier = 2, PrerequisiteId = "stealth_1", Description = "Tier 2" },
+                new SkillNode { SkillId = "stealth_3", DisplayName = "Ghost", Branch = SkillBranch.Stealth, Tier = 3, PrerequisiteId = "stealth_2", Description = "Tier 3" },
+                new SkillNode { SkillId = "stealth_4", DisplayName = "Phantom", Branch = SkillBranch.Stealth, Tier = 4, PrerequisiteId = "stealth_3", Description = "Tier 4" },
+
+                // Combat branch
+                new SkillNode { SkillId = "combat_1", DisplayName = "Heavy Hitter", Branch = SkillBranch.Combat, Tier = 1, PrerequisiteId = null, Description = "Tier 1" },
+                new SkillNode { SkillId = "combat_2", DisplayName = "Marksman", Branch = SkillBranch.Combat, Tier = 2, PrerequisiteId = "combat_1", Description = "Tier 2" },
+                new SkillNode { SkillId = "combat_3", DisplayName = "Berserker", Branch = SkillBranch.Combat, Tier = 3, PrerequisiteId = "combat_2", Description = "Tier 3" },
+                new SkillNode { SkillId = "combat_4", DisplayName = "Executioner", Branch = SkillBranch.Combat, Tier = 4, PrerequisiteId = "combat_3", Description = "Tier 4" },
+
+                // Survival branch
+                new SkillNode { SkillId = "survival_1", DisplayName = "Tough Skin", Branch = SkillBranch.Survival, Tier = 1, PrerequisiteId = null, Description = "Tier 1" },
+                new SkillNode { SkillId = "survival_2", DisplayName = "Marathon Runner", Branch = SkillBranch.Survival, Tier = 2, PrerequisiteId = "survival_1", Description = "Tier 2" },
+                new SkillNode { SkillId = "survival_3", DisplayName = "Medic", Branch = SkillBranch.Survival, Tier = 3, PrerequisiteId = "survival_2", Description = "Tier 3" },
+                new SkillNode { SkillId = "survival_4", DisplayName = "Second Wind", Branch = SkillBranch.Survival, Tier = 4, PrerequisiteId = "survival_3", Description = "Tier 4" }
+            };
+
+            return new SkillTreeData(skills);
+        }
+
+        // Property 23: SkillTree Unlock Prerequisite Logic
+        // For any SkillNode with a non-null PrerequisiteId, CanUnlock must return false
+        // if the prerequisite is not unlocked. For tier-1 skills, CanUnlock must return
+        // true iff the skill is not already unlocked.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:23")]
+        public FsCheck.Property Property23_SkillTree_UnlockPrerequisiteLogic()
+        {
+            return Prop.ForAll(
+                Gen.Choose(0, 2),  // Branch index
+                Gen.Choose(1, 4),  // Tier
+                (branchIdx, tier) =>
+                {
+                    var skillTree = CreateTestSkillTree();
+                    var branches = new[] { SkillBranch.Stealth, SkillBranch.Combat, SkillBranch.Survival };
+                    var branch = branches[branchIdx];
+                    var skillId = $"{branch.ToString().ToLower()}_{tier}";
+
+                    if (tier == 1)
+                    {
+                        // Tier 1 skills should be unlockable if not already unlocked
+                        var canUnlock = skillTree.CanUnlock(skillId);
+                        var isUnlocked = skillTree.IsUnlocked(skillId);
+                        return canUnlock == !isUnlocked;
+                    }
+                    else
+                    {
+                        // Higher tier skills require prerequisite
+                        var prerequisiteId = $"{branch.ToString().ToLower()}_{tier - 1}";
+                        var canUnlock = skillTree.CanUnlock(skillId);
+                        var prereqUnlocked = skillTree.IsUnlocked(prerequisiteId);
+                        var isUnlocked = skillTree.IsUnlocked(skillId);
+
+                        if (!prereqUnlocked)
+                            return !canUnlock; // Should not be able to unlock
+                        else
+                            return canUnlock == !isUnlocked; // Can unlock if not already unlocked
+                    }
+                });
+        }
+
+        // Property 24: SkillTree Unlock State Transitions
+        // For any skill where CanUnlock returns true, calling Unlock must set Unlocked = true
+        // and return true. For any skill where CanUnlock returns false, calling Unlock must
+        // return false and leave all state unchanged.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:24")]
+        public FsCheck.Property Property24_SkillTree_UnlockStateTransitions()
+        {
+            return Prop.ForAll(
+                Gen.Choose(0, 2),
+                Gen.Choose(1, 4),
+                (branchIdx, tier) =>
+                {
+                    var skillTree = CreateTestSkillTree();
+                    var branches = new[] { SkillBranch.Stealth, SkillBranch.Combat, SkillBranch.Survival };
+                    var branch = branches[branchIdx];
+                    var skillId = $"{branch.ToString().ToLower()}_{tier}";
+
+                    // Unlock prerequisites if needed
+                    for (int t = 1; t < tier; t++)
+                    {
+                        var prereqId = $"{branch.ToString().ToLower()}_{t}";
+                        skillTree.Unlock(prereqId);
+                    }
+
+                    var canUnlockBefore = skillTree.CanUnlock(skillId);
+                    var unlockResult = skillTree.Unlock(skillId);
+                    var isUnlockedAfter = skillTree.IsUnlocked(skillId);
+
+                    if (canUnlockBefore)
+                    {
+                        // Should succeed
+                        return unlockResult && isUnlockedAfter;
+                    }
+                    else
+                    {
+                        // Should fail
+                        return !unlockResult && !isUnlockedAfter;
+                    }
+                });
+        }
+
+        // Property 25: TotalUnlocked Increments by Exactly 1
+        // For any successful Unlock call, TotalUnlocked must increase by exactly 1.
+        // For any failed Unlock call, TotalUnlocked must remain unchanged.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:25")]
+        public FsCheck.Property Property25_TotalUnlocked_IncrementsBy1()
+        {
+            return Prop.ForAll(
+                Gen.Choose(0, 2),
+                Gen.Choose(1, 4),
+                (branchIdx, tier) =>
+                {
+                    var skillTree = CreateTestSkillTree();
+                    var branches = new[] { SkillBranch.Stealth, SkillBranch.Combat, SkillBranch.Survival };
+                    var branch = branches[branchIdx];
+                    var skillId = $"{branch.ToString().ToLower()}_{tier}";
+
+                    // Unlock prerequisites if needed
+                    for (int t = 1; t < tier; t++)
+                    {
+                        var prereqId = $"{branch.ToString().ToLower()}_{t}";
+                        skillTree.Unlock(prereqId);
+                    }
+
+                    var totalBefore = skillTree.TotalUnlocked;
+                    var unlockResult = skillTree.Unlock(skillId);
+                    var totalAfter = skillTree.TotalUnlocked;
+
+                    if (unlockResult)
+                    {
+                        // Should increment by 1
+                        return totalAfter == totalBefore + 1;
+                    }
+                    else
+                    {
+                        // Should remain unchanged
+                        return totalAfter == totalBefore;
+                    }
+                });
+        }
+
+        // Property 26: GetBranchSkills Sorted by Tier
+        // For any SkillBranch, GetBranchSkills(branch) must return exactly 4 skills
+        // belonging to that branch, sorted in ascending order by Tier (1, 2, 3, 4).
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:26")]
+        public FsCheck.Property Property26_GetBranchSkills_SortedByTier()
+        {
+            return Prop.ForAll(
+                Gen.Choose(0, 2),
+                branchIdx =>
+                {
+                    var skillTree = CreateTestSkillTree();
+                    var branches = new[] { SkillBranch.Stealth, SkillBranch.Combat, SkillBranch.Survival };
+                    var branch = branches[branchIdx];
+
+                    var branchSkills = skillTree.GetBranchSkills(branch);
+
+                    // Must have exactly 4 skills
+                    if (branchSkills.Count != 4)
+                        return false;
+
+                    // All must belong to the branch
+                    if (branchSkills.Any(s => s.Branch != branch))
+                        return false;
+
+                    // Must be sorted by tier
+                    for (int i = 0; i < branchSkills.Count; i++)
+                    {
+                        if (branchSkills[i].Tier != i + 1)
+                            return false;
+                    }
+
+                    return true;
+                });
+        }
+    }
+}

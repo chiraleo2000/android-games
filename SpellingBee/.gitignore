@@ -1,0 +1,16 @@
+node_modules/
+dist/
+coverage/
+
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+
+*.jks
+*.keystore
+android/keystore.properties
+!android/keystore.properties.example
+
+dictionary.json
+The_Oxford_English_Dictionary_Second_Edition.pdf

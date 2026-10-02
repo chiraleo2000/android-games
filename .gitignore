@@ -1,0 +1,51 @@
+# Dependencies and build outputs
+node_modules/
+dist/
+build/
+.next/
+out/
+www/
+coverage/
+.gradle/
+**/.gradle/
+*.apk
+*.aab
+*.ipa
+*.log
+
+# Secrets and local machine config. Example files stay tracked.
+.env
+.env.*
+!.env.example
+keystore.properties
+*.jks
+*.keystore
+*.p12
+*.pem
+google-service-account.json
+credentials.json
+**/android/gradle.properties
+**/android/local.properties
+**/local.properties
+
+# Unity generated data
+Dead_City_Escape/[Ll]ibrary/
+Dead_City_Escape/[Tt]emp/
+Dead_City_Escape/[Oo]bj/
+Dead_City_Escape/[Ll]ogs/
+Dead_City_Escape/[Uu]serSettings/
+Dead_City_Escape/[Bb]uild/
+Dead_City_Escape/[Mm]emoryCaptures/
+
+# Not a separate app; the only entry is a Windows reserved filename
+game3_career_quest/
+
+# Course documents at the repo root are not game source
+/*.pdf
+/*.docx
+
+# OS and editor clutter
+.DS_Store
+Thumbs.db
+.idea/
+.vs/

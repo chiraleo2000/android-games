@@ -1,0 +1,113 @@
+.resume-modal {
+    background: var(--bg-secondary);
+    border: var(--border-subtle);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-2xl);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.resume-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    border-radius: var(--border-radius-lg);
+    color: var(--bg-primary);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.resume-title {
+    font-family: var(--font-display);
+    font-size: var(--font-size-2xl);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: var(--spacing-sm);
+}
+
+.resume-desc {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+.session-info {
+    background: var(--bg-glass);
+    border: var(--border-subtle);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.session-detail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.session-emoji {
+    font-size: 1.5rem;
+}
+
+.session-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.session-progress {
+    margin-bottom: var(--spacing-md);
+}
+
+.session-progress>span {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.progress-bar.mini {
+    height: 6px;
+}
+
+.session-time {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+.resume-actions {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.resume-actions .btn {
+    flex: 1;
+}
+
+@media (max-width: 480px) {
+    .resume-modal {
+        padding: var(--spacing-xl);
+    }
+
+    .resume-actions {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,166 @@
+// ---------------------------------------------------------------------------
+// Dead City Escape - Zone Layout Generator Property-Based Tests
+// Validates correctness properties using FsCheck.
+// ---------------------------------------------------------------------------
+using NUnit.Framework;
+using DeadCityEscape.Logic;
+using System.Text.Json;
+using Prop = FsCheck.Prop;
+using Gen = FsCheck.Gen;
+using Arb = FsCheck.Arb;
+
+namespace DeadCityEscape.Tests
+{
+    [TestFixture]
+    [Category("Feature:dead-city-escape-mobile-overhaul")]
+    public class ZoneLayoutGeneratorPropertyTests
+    {
+        // Property 2: ZoneLayoutGenerator Determinism
+        // For any 32-bit integer seed, calling ZoneLayoutGenerator.GenerateAllZones twice
+        // with independent SeededRNG instances must produce structurally identical ZoneLayoutData arrays.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:2")]
+        public FsCheck.Property Property2_ZoneLayoutGenerator_Determinism()
+        {
+            return Prop.ForAll<int>(seed =>
+            {
+                var rng1 = new SeededRNG(seed);
+                var rng2 = new SeededRNG(seed);
+
+                var zones1 = ZoneLayoutGenerator.GenerateAllZones(rng1);
+                var zones2 = ZoneLayoutGenerator.GenerateAllZones(rng2);
+
+                if (zones1.Length != zones2.Length)
+                    return false;
+
+                for (int i = 0; i < zones1.Length; i++)
+                {
+                    if (zones1[i].ZoneIndex != zones2[i].ZoneIndex)
+                        return false;
+                    if (zones1[i].GridX != zones2[i].GridX)
+                        return false;
+                    if (zones1[i].GridY != zones2[i].GridY)
+                        return false;
+                    if (zones1[i].ThreatLevel != zones2[i].ThreatLevel)
+                        return false;
+                    if (!zones1[i].POIs.SequenceEqual(zones2[i].POIs))
+                        return false;
+                    if (zones1[i].Buildings.Length != zones2[i].Buildings.Length)
+                        return false;
+                    if (zones1[i].Roads.Length != zones2[i].Roads.Length)
+                        return false;
+                }
+
+                return true;
+            });
+        }
+
+        // Property 3: Zone Grid Structural Invariant
+        // For any 32-bit integer seed, ZoneLayoutGenerator.GenerateAllZones must return
+        // exactly 16 elements with ZoneIndex values covering {0, 1, ..., 15} and GridX/GridY in [0, 3].
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:3")]
+        public FsCheck.Property Property3_ZoneGrid_StructuralInvariant()
+        {
+            return Prop.ForAll<int>(seed =>
+            {
+                var rng = new SeededRNG(seed);
+                var zones = ZoneLayoutGenerator.GenerateAllZones(rng);
+
+                // Must have exactly 16 zones
+                if (zones.Length != 16)
+                    return false;
+
+                // Check all indices 0-15 are present
+                var indices = zones.Select(z => z.ZoneIndex).OrderBy(x => x).ToArray();
+                if (!indices.SequenceEqual(Enumerable.Range(0, 16)))
+                    return false;
+
+                // Check GridX and GridY are in valid range
+                foreach (var zone in zones)
+                {
+                    if (zone.GridX < 0 || zone.GridX > 3)
+                        return false;
+                    if (zone.GridY < 0 || zone.GridY > 3)
+                        return false;
+                }
+
+                return true;
+            });
+        }
+
+        // Property 5: ZoneLayoutData Serialization Round-Trip
+        // For any 32-bit integer seed, generating ZoneLayoutData[] via ZoneLayoutGenerator,
+        // serializing to JSON, then deserializing must produce an equivalent array.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:5")]
+        public FsCheck.Property Property5_ZoneLayoutData_SerializationRoundTrip()
+        {
+            return Prop.ForAll<int>(seed =>
+            {
+                var rng = new SeededRNG(seed);
+                var zones = ZoneLayoutGenerator.GenerateAllZones(rng);
+
+                // Serialize to JSON
+                var json = JsonSerializer.Serialize(zones);
+
+                // Deserialize back
+                var deserialized = JsonSerializer.Deserialize<ZoneLayoutData[]>(json);
+
+                if (deserialized == null || deserialized.Length != zones.Length)
+                    return false;
+
+                // Compare all fields
+                for (int i = 0; i < zones.Length; i++)
+                {
+                    if (zones[i].ZoneIndex != deserialized[i].ZoneIndex)
+                        return false;
+                    if (zones[i].GridX != deserialized[i].GridX)
+                        return false;
+                    if (zones[i].GridY != deserialized[i].GridY)
+                        return false;
+                    if (zones[i].ThreatLevel != deserialized[i].ThreatLevel)
+                        return false;
+                    if (!zones[i].POIs.SequenceEqual(deserialized[i].POIs))
+                        return false;
+                }
+
+                return true;
+            });
+        }
+
+        // Property 6: Required POI Types Always Present
+        // For any 32-bit integer seed, the ZoneLayoutData[] must contain at least one zone
+        // with each required POI type.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:6")]
+        public FsCheck.Property Property6_RequiredPOITypes_AlwaysPresent()
+        {
+            return Prop.ForAll<int>(seed =>
+            {
+                var rng = new SeededRNG(seed);
+                var zones = ZoneLayoutGenerator.GenerateAllZones(rng);
+
+                var requiredPOIs = new[]
+                {
+                    POIType.RadioTower,
+                    POIType.ParkingGarage,
+                    POIType.PoliceStation,
+                    POIType.SewerAccess,
+                    POIType.GasStation,
+                    POIType.Hospital
+                };
+
+                var allPOIs = zones.SelectMany(z => z.POIs).ToHashSet();
+
+                foreach (var required in requiredPOIs)
+                {
+                    if (!allPOIs.Contains(required))
+                        return false;
+                }
+
+                return true;
+            });
+        }
+    }
+}

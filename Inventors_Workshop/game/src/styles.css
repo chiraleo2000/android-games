@@ -1,0 +1,219 @@
+:root {
+  color: #1f2933;
+  background: #f3ead7;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+button, a {
+  font: inherit;
+}
+
+button {
+  min-height: 44px;
+  min-width: 44px;
+  border: 1px solid #c4b396;
+  background: #fffaf3;
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.45;
+}
+
+button.primary {
+  background: #9a3412;
+  color: #fffaf3;
+  border-color: #9a3412;
+}
+
+button.danger {
+  background: #9f1239;
+  color: white;
+  border-color: #9f1239;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 12px 32px;
+}
+
+.topbar, .toolbar, .tray, .editbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.topbar {
+  justify-content: space-between;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.eyebrow, .score {
+  margin: 0;
+  color: #7c4a1e;
+}
+
+.toolbar, .tray, .readout, .sheet, .editbar {
+  margin-top: 10px;
+}
+
+.tray-btn {
+  background: #fff;
+}
+
+.workspace-wrap {
+  margin-top: 10px;
+}
+
+.workspace {
+  position: relative;
+  height: 480px;
+  border-radius: 18px;
+  background:
+    linear-gradient(#ead9b8, #ead9b8) 0 0 / 100% 100%,
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(122, 84, 40, 0.15) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(122, 84, 40, 0.15) 40px);
+  background-color: #f7edd8;
+  overflow: hidden;
+  touch-action: none;
+  border: 2px solid #8c6239;
+}
+
+.links {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.links line {
+  stroke: #7c4a1e;
+  stroke-width: 4;
+}
+
+.target {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 3px dashed #d97706;
+  border-radius: 50%;
+  background: rgba(251, 191, 36, 0.25);
+  pointer-events: none;
+}
+
+.part {
+  position: absolute;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 3px solid #1f2933;
+  touch-action: none;
+  overflow: hidden;
+}
+
+.part span {
+  font-size: 10px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+.part.selected { outline: 3px solid #1d4ed8; }
+.part.pending { outline: 3px solid #059669; }
+.part.gear-s { background: #fbbf24; }
+.part.gear-m { background: #fb923c; }
+.part.gear-l { background: #38bdf8; }
+.part.motor { background: #c2410c; color: white; border-radius: 12px; }
+.part.pulley { background: #7dd3fc; border-radius: 8px; }
+.part.wheel { background: #0f172a; color: #f8fafc; }
+.part.spring { background: #14b8a6; border-radius: 8px; }
+.part.hinge { background: #a78bfa; border-radius: 6px; }
+.part.switch { background: #fb7185; border-radius: 8px; }
+.part.block { background: #64748b; color: white; border-radius: 4px; }
+
+.part i {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  bottom: 4px;
+  background: #134e4a;
+  pointer-events: none;
+}
+
+.part b {
+  position: absolute;
+  top: 2px;
+  font-size: 10px;
+}
+
+.readout, .sheet, .tutorial, .fallback, .confirm {
+  background: #fffaf3;
+  border: 1px solid #e7d7bc;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.goal { line-height: 1.4; }
+
+.notice {
+  color: #9a3412;
+  font-weight: 650;
+}
+
+.sheet ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.sheet li button {
+  width: 100%;
+  text-align: left;
+}
+
+.privacy {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #9a3412;
+  font-weight: 700;
+}
+
+.tutorial, .fallback {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  max-width: 520px;
+  margin: 0 auto;
+  box-shadow: 0 12px 40px rgba(60, 30, 10, 0.2);
+  z-index: 5;
+}
+
+.fallback {
+  top: 20vh;
+  bottom: auto;
+}
+
+.tutorial div, .confirm {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}

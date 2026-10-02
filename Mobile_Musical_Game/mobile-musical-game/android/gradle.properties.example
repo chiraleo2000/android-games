@@ -1,0 +1,24 @@
+# Copy this file to android/gradle.properties and fill in the release values.
+# Do not commit android/gradle.properties or any keystore.
+
+# Release signing. A release build fails and names every property that is missing or still CHANGEME.
+RELEASE_STORE_FILE=../upload-keystore.jks
+RELEASE_STORE_PASSWORD=CHANGEME
+RELEASE_KEY_ALIAS=upload
+RELEASE_KEY_PASSWORD=CHANGEME
+
+# Project-wide Gradle settings.
+org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m
+org.gradle.parallel=true
+android.useAndroidX=true
+android.enablePngCrunchInReleaseBuilds=true
+reactNativeArchitectures=arm64-v8a,x86_64
+newArchEnabled=true
+hermesEnabled=true
+edgeToEdgeEnabled=true
+expo.gif.enabled=true
+expo.webp.enabled=true
+expo.webp.animated=false
+EX_DEV_CLIENT_NETWORK_INSPECTOR=true
+expo.useLegacyPackaging=false
+expo.edgeToEdgeEnabled=true

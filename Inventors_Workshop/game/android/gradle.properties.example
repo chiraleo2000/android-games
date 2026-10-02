@@ -1,0 +1,12 @@
+# Copy this file to android/gradle.properties for a local build.
+# Debug builds do not read the RELEASE_* values.
+# Release tasks fail until every RELEASE_* value is set and is not CHANGEME.
+# Do not commit gradle.properties, *.jks, or *.keystore.
+
+org.gradle.jvmargs=-Xmx1536m
+android.useAndroidX=true
+
+RELEASE_STORE_FILE=CHANGEME
+RELEASE_STORE_PASSWORD=CHANGEME
+RELEASE_KEY_ALIAS=CHANGEME
+RELEASE_KEY_PASSWORD=CHANGEME

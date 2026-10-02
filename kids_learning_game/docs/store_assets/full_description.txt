@@ -1,0 +1,7 @@
+Word Blitz is an offline typing game for kids. Pick English or Spanish, pick a topic, and type the word that matches the picture clue. A 10-second streak raises the score. You have five minutes.
+
+Topics include animals, food, colors, vehicles, sports, body parts, nature, household, clothing, and school. The game keeps both languages.
+
+Scores can be saved on the device. Open Settings, or the game-over screen, to clear saved scores. The app asks you to confirm, then deletes them and does not restore them.
+
+There is no account, no ads, and no off-device transmission of scores or typed words. Word Blitz works without a network connection. The privacy policy and terms are linked inside the app.

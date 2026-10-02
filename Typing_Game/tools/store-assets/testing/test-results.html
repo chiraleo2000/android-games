@@ -1,0 +1,80 @@
+﻿<!doctype html>
+<html><head><meta charset='utf-8'><title>WordSprint - Test Results</title>
+<style>
+ body{margin:0;background:linear-gradient(135deg,#0c4a6e 0%,#0e7490 45%,#134e4a 100%);font-family:'Segoe UI',sans-serif;color:#e0f2fe;padding:32px;min-height:100vh;box-sizing:border-box}
+ .card{background:rgba(0,0,0,0.45);border:1px solid rgba(255,255,255,0.15);border-radius:18px;padding:28px;max-width:1180px;margin:0 auto}
+ h1{margin:0 0 6px;font-size:34px}
+ h1 span{background:linear-gradient(90deg,#fb7185,#fb923c);-webkit-background-clip:text;background-clip:text;color:transparent}
+ .sub{color:#bae6fd;margin-bottom:18px}
+ .badge{display:inline-block;background:linear-gradient(90deg,#10b981,#059669);color:#fff;font-weight:800;padding:6px 14px;border-radius:999px;margin-right:8px}
+ pre{background:#0b1220;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px;overflow:auto;font-size:13px;line-height:1.45;color:#a7f3d0;max-height:620px;white-space:pre-wrap}
+</style></head><body>
+<div class='card'>
+ <h1>Word<span>Sprint</span> &mdash; Test Results</h1>
+ <div class='sub'>Jest 29 &middot; 38 tests &middot; Run before Play Console release</div>
+ <div><span class='badge'>PASS</span><span class='badge' style='background:linear-gradient(90deg,#0ea5e9,#0284c7)'>38 / 38</span><span class='badge' style='background:linear-gradient(90deg,#f59e0b,#d97706)'>1 suite</span></div>
+ <pre>
+&gt; wordsprint@2.0.0 test
+&gt; jest --config jest.config.js --colors=false --runInBand
+
+ts-jest[config] (WARN) message TS151001: If you have issues related to imports, you should consider setting `esModuleInterop` to `true` in your TypeScript configuration file (usually `tsconfig.json`). See https://blogs.msdn.microsoft.com/typescript/2018/01/31/announcing-typescript-2-7/#easier-ecmascript-module-interoperability for more information.
+PASS tests/scoring.test.ts
+  Scoring System
+    calculateScore()
+      [OK] returns base points and resets multiplier when streak is broken (1 ms)
+      [OK] applies 1.5x multiplier on first streak hit
+      [OK] compounds multiplier on consecutive hits (1 &#206;“&#195;&#165;&#195;† 1.5 &#206;“&#195;&#165;&#195;† 2.25) (1 ms)
+      [OK] caps multiplier at MAX_MULTIPLIER (8.0)
+      [OK] large multiplier with streak reset returns only base points
+    formatTime()
+      [OK] formats 0 seconds
+      [OK] formats 300 seconds as 05:00
+      [OK] formats 65 seconds as 01:05 (1 ms)
+      [OK] formats 9 seconds as 00:09
+    getComboMessage()
+      [OK] returns empty string for streak 0 (1 ms)
+      [OK] returns empty string for streak 1
+      [OK] returns combo message for streak 2+
+      [OK] returns LEGENDARY for streak 10+ (1 ms)
+    getAccuracy()
+      [OK] returns 0 when no attempts
+      [OK] returns 100 when all correct
+      [OK] returns 50 when half correct
+      [OK] rounds to nearest integer
+    getStarRating()
+      [OK] returns 1 star for low score
+      [OK] returns 2 stars for medium score (200+)
+      [OK] returns 3 stars for high score (500+)
+    answer validation
+      [OK] normalizes case and extra whitespace (1 ms)
+      [OK] ignores simple punctuation and accents (3 ms)
+      [OK] keeps numbers as exact normalized strings
+      [OK] returns a stable normalized value for display-independent matching
+    getNextMistakeState()
+      [OK] does not reveal before the fifth mistake (1 ms)
+      [OK] reveals on the fifth mistake and caps the counter
+    difficulty filtering
+      [OK] returns only words for the requested level (4 ms)
+    US-first vocabulary
+      [OK] uses US-mainstream words for confusing common cases (10 ms)
+    dictionary category
+      [OK] exposes thousands of dictionary words (2 ms)
+      [OK] every dictionary entry has the required Word shape (41 ms)
+      [OK] dictionary IDs are unique (5 ms)
+      [OK] difficulty matches term length heuristic (271 ms)
+      [OK] filtering dictionary by difficulty narrows correctly (2 ms)
+    global word integrity
+      [OK] every word in every category passes type guards (554 ms)
+      [OK] no duplicate IDs across the entire word set (4 ms)
+    scoring edge cases
+      [OK] zero base points still respects multiplier shape
+      [OK] negative streak start treated as a reset
+      [OK] accuracy rounds half to nearest
+
+Test Suites: 1 passed, 1 total
+Tests:       38 passed, 38 total
+Snapshots:   0 total
+Time:        1.372 s, estimated 2 s
+Ran all test suites.
+</pre>
+</div></body></html>

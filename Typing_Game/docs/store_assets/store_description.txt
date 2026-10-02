@@ -1,0 +1,7 @@
+WordSprint is a typing game for everyday words. Pick a topic such as animals, fruits, food, vehicles, occupations, the human body, household items, geography, sports, nature, or vegetables. Choose easy, medium, or hard, then type each word before time runs out.
+
+Correct answers raise your score and build a streak. When the round ends, you see your score and can play again.
+
+WordSprint does not require an account. It does not show ads. Progress and preferences stay on your device and are not sent off the device. Settings can delete all local progress and preferences after you confirm, then the app starts fresh.
+
+Support: [SUPPORT_EMAIL]

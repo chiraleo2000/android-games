@@ -1,0 +1,100 @@
+apply plugin: 'com.android.application'
+
+def releaseSigningValue(String name) {
+    if (!project.hasProperty(name)) return ''
+    def raw = project.property(name)
+    def value = raw == null ? '' : raw.toString().trim()
+    if (value.isEmpty() || value == 'CHANGEME') return ''
+    return value
+}
+
+android {
+    namespace = "com.logiclabs.codeescape"
+    compileSdk = rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.logiclabs.codeescape"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
+        aaptOptions {
+             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
+             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
+    }
+    packaging {
+        jniLibs {
+            useLegacyPackaging = false
+        }
+    }
+    signingConfigs {
+        release {
+            def storeFileValue = releaseSigningValue('RELEASE_STORE_FILE')
+            def storePasswordValue = releaseSigningValue('RELEASE_STORE_PASSWORD')
+            def keyAliasValue = releaseSigningValue('RELEASE_KEY_ALIAS')
+            def keyPasswordValue = releaseSigningValue('RELEASE_KEY_PASSWORD')
+            if (storeFileValue && storePasswordValue && keyAliasValue && keyPasswordValue) {
+                storeFile file(storeFileValue)
+                storePassword storePasswordValue
+                keyAlias keyAliasValue
+                keyPassword keyPasswordValue
+                v1SigningEnabled true
+                v2SigningEnabled true
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+repositories {
+    flatDir{
+        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation project(':capacitor-android')
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    implementation project(':capacitor-cordova-android-plugins')
+}
+
+apply from: 'capacitor.build.gradle'
+
+def requiredReleaseProps = ['RELEASE_STORE_FILE', 'RELEASE_STORE_PASSWORD', 'RELEASE_KEY_ALIAS', 'RELEASE_KEY_PASSWORD']
+gradle.taskGraph.whenReady { taskGraph ->
+    def releaseRequested = taskGraph.allTasks.any { task ->
+        task.name.toLowerCase().contains('release')
+    }
+    if (releaseRequested) {
+        def missing = requiredReleaseProps.findAll { releaseSigningValue(it).isEmpty() }
+        if (!missing.isEmpty()) {
+            throw new GradleException('Release signing config missing: ' + missing.join(', ') + '. Copy android/gradle.properties.example to android/gradle.properties and fill in values.')
+        }
+    }
+}
+
+try {
+    def servicesJSON = file('google-services.json')
+    if (servicesJSON.text) {
+        apply plugin: 'com.google.gms.google-services'
+    }
+} catch(Exception e) {
+    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}

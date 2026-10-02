@@ -1,0 +1,3366 @@
+{
+  "source": "Typing_Game category word lists (word strings only)",
+  "generatedAt": "2026-10-02T00:00:00.000Z",
+  "counts": {
+    "easy": 89,
+    "medium": 311,
+    "hard": 159,
+    "total": 559
+  },
+  "words": [
+    {
+      "english": "accountant",
+      "pos": "",
+      "hint": "10 letters, starts with A",
+      "difficulty": "hard"
+    },
+    {
+      "english": "actor",
+      "pos": "",
+      "hint": "5 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "africa",
+      "pos": "",
+      "hint": "6 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "airplane",
+      "pos": "",
+      "hint": "8 letters, starts with A",
+      "difficulty": "hard"
+    },
+    {
+      "english": "airship",
+      "pos": "",
+      "hint": "7 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "alaska",
+      "pos": "",
+      "hint": "6 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "amazon",
+      "pos": "",
+      "hint": "6 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "ambulance",
+      "pos": "",
+      "hint": "9 letters, starts with A",
+      "difficulty": "hard"
+    },
+    {
+      "english": "ankle",
+      "pos": "",
+      "hint": "5 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "appendix",
+      "pos": "",
+      "hint": "8 letters, starts with A",
+      "difficulty": "hard"
+    },
+    {
+      "english": "apple",
+      "pos": "",
+      "hint": "5 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "apricot",
+      "pos": "",
+      "hint": "7 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "archaeologist",
+      "pos": "",
+      "hint": "13 letters, starts with A",
+      "difficulty": "hard"
+    },
+    {
+      "english": "archery",
+      "pos": "",
+      "hint": "7 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "architect",
+      "pos": "",
+      "hint": "9 letters, starts with A",
+      "difficulty": "hard"
+    },
+    {
+      "english": "arctic",
+      "pos": "",
+      "hint": "6 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "armpit",
+      "pos": "",
+      "hint": "6 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "artichoke",
+      "pos": "",
+      "hint": "9 letters, starts with A",
+      "difficulty": "hard"
+    },
+    {
+      "english": "artist",
+      "pos": "",
+      "hint": "6 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "arugula",
+      "pos": "",
+      "hint": "7 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "asparagus",
+      "pos": "",
+      "hint": "9 letters, starts with A",
+      "difficulty": "hard"
+    },
+    {
+      "english": "astronaut",
+      "pos": "",
+      "hint": "9 letters, starts with A",
+      "difficulty": "hard"
+    },
+    {
+      "english": "athletics",
+      "pos": "",
+      "hint": "9 letters, starts with A",
+      "difficulty": "hard"
+    },
+    {
+      "english": "atoll",
+      "pos": "",
+      "hint": "5 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "aurora",
+      "pos": "",
+      "hint": "6 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "avalanche",
+      "pos": "",
+      "hint": "9 letters, starts with A",
+      "difficulty": "hard"
+    },
+    {
+      "english": "avocado",
+      "pos": "",
+      "hint": "7 letters, starts with A",
+      "difficulty": "medium"
+    },
+    {
+      "english": "back",
+      "pos": "",
+      "hint": "4 letters, starts with B",
+      "difficulty": "easy"
+    },
+    {
+      "english": "bacon",
+      "pos": "",
+      "hint": "5 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "badminton",
+      "pos": "",
+      "hint": "9 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "bagel",
+      "pos": "",
+      "hint": "5 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "baker",
+      "pos": "",
+      "hint": "5 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "bamboo",
+      "pos": "",
+      "hint": "6 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "banana",
+      "pos": "",
+      "hint": "6 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "barber",
+      "pos": "",
+      "hint": "6 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "baseball",
+      "pos": "",
+      "hint": "8 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "basketball",
+      "pos": "",
+      "hint": "10 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "bat",
+      "pos": "",
+      "hint": "3 letters, starts with B",
+      "difficulty": "easy"
+    },
+    {
+      "english": "bathtub",
+      "pos": "",
+      "hint": "7 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "beans",
+      "pos": "",
+      "hint": "5 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "bear",
+      "pos": "",
+      "hint": "4 letters, starts with B",
+      "difficulty": "easy"
+    },
+    {
+      "english": "bed",
+      "pos": "",
+      "hint": "3 letters, starts with B",
+      "difficulty": "easy"
+    },
+    {
+      "english": "bee",
+      "pos": "",
+      "hint": "3 letters, starts with B",
+      "difficulty": "easy"
+    },
+    {
+      "english": "beet",
+      "pos": "",
+      "hint": "4 letters, starts with B",
+      "difficulty": "easy"
+    },
+    {
+      "english": "biathlon",
+      "pos": "",
+      "hint": "8 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "bicycle",
+      "pos": "",
+      "hint": "7 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "blackberry",
+      "pos": "",
+      "hint": "10 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "blanket",
+      "pos": "",
+      "hint": "7 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "blender",
+      "pos": "",
+      "hint": "7 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "blimp",
+      "pos": "",
+      "hint": "5 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "blizzard",
+      "pos": "",
+      "hint": "8 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "blood",
+      "pos": "",
+      "hint": "5 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "blueberry",
+      "pos": "",
+      "hint": "9 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "boat",
+      "pos": "",
+      "hint": "4 letters, starts with B",
+      "difficulty": "easy"
+    },
+    {
+      "english": "bobsled",
+      "pos": "",
+      "hint": "7 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "bok choy",
+      "pos": "",
+      "hint": "7 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "bone",
+      "pos": "",
+      "hint": "4 letters, starts with B",
+      "difficulty": "easy"
+    },
+    {
+      "english": "bookshelf",
+      "pos": "",
+      "hint": "9 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "bowling",
+      "pos": "",
+      "hint": "7 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "boxing",
+      "pos": "",
+      "hint": "6 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "brain",
+      "pos": "",
+      "hint": "5 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "brazil",
+      "pos": "",
+      "hint": "6 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "bread",
+      "pos": "",
+      "hint": "5 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "breadfruit",
+      "pos": "",
+      "hint": "10 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "broccoli",
+      "pos": "",
+      "hint": "8 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "broom",
+      "pos": "",
+      "hint": "5 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "brownie",
+      "pos": "",
+      "hint": "7 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "bucket",
+      "pos": "",
+      "hint": "6 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "buggy",
+      "pos": "",
+      "hint": "5 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "bulldozer",
+      "pos": "",
+      "hint": "9 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "burger",
+      "pos": "",
+      "hint": "6 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "burrito",
+      "pos": "",
+      "hint": "7 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "bus",
+      "pos": "",
+      "hint": "3 letters, starts with B",
+      "difficulty": "easy"
+    },
+    {
+      "english": "butter",
+      "pos": "",
+      "hint": "6 letters, starts with B",
+      "difficulty": "medium"
+    },
+    {
+      "english": "butterfly",
+      "pos": "",
+      "hint": "9 letters, starts with B",
+      "difficulty": "hard"
+    },
+    {
+      "english": "cabbage",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cable car",
+      "pos": "",
+      "hint": "8 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "cactus",
+      "pos": "",
+      "hint": "6 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cake",
+      "pos": "",
+      "hint": "4 letters, starts with C",
+      "difficulty": "easy"
+    },
+    {
+      "english": "calf",
+      "pos": "",
+      "hint": "4 letters, starts with C",
+      "difficulty": "easy"
+    },
+    {
+      "english": "camel",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "canada",
+      "pos": "",
+      "hint": "6 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "candle",
+      "pos": "",
+      "hint": "6 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "canoe",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cantaloupe",
+      "pos": "",
+      "hint": "10 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "canyon",
+      "pos": "",
+      "hint": "6 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "car",
+      "pos": "",
+      "hint": "3 letters, starts with C",
+      "difficulty": "easy"
+    },
+    {
+      "english": "caravan",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "carpenter",
+      "pos": "",
+      "hint": "9 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "carpet",
+      "pos": "",
+      "hint": "6 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "carrot",
+      "pos": "",
+      "hint": "6 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cashier",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cassava",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cat",
+      "pos": "",
+      "hint": "3 letters, starts with C",
+      "difficulty": "easy"
+    },
+    {
+      "english": "cauliflower",
+      "pos": "",
+      "hint": "11 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "cave",
+      "pos": "",
+      "hint": "4 letters, starts with C",
+      "difficulty": "easy"
+    },
+    {
+      "english": "celeriac",
+      "pos": "",
+      "hint": "8 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "celery",
+      "pos": "",
+      "hint": "6 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "ceviche",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "chair",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "chard",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "chariot",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cheek",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cheerleading",
+      "pos": "",
+      "hint": "12 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "cheese",
+      "pos": "",
+      "hint": "6 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cheetah",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "chef",
+      "pos": "",
+      "hint": "4 letters, starts with C",
+      "difficulty": "easy"
+    },
+    {
+      "english": "cherry",
+      "pos": "",
+      "hint": "6 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "chest",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "chili",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "chin",
+      "pos": "",
+      "hint": "4 letters, starts with C",
+      "difficulty": "easy"
+    },
+    {
+      "english": "china",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "chocolate",
+      "pos": "",
+      "hint": "9 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "clementine",
+      "pos": "",
+      "hint": "10 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "climbing",
+      "pos": "",
+      "hint": "8 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "clock",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cloud",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "coconut",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "comet",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cookie",
+      "pos": "",
+      "hint": "6 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "coral",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "corn",
+      "pos": "",
+      "hint": "4 letters, starts with C",
+      "difficulty": "easy"
+    },
+    {
+      "english": "cow",
+      "pos": "",
+      "hint": "3 letters, starts with C",
+      "difficulty": "easy"
+    },
+    {
+      "english": "crab",
+      "pos": "",
+      "hint": "4 letters, starts with C",
+      "difficulty": "easy"
+    },
+    {
+      "english": "cranberry",
+      "pos": "",
+      "hint": "9 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "crane",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cricket",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "crocodile",
+      "pos": "",
+      "hint": "9 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "croissant",
+      "pos": "",
+      "hint": "9 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "croquet",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "crystal",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "cucumber",
+      "pos": "",
+      "hint": "8 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "cupcake",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "curling",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "curry",
+      "pos": "",
+      "hint": "5 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "curtain",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "curtains",
+      "pos": "",
+      "hint": "8 letters, starts with C",
+      "difficulty": "hard"
+    },
+    {
+      "english": "cycling",
+      "pos": "",
+      "hint": "7 letters, starts with C",
+      "difficulty": "medium"
+    },
+    {
+      "english": "darts",
+      "pos": "",
+      "hint": "5 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "date",
+      "pos": "",
+      "hint": "4 letters, starts with D",
+      "difficulty": "easy"
+    },
+    {
+      "english": "decathlon",
+      "pos": "",
+      "hint": "9 letters, starts with D",
+      "difficulty": "hard"
+    },
+    {
+      "english": "deer",
+      "pos": "",
+      "hint": "4 letters, starts with D",
+      "difficulty": "easy"
+    },
+    {
+      "english": "dehumidifier",
+      "pos": "",
+      "hint": "12 letters, starts with D",
+      "difficulty": "hard"
+    },
+    {
+      "english": "dentist",
+      "pos": "",
+      "hint": "7 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "desert",
+      "pos": "",
+      "hint": "6 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "diplomat",
+      "pos": "",
+      "hint": "8 letters, starts with D",
+      "difficulty": "hard"
+    },
+    {
+      "english": "director",
+      "pos": "",
+      "hint": "8 letters, starts with D",
+      "difficulty": "hard"
+    },
+    {
+      "english": "dishwasher",
+      "pos": "",
+      "hint": "10 letters, starts with D",
+      "difficulty": "hard"
+    },
+    {
+      "english": "diving",
+      "pos": "",
+      "hint": "6 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "doctor",
+      "pos": "",
+      "hint": "6 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "dog",
+      "pos": "",
+      "hint": "3 letters, starts with D",
+      "difficulty": "easy"
+    },
+    {
+      "english": "dolphin",
+      "pos": "",
+      "hint": "7 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "donut",
+      "pos": "",
+      "hint": "5 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "doorbell",
+      "pos": "",
+      "hint": "8 letters, starts with D",
+      "difficulty": "hard"
+    },
+    {
+      "english": "doormat",
+      "pos": "",
+      "hint": "7 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "dragonfruit",
+      "pos": "",
+      "hint": "11 letters, starts with D",
+      "difficulty": "hard"
+    },
+    {
+      "english": "drain",
+      "pos": "",
+      "hint": "5 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "drawer",
+      "pos": "",
+      "hint": "6 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "drone",
+      "pos": "",
+      "hint": "5 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "drought",
+      "pos": "",
+      "hint": "7 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "duck",
+      "pos": "",
+      "hint": "4 letters, starts with D",
+      "difficulty": "easy"
+    },
+    {
+      "english": "dumplings",
+      "pos": "",
+      "hint": "9 letters, starts with D",
+      "difficulty": "hard"
+    },
+    {
+      "english": "dune",
+      "pos": "",
+      "hint": "4 letters, starts with D",
+      "difficulty": "easy"
+    },
+    {
+      "english": "durian",
+      "pos": "",
+      "hint": "6 letters, starts with D",
+      "difficulty": "medium"
+    },
+    {
+      "english": "eagle",
+      "pos": "",
+      "hint": "5 letters, starts with E",
+      "difficulty": "medium"
+    },
+    {
+      "english": "ear",
+      "pos": "",
+      "hint": "3 letters, starts with E",
+      "difficulty": "easy"
+    },
+    {
+      "english": "eardrum",
+      "pos": "",
+      "hint": "7 letters, starts with E",
+      "difficulty": "medium"
+    },
+    {
+      "english": "earthquake",
+      "pos": "",
+      "hint": "10 letters, starts with E",
+      "difficulty": "hard"
+    },
+    {
+      "english": "eclipse",
+      "pos": "",
+      "hint": "7 letters, starts with E",
+      "difficulty": "medium"
+    },
+    {
+      "english": "edamame",
+      "pos": "",
+      "hint": "7 letters, starts with E",
+      "difficulty": "medium"
+    },
+    {
+      "english": "egg",
+      "pos": "",
+      "hint": "3 letters, starts with E",
+      "difficulty": "easy"
+    },
+    {
+      "english": "eggplant",
+      "pos": "",
+      "hint": "8 letters, starts with E",
+      "difficulty": "hard"
+    },
+    {
+      "english": "egypt",
+      "pos": "",
+      "hint": "5 letters, starts with E",
+      "difficulty": "medium"
+    },
+    {
+      "english": "elbow",
+      "pos": "",
+      "hint": "5 letters, starts with E",
+      "difficulty": "medium"
+    },
+    {
+      "english": "elderberry",
+      "pos": "",
+      "hint": "10 letters, starts with E",
+      "difficulty": "hard"
+    },
+    {
+      "english": "electrician",
+      "pos": "",
+      "hint": "11 letters, starts with E",
+      "difficulty": "hard"
+    },
+    {
+      "english": "elephant",
+      "pos": "",
+      "hint": "8 letters, starts with E",
+      "difficulty": "hard"
+    },
+    {
+      "english": "endive",
+      "pos": "",
+      "hint": "6 letters, starts with E",
+      "difficulty": "medium"
+    },
+    {
+      "english": "engineer",
+      "pos": "",
+      "hint": "8 letters, starts with E",
+      "difficulty": "hard"
+    },
+    {
+      "english": "equestrian",
+      "pos": "",
+      "hint": "10 letters, starts with E",
+      "difficulty": "hard"
+    },
+    {
+      "english": "everest",
+      "pos": "",
+      "hint": "7 letters, starts with E",
+      "difficulty": "medium"
+    },
+    {
+      "english": "excavator",
+      "pos": "",
+      "hint": "9 letters, starts with E",
+      "difficulty": "hard"
+    },
+    {
+      "english": "eye",
+      "pos": "",
+      "hint": "3 letters, starts with E",
+      "difficulty": "easy"
+    },
+    {
+      "english": "eyebrow",
+      "pos": "",
+      "hint": "7 letters, starts with E",
+      "difficulty": "medium"
+    },
+    {
+      "english": "eyelash",
+      "pos": "",
+      "hint": "7 letters, starts with E",
+      "difficulty": "medium"
+    },
+    {
+      "english": "falafel",
+      "pos": "",
+      "hint": "7 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "fall",
+      "pos": "",
+      "hint": "4 letters, starts with F",
+      "difficulty": "easy"
+    },
+    {
+      "english": "farmer",
+      "pos": "",
+      "hint": "6 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "faucet",
+      "pos": "",
+      "hint": "6 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "fencing",
+      "pos": "",
+      "hint": "7 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "fennel",
+      "pos": "",
+      "hint": "6 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "fern",
+      "pos": "",
+      "hint": "4 letters, starts with F",
+      "difficulty": "easy"
+    },
+    {
+      "english": "ferry",
+      "pos": "",
+      "hint": "5 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "fig",
+      "pos": "",
+      "hint": "3 letters, starts with F",
+      "difficulty": "easy"
+    },
+    {
+      "english": "finger",
+      "pos": "",
+      "hint": "6 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "fingernail",
+      "pos": "",
+      "hint": "10 letters, starts with F",
+      "difficulty": "hard"
+    },
+    {
+      "english": "firefighter",
+      "pos": "",
+      "hint": "11 letters, starts with F",
+      "difficulty": "hard"
+    },
+    {
+      "english": "fireplace",
+      "pos": "",
+      "hint": "9 letters, starts with F",
+      "difficulty": "hard"
+    },
+    {
+      "english": "firetruck",
+      "pos": "",
+      "hint": "9 letters, starts with F",
+      "difficulty": "hard"
+    },
+    {
+      "english": "fisherman",
+      "pos": "",
+      "hint": "9 letters, starts with F",
+      "difficulty": "hard"
+    },
+    {
+      "english": "fjord",
+      "pos": "",
+      "hint": "5 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "flamingo",
+      "pos": "",
+      "hint": "8 letters, starts with F",
+      "difficulty": "hard"
+    },
+    {
+      "english": "flower",
+      "pos": "",
+      "hint": "6 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "fog",
+      "pos": "",
+      "hint": "3 letters, starts with F",
+      "difficulty": "easy"
+    },
+    {
+      "english": "fondue",
+      "pos": "",
+      "hint": "6 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "foot",
+      "pos": "",
+      "hint": "4 letters, starts with F",
+      "difficulty": "easy"
+    },
+    {
+      "english": "football",
+      "pos": "",
+      "hint": "8 letters, starts with F",
+      "difficulty": "hard"
+    },
+    {
+      "english": "forehead",
+      "pos": "",
+      "hint": "8 letters, starts with F",
+      "difficulty": "hard"
+    },
+    {
+      "english": "forest",
+      "pos": "",
+      "hint": "6 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "forklift",
+      "pos": "",
+      "hint": "8 letters, starts with F",
+      "difficulty": "hard"
+    },
+    {
+      "english": "fossil",
+      "pos": "",
+      "hint": "6 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "fox",
+      "pos": "",
+      "hint": "3 letters, starts with F",
+      "difficulty": "easy"
+    },
+    {
+      "english": "frisbee",
+      "pos": "",
+      "hint": "7 letters, starts with F",
+      "difficulty": "medium"
+    },
+    {
+      "english": "frog",
+      "pos": "",
+      "hint": "4 letters, starts with F",
+      "difficulty": "easy"
+    },
+    {
+      "english": "gardener",
+      "pos": "",
+      "hint": "8 letters, starts with G",
+      "difficulty": "hard"
+    },
+    {
+      "english": "garlic",
+      "pos": "",
+      "hint": "6 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "geologist",
+      "pos": "",
+      "hint": "9 letters, starts with G",
+      "difficulty": "hard"
+    },
+    {
+      "english": "geyser",
+      "pos": "",
+      "hint": "6 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "ginger",
+      "pos": "",
+      "hint": "6 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "giraffe",
+      "pos": "",
+      "hint": "7 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "glacier",
+      "pos": "",
+      "hint": "7 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "glider",
+      "pos": "",
+      "hint": "6 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "glue",
+      "pos": "",
+      "hint": "4 letters, starts with G",
+      "difficulty": "easy"
+    },
+    {
+      "english": "golf",
+      "pos": "",
+      "hint": "4 letters, starts with G",
+      "difficulty": "easy"
+    },
+    {
+      "english": "gondola",
+      "pos": "",
+      "hint": "7 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "gorilla",
+      "pos": "",
+      "hint": "7 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "granola",
+      "pos": "",
+      "hint": "7 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "grapefruit",
+      "pos": "",
+      "hint": "10 letters, starts with G",
+      "difficulty": "hard"
+    },
+    {
+      "english": "grapes",
+      "pos": "",
+      "hint": "6 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "greece",
+      "pos": "",
+      "hint": "6 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "guacamole",
+      "pos": "",
+      "hint": "9 letters, starts with G",
+      "difficulty": "hard"
+    },
+    {
+      "english": "guava",
+      "pos": "",
+      "hint": "5 letters, starts with G",
+      "difficulty": "medium"
+    },
+    {
+      "english": "gymnastics",
+      "pos": "",
+      "hint": "10 letters, starts with G",
+      "difficulty": "hard"
+    },
+    {
+      "english": "hail",
+      "pos": "",
+      "hint": "4 letters, starts with H",
+      "difficulty": "easy"
+    },
+    {
+      "english": "hammer",
+      "pos": "",
+      "hint": "6 letters, starts with H",
+      "difficulty": "medium"
+    },
+    {
+      "english": "hand",
+      "pos": "",
+      "hint": "4 letters, starts with H",
+      "difficulty": "easy"
+    },
+    {
+      "english": "handball",
+      "pos": "",
+      "hint": "8 letters, starts with H",
+      "difficulty": "hard"
+    },
+    {
+      "english": "hawaii",
+      "pos": "",
+      "hint": "6 letters, starts with H",
+      "difficulty": "medium"
+    },
+    {
+      "english": "heart",
+      "pos": "",
+      "hint": "5 letters, starts with H",
+      "difficulty": "medium"
+    },
+    {
+      "english": "hedgehog",
+      "pos": "",
+      "hint": "8 letters, starts with H",
+      "difficulty": "hard"
+    },
+    {
+      "english": "heel",
+      "pos": "",
+      "hint": "4 letters, starts with H",
+      "difficulty": "easy"
+    },
+    {
+      "english": "helicopter",
+      "pos": "",
+      "hint": "10 letters, starts with H",
+      "difficulty": "hard"
+    },
+    {
+      "english": "hip",
+      "pos": "",
+      "hint": "3 letters, starts with H",
+      "difficulty": "easy"
+    },
+    {
+      "english": "hippo",
+      "pos": "",
+      "hint": "5 letters, starts with H",
+      "difficulty": "medium"
+    },
+    {
+      "english": "hockey",
+      "pos": "",
+      "hint": "6 letters, starts with H",
+      "difficulty": "medium"
+    },
+    {
+      "english": "honeydew",
+      "pos": "",
+      "hint": "8 letters, starts with H",
+      "difficulty": "hard"
+    },
+    {
+      "english": "horse",
+      "pos": "",
+      "hint": "5 letters, starts with H",
+      "difficulty": "medium"
+    },
+    {
+      "english": "hotdog",
+      "pos": "",
+      "hint": "6 letters, starts with H",
+      "difficulty": "medium"
+    },
+    {
+      "english": "hovercraft",
+      "pos": "",
+      "hint": "10 letters, starts with H",
+      "difficulty": "hard"
+    },
+    {
+      "english": "humidifier",
+      "pos": "",
+      "hint": "10 letters, starts with H",
+      "difficulty": "hard"
+    },
+    {
+      "english": "hummus",
+      "pos": "",
+      "hint": "6 letters, starts with H",
+      "difficulty": "medium"
+    },
+    {
+      "english": "hunter",
+      "pos": "",
+      "hint": "6 letters, starts with H",
+      "difficulty": "medium"
+    },
+    {
+      "english": "hurricane",
+      "pos": "",
+      "hint": "9 letters, starts with H",
+      "difficulty": "hard"
+    },
+    {
+      "english": "ice cream",
+      "pos": "",
+      "hint": "8 letters, starts with I",
+      "difficulty": "hard"
+    },
+    {
+      "english": "iceberg",
+      "pos": "",
+      "hint": "7 letters, starts with I",
+      "difficulty": "medium"
+    },
+    {
+      "english": "iceland",
+      "pos": "",
+      "hint": "7 letters, starts with I",
+      "difficulty": "medium"
+    },
+    {
+      "english": "india",
+      "pos": "",
+      "hint": "5 letters, starts with I",
+      "difficulty": "medium"
+    },
+    {
+      "english": "iron",
+      "pos": "",
+      "hint": "4 letters, starts with I",
+      "difficulty": "easy"
+    },
+    {
+      "english": "island",
+      "pos": "",
+      "hint": "6 letters, starts with I",
+      "difficulty": "medium"
+    },
+    {
+      "english": "jackfruit",
+      "pos": "",
+      "hint": "9 letters, starts with J",
+      "difficulty": "hard"
+    },
+    {
+      "english": "jaguar",
+      "pos": "",
+      "hint": "6 letters, starts with J",
+      "difficulty": "medium"
+    },
+    {
+      "english": "jeep",
+      "pos": "",
+      "hint": "4 letters, starts with J",
+      "difficulty": "easy"
+    },
+    {
+      "english": "jetski",
+      "pos": "",
+      "hint": "6 letters, starts with J",
+      "difficulty": "medium"
+    },
+    {
+      "english": "jicama",
+      "pos": "",
+      "hint": "6 letters, starts with J",
+      "difficulty": "medium"
+    },
+    {
+      "english": "journalist",
+      "pos": "",
+      "hint": "10 letters, starts with J",
+      "difficulty": "hard"
+    },
+    {
+      "english": "judge",
+      "pos": "",
+      "hint": "5 letters, starts with J",
+      "difficulty": "medium"
+    },
+    {
+      "english": "judo",
+      "pos": "",
+      "hint": "4 letters, starts with J",
+      "difficulty": "easy"
+    },
+    {
+      "english": "jungle",
+      "pos": "",
+      "hint": "6 letters, starts with J",
+      "difficulty": "medium"
+    },
+    {
+      "english": "kale",
+      "pos": "",
+      "hint": "4 letters, starts with K",
+      "difficulty": "easy"
+    },
+    {
+      "english": "kangaroo",
+      "pos": "",
+      "hint": "8 letters, starts with K",
+      "difficulty": "hard"
+    },
+    {
+      "english": "karate",
+      "pos": "",
+      "hint": "6 letters, starts with K",
+      "difficulty": "medium"
+    },
+    {
+      "english": "kayak",
+      "pos": "",
+      "hint": "5 letters, starts with K",
+      "difficulty": "medium"
+    },
+    {
+      "english": "kayaking",
+      "pos": "",
+      "hint": "8 letters, starts with K",
+      "difficulty": "hard"
+    },
+    {
+      "english": "kebab",
+      "pos": "",
+      "hint": "5 letters, starts with K",
+      "difficulty": "medium"
+    },
+    {
+      "english": "kenya",
+      "pos": "",
+      "hint": "5 letters, starts with K",
+      "difficulty": "medium"
+    },
+    {
+      "english": "kettle",
+      "pos": "",
+      "hint": "6 letters, starts with K",
+      "difficulty": "medium"
+    },
+    {
+      "english": "kidney",
+      "pos": "",
+      "hint": "6 letters, starts with K",
+      "difficulty": "medium"
+    },
+    {
+      "english": "kiwi",
+      "pos": "",
+      "hint": "4 letters, starts with K",
+      "difficulty": "easy"
+    },
+    {
+      "english": "knee",
+      "pos": "",
+      "hint": "4 letters, starts with K",
+      "difficulty": "easy"
+    },
+    {
+      "english": "koala",
+      "pos": "",
+      "hint": "5 letters, starts with K",
+      "difficulty": "medium"
+    },
+    {
+      "english": "kohlrabi",
+      "pos": "",
+      "hint": "8 letters, starts with K",
+      "difficulty": "hard"
+    },
+    {
+      "english": "kumquat",
+      "pos": "",
+      "hint": "7 letters, starts with K",
+      "difficulty": "medium"
+    },
+    {
+      "english": "lacrosse",
+      "pos": "",
+      "hint": "8 letters, starts with L",
+      "difficulty": "hard"
+    },
+    {
+      "english": "lagoon",
+      "pos": "",
+      "hint": "6 letters, starts with L",
+      "difficulty": "medium"
+    },
+    {
+      "english": "lamp",
+      "pos": "",
+      "hint": "4 letters, starts with L",
+      "difficulty": "easy"
+    },
+    {
+      "english": "lawyer",
+      "pos": "",
+      "hint": "6 letters, starts with L",
+      "difficulty": "medium"
+    },
+    {
+      "english": "leaf",
+      "pos": "",
+      "hint": "4 letters, starts with L",
+      "difficulty": "easy"
+    },
+    {
+      "english": "leek",
+      "pos": "",
+      "hint": "4 letters, starts with L",
+      "difficulty": "easy"
+    },
+    {
+      "english": "lemon",
+      "pos": "",
+      "hint": "5 letters, starts with L",
+      "difficulty": "medium"
+    },
+    {
+      "english": "lettuce",
+      "pos": "",
+      "hint": "7 letters, starts with L",
+      "difficulty": "medium"
+    },
+    {
+      "english": "librarian",
+      "pos": "",
+      "hint": "9 letters, starts with L",
+      "difficulty": "hard"
+    },
+    {
+      "english": "lifeguard",
+      "pos": "",
+      "hint": "9 letters, starts with L",
+      "difficulty": "hard"
+    },
+    {
+      "english": "lightning",
+      "pos": "",
+      "hint": "9 letters, starts with L",
+      "difficulty": "hard"
+    },
+    {
+      "english": "lime",
+      "pos": "",
+      "hint": "4 letters, starts with L",
+      "difficulty": "easy"
+    },
+    {
+      "english": "limousine",
+      "pos": "",
+      "hint": "9 letters, starts with L",
+      "difficulty": "hard"
+    },
+    {
+      "english": "lion",
+      "pos": "",
+      "hint": "4 letters, starts with L",
+      "difficulty": "easy"
+    },
+    {
+      "english": "lip",
+      "pos": "",
+      "hint": "3 letters, starts with L",
+      "difficulty": "easy"
+    },
+    {
+      "english": "liver",
+      "pos": "",
+      "hint": "5 letters, starts with L",
+      "difficulty": "medium"
+    },
+    {
+      "english": "lobster",
+      "pos": "",
+      "hint": "7 letters, starts with L",
+      "difficulty": "medium"
+    },
+    {
+      "english": "london",
+      "pos": "",
+      "hint": "6 letters, starts with L",
+      "difficulty": "medium"
+    },
+    {
+      "english": "longan",
+      "pos": "",
+      "hint": "6 letters, starts with L",
+      "difficulty": "medium"
+    },
+    {
+      "english": "lotus",
+      "pos": "",
+      "hint": "5 letters, starts with L",
+      "difficulty": "medium"
+    },
+    {
+      "english": "luge",
+      "pos": "",
+      "hint": "4 letters, starts with L",
+      "difficulty": "easy"
+    },
+    {
+      "english": "lungs",
+      "pos": "",
+      "hint": "5 letters, starts with L",
+      "difficulty": "medium"
+    },
+    {
+      "english": "lychee",
+      "pos": "",
+      "hint": "6 letters, starts with L",
+      "difficulty": "medium"
+    },
+    {
+      "english": "magma",
+      "pos": "",
+      "hint": "5 letters, starts with M",
+      "difficulty": "medium"
+    },
+    {
+      "english": "maldives",
+      "pos": "",
+      "hint": "8 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "mandarin",
+      "pos": "",
+      "hint": "8 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "mango",
+      "pos": "",
+      "hint": "5 letters, starts with M",
+      "difficulty": "medium"
+    },
+    {
+      "english": "marathon",
+      "pos": "",
+      "hint": "8 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "mechanic",
+      "pos": "",
+      "hint": "8 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "melon",
+      "pos": "",
+      "hint": "5 letters, starts with M",
+      "difficulty": "medium"
+    },
+    {
+      "english": "meteor",
+      "pos": "",
+      "hint": "6 letters, starts with M",
+      "difficulty": "medium"
+    },
+    {
+      "english": "microwave",
+      "pos": "",
+      "hint": "9 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "mirror",
+      "pos": "",
+      "hint": "6 letters, starts with M",
+      "difficulty": "medium"
+    },
+    {
+      "english": "monkey",
+      "pos": "",
+      "hint": "6 letters, starts with M",
+      "difficulty": "medium"
+    },
+    {
+      "english": "monorail",
+      "pos": "",
+      "hint": "8 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "moonlight",
+      "pos": "",
+      "hint": "9 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "moose",
+      "pos": "",
+      "hint": "5 letters, starts with M",
+      "difficulty": "medium"
+    },
+    {
+      "english": "mop",
+      "pos": "",
+      "hint": "3 letters, starts with M",
+      "difficulty": "easy"
+    },
+    {
+      "english": "morocco",
+      "pos": "",
+      "hint": "7 letters, starts with M",
+      "difficulty": "medium"
+    },
+    {
+      "english": "moss",
+      "pos": "",
+      "hint": "4 letters, starts with M",
+      "difficulty": "easy"
+    },
+    {
+      "english": "motorcycle",
+      "pos": "",
+      "hint": "10 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "mountain",
+      "pos": "",
+      "hint": "8 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "mouth",
+      "pos": "",
+      "hint": "5 letters, starts with M",
+      "difficulty": "medium"
+    },
+    {
+      "english": "mudslide",
+      "pos": "",
+      "hint": "8 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "muffin",
+      "pos": "",
+      "hint": "6 letters, starts with M",
+      "difficulty": "medium"
+    },
+    {
+      "english": "mulberry",
+      "pos": "",
+      "hint": "8 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "muscle",
+      "pos": "",
+      "hint": "6 letters, starts with M",
+      "difficulty": "medium"
+    },
+    {
+      "english": "mushroom",
+      "pos": "",
+      "hint": "8 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "musician",
+      "pos": "",
+      "hint": "8 letters, starts with M",
+      "difficulty": "hard"
+    },
+    {
+      "english": "nachos",
+      "pos": "",
+      "hint": "6 letters, starts with N",
+      "difficulty": "medium"
+    },
+    {
+      "english": "neck",
+      "pos": "",
+      "hint": "4 letters, starts with N",
+      "difficulty": "easy"
+    },
+    {
+      "english": "nectarine",
+      "pos": "",
+      "hint": "9 letters, starts with N",
+      "difficulty": "hard"
+    },
+    {
+      "english": "needle",
+      "pos": "",
+      "hint": "6 letters, starts with N",
+      "difficulty": "medium"
+    },
+    {
+      "english": "nepal",
+      "pos": "",
+      "hint": "5 letters, starts with N",
+      "difficulty": "medium"
+    },
+    {
+      "english": "nerve",
+      "pos": "",
+      "hint": "5 letters, starts with N",
+      "difficulty": "medium"
+    },
+    {
+      "english": "noodles",
+      "pos": "",
+      "hint": "7 letters, starts with N",
+      "difficulty": "medium"
+    },
+    {
+      "english": "nose",
+      "pos": "",
+      "hint": "4 letters, starts with N",
+      "difficulty": "easy"
+    },
+    {
+      "english": "nurse",
+      "pos": "",
+      "hint": "5 letters, starts with N",
+      "difficulty": "medium"
+    },
+    {
+      "english": "ocean",
+      "pos": "",
+      "hint": "5 letters, starts with O",
+      "difficulty": "medium"
+    },
+    {
+      "english": "octopus",
+      "pos": "",
+      "hint": "7 letters, starts with O",
+      "difficulty": "medium"
+    },
+    {
+      "english": "okra",
+      "pos": "",
+      "hint": "4 letters, starts with O",
+      "difficulty": "easy"
+    },
+    {
+      "english": "omelet",
+      "pos": "",
+      "hint": "6 letters, starts with O",
+      "difficulty": "medium"
+    },
+    {
+      "english": "onion",
+      "pos": "",
+      "hint": "5 letters, starts with O",
+      "difficulty": "medium"
+    },
+    {
+      "english": "orange",
+      "pos": "",
+      "hint": "6 letters, starts with O",
+      "difficulty": "medium"
+    },
+    {
+      "english": "otter",
+      "pos": "",
+      "hint": "5 letters, starts with O",
+      "difficulty": "medium"
+    },
+    {
+      "english": "oven",
+      "pos": "",
+      "hint": "4 letters, starts with O",
+      "difficulty": "easy"
+    },
+    {
+      "english": "owl",
+      "pos": "",
+      "hint": "3 letters, starts with O",
+      "difficulty": "easy"
+    },
+    {
+      "english": "oxygen",
+      "pos": "",
+      "hint": "6 letters, starts with O",
+      "difficulty": "medium"
+    },
+    {
+      "english": "paella",
+      "pos": "",
+      "hint": "6 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "palm",
+      "pos": "",
+      "hint": "4 letters, starts with P",
+      "difficulty": "easy"
+    },
+    {
+      "english": "pancake",
+      "pos": "",
+      "hint": "7 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "pancreas",
+      "pos": "",
+      "hint": "8 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "panda",
+      "pos": "",
+      "hint": "5 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "papaya",
+      "pos": "",
+      "hint": "6 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "paraglider",
+      "pos": "",
+      "hint": "10 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "paris",
+      "pos": "",
+      "hint": "5 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "parrot",
+      "pos": "",
+      "hint": "6 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "parsnip",
+      "pos": "",
+      "hint": "7 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "passion",
+      "pos": "",
+      "hint": "7 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "pasta",
+      "pos": "",
+      "hint": "5 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "peach",
+      "pos": "",
+      "hint": "5 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "peacock",
+      "pos": "",
+      "hint": "7 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "pear",
+      "pos": "",
+      "hint": "4 letters, starts with P",
+      "difficulty": "easy"
+    },
+    {
+      "english": "peas",
+      "pos": "",
+      "hint": "4 letters, starts with P",
+      "difficulty": "easy"
+    },
+    {
+      "english": "pebble",
+      "pos": "",
+      "hint": "6 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "penguin",
+      "pos": "",
+      "hint": "7 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "peninsula",
+      "pos": "",
+      "hint": "9 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "pentathlon",
+      "pos": "",
+      "hint": "10 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "pepper",
+      "pos": "",
+      "hint": "6 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "permafrost",
+      "pos": "",
+      "hint": "10 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "persimmon",
+      "pos": "",
+      "hint": "9 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "peru",
+      "pos": "",
+      "hint": "4 letters, starts with P",
+      "difficulty": "easy"
+    },
+    {
+      "english": "pharmacist",
+      "pos": "",
+      "hint": "10 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "photographer",
+      "pos": "",
+      "hint": "12 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "pig",
+      "pos": "",
+      "hint": "3 letters, starts with P",
+      "difficulty": "easy"
+    },
+    {
+      "english": "pillow",
+      "pos": "",
+      "hint": "6 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "pilot",
+      "pos": "",
+      "hint": "5 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "pineapple",
+      "pos": "",
+      "hint": "9 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "pizza",
+      "pos": "",
+      "hint": "5 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "plateau",
+      "pos": "",
+      "hint": "7 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "plum",
+      "pos": "",
+      "hint": "4 letters, starts with P",
+      "difficulty": "easy"
+    },
+    {
+      "english": "plumber",
+      "pos": "",
+      "hint": "7 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "police",
+      "pos": "",
+      "hint": "6 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "pollen",
+      "pos": "",
+      "hint": "6 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "polo",
+      "pos": "",
+      "hint": "4 letters, starts with P",
+      "difficulty": "easy"
+    },
+    {
+      "english": "pomegranate",
+      "pos": "",
+      "hint": "11 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "popcorn",
+      "pos": "",
+      "hint": "7 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "porridge",
+      "pos": "",
+      "hint": "8 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "postman",
+      "pos": "",
+      "hint": "7 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "potato",
+      "pos": "",
+      "hint": "6 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "pretzel",
+      "pos": "",
+      "hint": "7 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "programmer",
+      "pos": "",
+      "hint": "10 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "psychologist",
+      "pos": "",
+      "hint": "12 letters, starts with P",
+      "difficulty": "hard"
+    },
+    {
+      "english": "pumpkin",
+      "pos": "",
+      "hint": "7 letters, starts with P",
+      "difficulty": "medium"
+    },
+    {
+      "english": "quince",
+      "pos": "",
+      "hint": "6 letters, starts with Q",
+      "difficulty": "medium"
+    },
+    {
+      "english": "rabbit",
+      "pos": "",
+      "hint": "6 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "radish",
+      "pos": "",
+      "hint": "6 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "rain",
+      "pos": "",
+      "hint": "4 letters, starts with R",
+      "difficulty": "easy"
+    },
+    {
+      "english": "rainbow",
+      "pos": "",
+      "hint": "7 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "rambutan",
+      "pos": "",
+      "hint": "8 letters, starts with R",
+      "difficulty": "hard"
+    },
+    {
+      "english": "ramen",
+      "pos": "",
+      "hint": "5 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "raspberry",
+      "pos": "",
+      "hint": "9 letters, starts with R",
+      "difficulty": "hard"
+    },
+    {
+      "english": "reef",
+      "pos": "",
+      "hint": "4 letters, starts with R",
+      "difficulty": "easy"
+    },
+    {
+      "english": "referee",
+      "pos": "",
+      "hint": "7 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "refrigerator",
+      "pos": "",
+      "hint": "12 letters, starts with R",
+      "difficulty": "hard"
+    },
+    {
+      "english": "rhino",
+      "pos": "",
+      "hint": "5 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "ribs",
+      "pos": "",
+      "hint": "4 letters, starts with R",
+      "difficulty": "easy"
+    },
+    {
+      "english": "rickshaw",
+      "pos": "",
+      "hint": "8 letters, starts with R",
+      "difficulty": "hard"
+    },
+    {
+      "english": "risotto",
+      "pos": "",
+      "hint": "7 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "river",
+      "pos": "",
+      "hint": "5 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "rocket",
+      "pos": "",
+      "hint": "6 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "rowing",
+      "pos": "",
+      "hint": "6 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "rugby",
+      "pos": "",
+      "hint": "5 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "russia",
+      "pos": "",
+      "hint": "6 letters, starts with R",
+      "difficulty": "medium"
+    },
+    {
+      "english": "rutabaga",
+      "pos": "",
+      "hint": "8 letters, starts with R",
+      "difficulty": "hard"
+    },
+    {
+      "english": "sahara",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "sailor",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "salad",
+      "pos": "",
+      "hint": "5 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "sandwich",
+      "pos": "",
+      "hint": "8 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "sausage",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "savanna",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "scallion",
+      "pos": "",
+      "hint": "8 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "scientist",
+      "pos": "",
+      "hint": "9 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "scissors",
+      "pos": "",
+      "hint": "8 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "scooter",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "screwdriver",
+      "pos": "",
+      "hint": "11 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "seal",
+      "pos": "",
+      "hint": "4 letters, starts with S",
+      "difficulty": "easy"
+    },
+    {
+      "english": "seaweed",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "seed",
+      "pos": "",
+      "hint": "4 letters, starts with S",
+      "difficulty": "easy"
+    },
+    {
+      "english": "segway",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "senator",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "shallot",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "shark",
+      "pos": "",
+      "hint": "5 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "sheep",
+      "pos": "",
+      "hint": "5 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "ship",
+      "pos": "",
+      "hint": "4 letters, starts with S",
+      "difficulty": "easy"
+    },
+    {
+      "english": "shoulder",
+      "pos": "",
+      "hint": "8 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "shower",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "sink",
+      "pos": "",
+      "hint": "4 letters, starts with S",
+      "difficulty": "easy"
+    },
+    {
+      "english": "skateboard",
+      "pos": "",
+      "hint": "10 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "skateboarding",
+      "pos": "",
+      "hint": "13 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "skating",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "skiing",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "skin",
+      "pos": "",
+      "hint": "4 letters, starts with S",
+      "difficulty": "easy"
+    },
+    {
+      "english": "skull",
+      "pos": "",
+      "hint": "5 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "sleigh",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "snake",
+      "pos": "",
+      "hint": "5 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "snooker",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "snow",
+      "pos": "",
+      "hint": "4 letters, starts with S",
+      "difficulty": "easy"
+    },
+    {
+      "english": "snowboard",
+      "pos": "",
+      "hint": "9 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "snowboarding",
+      "pos": "",
+      "hint": "12 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "snowplow",
+      "pos": "",
+      "hint": "8 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "soccer",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "sofa",
+      "pos": "",
+      "hint": "4 letters, starts with S",
+      "difficulty": "easy"
+    },
+    {
+      "english": "soldier",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "sorrel",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "soup",
+      "pos": "",
+      "hint": "4 letters, starts with S",
+      "difficulty": "easy"
+    },
+    {
+      "english": "soursop",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "spacecraft",
+      "pos": "",
+      "hint": "10 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "spaghetti",
+      "pos": "",
+      "hint": "9 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "spinach",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "spine",
+      "pos": "",
+      "hint": "5 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "sponge",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "spring",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "squash",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "squirrel",
+      "pos": "",
+      "hint": "8 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "staircase",
+      "pos": "",
+      "hint": "9 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "starfruit",
+      "pos": "",
+      "hint": "9 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "starlight",
+      "pos": "",
+      "hint": "9 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "steak",
+      "pos": "",
+      "hint": "5 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "steppe",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "stomach",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "strait",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "strawberry",
+      "pos": "",
+      "hint": "10 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "submarine",
+      "pos": "",
+      "hint": "9 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "summer",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "sunrise",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "sunset",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "surfboard",
+      "pos": "",
+      "hint": "9 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "surfing",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "surgeon",
+      "pos": "",
+      "hint": "7 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "sushi",
+      "pos": "",
+      "hint": "5 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "swamp",
+      "pos": "",
+      "hint": "5 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "swan",
+      "pos": "",
+      "hint": "4 letters, starts with S",
+      "difficulty": "easy"
+    },
+    {
+      "english": "swimming",
+      "pos": "",
+      "hint": "8 letters, starts with S",
+      "difficulty": "hard"
+    },
+    {
+      "english": "sydney",
+      "pos": "",
+      "hint": "6 letters, starts with S",
+      "difficulty": "medium"
+    },
+    {
+      "english": "table",
+      "pos": "",
+      "hint": "5 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tacos",
+      "pos": "",
+      "hint": "5 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "taekwondo",
+      "pos": "",
+      "hint": "9 letters, starts with T",
+      "difficulty": "hard"
+    },
+    {
+      "english": "tailor",
+      "pos": "",
+      "hint": "6 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tamarind",
+      "pos": "",
+      "hint": "8 letters, starts with T",
+      "difficulty": "hard"
+    },
+    {
+      "english": "tangerine",
+      "pos": "",
+      "hint": "9 letters, starts with T",
+      "difficulty": "hard"
+    },
+    {
+      "english": "tanker",
+      "pos": "",
+      "hint": "6 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tape",
+      "pos": "",
+      "hint": "4 letters, starts with T",
+      "difficulty": "easy"
+    },
+    {
+      "english": "taro",
+      "pos": "",
+      "hint": "4 letters, starts with T",
+      "difficulty": "easy"
+    },
+    {
+      "english": "taxi",
+      "pos": "",
+      "hint": "4 letters, starts with T",
+      "difficulty": "easy"
+    },
+    {
+      "english": "teacher",
+      "pos": "",
+      "hint": "7 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tempura",
+      "pos": "",
+      "hint": "7 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tennis",
+      "pos": "",
+      "hint": "6 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "thailand",
+      "pos": "",
+      "hint": "8 letters, starts with T",
+      "difficulty": "hard"
+    },
+    {
+      "english": "thermostat",
+      "pos": "",
+      "hint": "10 letters, starts with T",
+      "difficulty": "hard"
+    },
+    {
+      "english": "thigh",
+      "pos": "",
+      "hint": "5 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "thumb",
+      "pos": "",
+      "hint": "5 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "thunder",
+      "pos": "",
+      "hint": "7 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tide",
+      "pos": "",
+      "hint": "4 letters, starts with T",
+      "difficulty": "easy"
+    },
+    {
+      "english": "tiger",
+      "pos": "",
+      "hint": "5 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "toaster",
+      "pos": "",
+      "hint": "7 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "toenail",
+      "pos": "",
+      "hint": "7 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "toilet",
+      "pos": "",
+      "hint": "6 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tokyo",
+      "pos": "",
+      "hint": "5 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tomato",
+      "pos": "",
+      "hint": "6 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tongue",
+      "pos": "",
+      "hint": "6 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tooth",
+      "pos": "",
+      "hint": "5 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tornado",
+      "pos": "",
+      "hint": "7 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "towel",
+      "pos": "",
+      "hint": "5 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tractor",
+      "pos": "",
+      "hint": "7 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "train",
+      "pos": "",
+      "hint": "5 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "translator",
+      "pos": "",
+      "hint": "10 letters, starts with T",
+      "difficulty": "hard"
+    },
+    {
+      "english": "tree",
+      "pos": "",
+      "hint": "4 letters, starts with T",
+      "difficulty": "easy"
+    },
+    {
+      "english": "triathlon",
+      "pos": "",
+      "hint": "9 letters, starts with T",
+      "difficulty": "hard"
+    },
+    {
+      "english": "trolley",
+      "pos": "",
+      "hint": "7 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "truck",
+      "pos": "",
+      "hint": "5 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tsunami",
+      "pos": "",
+      "hint": "7 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "tundra",
+      "pos": "",
+      "hint": "6 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "turmeric",
+      "pos": "",
+      "hint": "8 letters, starts with T",
+      "difficulty": "hard"
+    },
+    {
+      "english": "turnip",
+      "pos": "",
+      "hint": "6 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "turtle",
+      "pos": "",
+      "hint": "6 letters, starts with T",
+      "difficulty": "medium"
+    },
+    {
+      "english": "vacuum",
+      "pos": "",
+      "hint": "6 letters, starts with V",
+      "difficulty": "medium"
+    },
+    {
+      "english": "valley",
+      "pos": "",
+      "hint": "6 letters, starts with V",
+      "difficulty": "medium"
+    },
+    {
+      "english": "van",
+      "pos": "",
+      "hint": "3 letters, starts with V",
+      "difficulty": "easy"
+    },
+    {
+      "english": "vein",
+      "pos": "",
+      "hint": "4 letters, starts with V",
+      "difficulty": "easy"
+    },
+    {
+      "english": "venice",
+      "pos": "",
+      "hint": "6 letters, starts with V",
+      "difficulty": "medium"
+    },
+    {
+      "english": "veterinarian",
+      "pos": "",
+      "hint": "12 letters, starts with V",
+      "difficulty": "hard"
+    },
+    {
+      "english": "volcano",
+      "pos": "",
+      "hint": "7 letters, starts with V",
+      "difficulty": "medium"
+    },
+    {
+      "english": "volleyball",
+      "pos": "",
+      "hint": "10 letters, starts with V",
+      "difficulty": "hard"
+    },
+    {
+      "english": "waffle",
+      "pos": "",
+      "hint": "6 letters, starts with W",
+      "difficulty": "medium"
+    },
+    {
+      "english": "waist",
+      "pos": "",
+      "hint": "5 letters, starts with W",
+      "difficulty": "medium"
+    },
+    {
+      "english": "waiter",
+      "pos": "",
+      "hint": "6 letters, starts with W",
+      "difficulty": "medium"
+    },
+    {
+      "english": "wardrobe",
+      "pos": "",
+      "hint": "8 letters, starts with W",
+      "difficulty": "hard"
+    },
+    {
+      "english": "washing",
+      "pos": "",
+      "hint": "7 letters, starts with W",
+      "difficulty": "medium"
+    },
+    {
+      "english": "watercress",
+      "pos": "",
+      "hint": "10 letters, starts with W",
+      "difficulty": "hard"
+    },
+    {
+      "english": "waterfall",
+      "pos": "",
+      "hint": "9 letters, starts with W",
+      "difficulty": "hard"
+    },
+    {
+      "english": "watermelon",
+      "pos": "",
+      "hint": "10 letters, starts with W",
+      "difficulty": "hard"
+    },
+    {
+      "english": "weightlifting",
+      "pos": "",
+      "hint": "13 letters, starts with W",
+      "difficulty": "hard"
+    },
+    {
+      "english": "whale",
+      "pos": "",
+      "hint": "5 letters, starts with W",
+      "difficulty": "medium"
+    },
+    {
+      "english": "wildfire",
+      "pos": "",
+      "hint": "8 letters, starts with W",
+      "difficulty": "hard"
+    },
+    {
+      "english": "wind",
+      "pos": "",
+      "hint": "4 letters, starts with W",
+      "difficulty": "easy"
+    },
+    {
+      "english": "winter",
+      "pos": "",
+      "hint": "6 letters, starts with W",
+      "difficulty": "medium"
+    },
+    {
+      "english": "wolf",
+      "pos": "",
+      "hint": "4 letters, starts with W",
+      "difficulty": "easy"
+    },
+    {
+      "english": "wrench",
+      "pos": "",
+      "hint": "6 letters, starts with W",
+      "difficulty": "medium"
+    },
+    {
+      "english": "wrestling",
+      "pos": "",
+      "hint": "9 letters, starts with W",
+      "difficulty": "hard"
+    },
+    {
+      "english": "wrist",
+      "pos": "",
+      "hint": "5 letters, starts with W",
+      "difficulty": "medium"
+    },
+    {
+      "english": "yam",
+      "pos": "",
+      "hint": "3 letters, starts with Y",
+      "difficulty": "easy"
+    },
+    {
+      "english": "yogurt",
+      "pos": "",
+      "hint": "6 letters, starts with Y",
+      "difficulty": "medium"
+    },
+    {
+      "english": "zebra",
+      "pos": "",
+      "hint": "5 letters, starts with Z",
+      "difficulty": "medium"
+    },
+    {
+      "english": "zeppelin",
+      "pos": "",
+      "hint": "8 letters, starts with Z",
+      "difficulty": "hard"
+    },
+    {
+      "english": "zookeeper",
+      "pos": "",
+      "hint": "9 letters, starts with Z",
+      "difficulty": "hard"
+    },
+    {
+      "english": "zucchini",
+      "pos": "",
+      "hint": "8 letters, starts with Z",
+      "difficulty": "hard"
+    }
+  ]
+}

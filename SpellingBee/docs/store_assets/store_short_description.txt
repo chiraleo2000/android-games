@@ -1,0 +1,1 @@
+Spell topic words with letter hints and keep a streak.

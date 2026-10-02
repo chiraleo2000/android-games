@@ -1,0 +1,574 @@
+/* ═══════════════════════════════════════════════════
+   PersonalityResult.css — Comprehensive MBTI Display
+   ═══════════════════════════════════════════════════ */
+
+.personality-result {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+    overflow-y: auto;
+}
+
+/* Type Header */
+.type-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.type-emoji {
+    font-size: 5rem;
+    display: block;
+    margin-bottom: 0.75rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.type-code {
+    font-size: 2.5rem;
+    font-weight: 900;
+    background: linear-gradient(to right, #00f5ff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.type-name {
+    font-size: 1.5rem;
+    color: #00f5ff;
+    margin-bottom: 0.5rem;
+}
+
+.type-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 450px;
+    line-height: 1.6;
+}
+
+/* Dimensions */
+.dimensions {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.dimension-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.dimension-labels {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dim-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: color 0.3s;
+}
+
+.dim-label.active {
+    color: #00f5ff;
+    font-weight: 600;
+}
+
+.dimension-bar {
+    height: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.dimension-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: linear-gradient(to right, #00f5ff, #ff00ff);
+    border-radius: 6px;
+}
+
+.dimension-center {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: var(--text-muted);
+    transform: translateX(-50%);
+}
+
+.dimension-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dimension-percent {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #00f5ff;
+}
+
+.dimension-clarity {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ─ Section Title ─────────────────────────────────── */
+.section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+/* ─ Cognitive Function Stack ──────────────────────── */
+.cognitive-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+
+.cognitive-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cognitive-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+}
+
+.cognitive-card.dominant {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(255, 0, 255, 0.1));
+    border-color: rgba(0, 245, 255, 0.2);
+}
+
+.cog-emoji {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.cog-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.cog-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.15rem;
+}
+
+.cog-role {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #00f5ff;
+}
+
+.cog-code {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+}
+
+.cog-name {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.1rem;
+}
+
+.cog-desc {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Traits */
+.traits-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+
+.traits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.trait-column {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.trait-column h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    text-align: left;
+}
+
+.trait-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.trait-list li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.trait-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #00f5ff;
+    font-weight: bold;
+}
+
+/* Career Section */
+.career-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+
+.career-section .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.career-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.career-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.career-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.career-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.career-match {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #00f5ff;
+    flex-shrink: 0;
+}
+
+.career-category {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Growth Section */
+.growth-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+
+.growth-section .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.growth-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.growth-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.growth-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    color: #00f5ff;
+    font-weight: 600;
+}
+
+.growth-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.growth-list li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.growth-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #00f5ff;
+}
+
+/* Learning Section */
+.learning-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+
+.learning-section .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.learning-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.learning-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.learning-card h4 {
+    font-size: 0.9rem;
+    color: #00f5ff;
+    margin-bottom: 0.75rem;
+}
+
+.learning-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.learning-list li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.learning-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #00ff88;
+}
+
+/* AI Section */
+.ai-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+
+.ai-section .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.ai-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ai-card {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(255, 0, 255, 0.1));
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.ai-card h4 {
+    font-size: 0.9rem;
+    color: #ff00ff;
+    margin-bottom: 0.75rem;
+}
+
+.ai-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.ai-list li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding-left: 1.25rem;
+    position: relative;
+}
+
+.ai-list li::before {
+    content: '⚡';
+    position: absolute;
+    left: 0;
+}
+
+/* ─ Career Fit Section ────────────────────────────── */
+.career-fit-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+
+.fit-card {
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.06), rgba(255, 215, 0, 0.06));
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.fit-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* ─ Growth Advice Section ─────────────────────────── */
+.growth-advice-section {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+}
+
+.growth-advice-card {
+    background: rgba(0, 255, 136, 0.05);
+    border: 1px solid rgba(0, 255, 136, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.growth-advice-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* Home Button */
+.home-btn {
+    margin-top: auto;
+    width: 100%;
+    max-width: 300px;
+}
+
+@media (max-width: 480px) {
+    .personality-result {
+        padding: 1.5rem 1rem;
+    }
+
+    .type-code {
+        font-size: 2rem;
+    }
+
+    .type-name {
+        font-size: 1.2rem;
+    }
+
+    .dim-label {
+        font-size: 0.75rem;
+    }
+
+    .traits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .career-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .learning-grid {
+        grid-template-columns: 1fr;
+    }
+}

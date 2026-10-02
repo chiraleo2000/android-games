@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogicLabs: Code & Escape - Educational Brain Training</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+    <!-- SPLASH SCREEN -->
+    <div id="screen-splash" class="screen">
+        <div class="splash-content">
+            <h1 class="splash-logo">LogicLabs 🧩</h1>
+            <p class="splash-subtitle">Train Your Brain</p>
+            <div class="loading-dots">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- LOADING SCREEN -->
+    <div id="screen-loading" class="screen">
+        <div class="loading-content">
+            <h2>Preparing Your Challenge...</h2>
+            <div class="progress-bar">
+                <div id="loading-progress" class="progress-fill"></div>
+            </div>
+            <p id="loading-tip" class="loading-tip">💡 Tip: Pattern recognition helps develop logical thinking!</p>
+        </div>
+    </div>
+
+
+    <!-- TUTORIAL SCREEN -->
+    <div id="screen-tutorial" class="screen">
+        <div class="tutorial-content">
+            <h2>Welcome to LogicLabs!</h2>
+            <div class="tutorial-slides">
+                <div class="tutorial-slide active">
+                    <div class="tutorial-icon">🧠</div>
+                    <h3>Train Critical Thinking</h3>
+                    <p>Develop problem-solving skills through fun logic puzzles and coding challenges!</p>
+                </div>
+
+                <div class="tutorial-slide">
+                    <div class="tutorial-icon">🧩</div>
+                    <h3>Multiple Game Modes</h3>
+                    <p>Choose from Maze Coding, Pattern Recognition, Deductive Logic, and Spatial Reasoning!</p>
+                </div>
+
+                <div class="tutorial-slide">
+                    <div class="tutorial-icon">📈</div>
+                    <h3>Track Your Progress</h3>
+                    <p>Earn achievements, maintain streaks, and unlock new skills as you learn!</p>
+                </div>
+            </div>
+
+            <div class="tutorial-nav">
+                <button id="btn-skip-tutorial" class="menu-btn secondary">Skip</button>
+                <button id="btn-complete-tutorial" class="menu-btn primary">Let's Go!</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MAIN MENU SCREEN -->
+    <div id="screen-menu" class="screen active">
+        <div class="menu-content">
+            <h1 class="game-title">LogicLabs</h1>
+            <p class="subtitle">Train Your Brain: Logic & Critical Thinking</p>
+
+
+            <!-- Game Mode Selector - Educational Focus -->
+            <div class="game-mode-selector">
+                <p>Choose Your Challenge:</p>
+                <div class="mode-buttons">
+                    <button id="btn-mode-maze" class="menu-btn game-mode active" data-mode="maze">
+                        <span class="mode-icon">🧩</span>
+                        <span class="mode-name">Maze Coding</span>
+                        <span class="mode-desc">Program robots through mazes</span>
+                    </button>
+                    <button id="btn-mode-pattern" class="menu-btn game-mode" data-mode="pattern">
+                        <span class="mode-icon">🔢</span>
+                        <span class="mode-name">Pattern Recognition</span>
+                        <span class="mode-desc">Find the missing piece</span>
+                    </button>
+                    <button id="btn-mode-deduction" class="menu-btn game-mode" data-mode="deduction">
+                        <span class="mode-icon">🔍</span>
+                        <span class="mode-name">Deductive Logic</span>
+                        <span class="mode-desc">Solve logic puzzles</span>
+                    </button>
+                    <button id="btn-mode-spatial" class="menu-btn game-mode" data-mode="spatial">
+                        <span class="mode-icon">🧊</span>
+                        <span class="mode-name">Spatial Reasoning</span>
+                        <span class="mode-desc">Rotate and transform shapes</span>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="difficulty-selector">
+                <p>Select Difficulty:</p>
+                <div class="diff-buttons">
+                    <button id="btn-easy" class="menu-btn diff easy">🟢 Easy</button>
+                    <button id="btn-medium" class="menu-btn diff medium">🟡 Medium</button>
+                    <button id="btn-hard" class="menu-btn diff hard">🔴 Hard</button>
+                    <button id="btn-expert" class="menu-btn diff expert">🟣 Expert</button>
+                    <button id="btn-master" class="menu-btn diff master">⚫ Master</button>
+                </div>
+            </div>
+
+
+            <div class="challenge-selector">
+                <p>Challenge Mode:</p>
+                <div class="challenge-buttons">
+                    <button id="btn-normal" class="menu-btn challenge active">Normal</button>
+                    <button id="btn-time-attack" class="menu-btn challenge">⏱️ Time Attack</button>
+                    <button id="btn-minimal-moves" class="menu-btn challenge">🎯 Minimal Moves</button>
+                </div>
+            </div>
+
+            <!-- Educational Progress Panel -->
+            <div class="educational-progress">
+                <p>Your Skills:</p>
+                <div class="skill-tags">
+                    <span class="skill-tag unlocked">Sequencing</span>
+                    <span class="skill-tag unlocked">Loops</span>
+                    <span class="skill-tag current">Pattern Recognition</span>
+                    <span class="skill-tag">Deduction</span>
+                    <span class="skill-tag">Spatial Thinking</span>
+                    <span class="skill-tag">Debugging</span>
+                </div>
+            </div>
+
+            <div class="streak-display">
+                <span class="streak-fire">⭐</span>
+                <span id="menu-stars">0 stars · no levels cleared</span>
+            </div>
+
+            <div class="menu-nav">
+                <button id="btn-progress" type="button" class="menu-btn secondary">Progress</button>
+                <button id="btn-achievements" type="button" class="menu-btn secondary">Achievements</button>
+                <button id="btn-options" type="button" class="menu-btn secondary">Settings</button>
+            </div>
+
+
+            <div class="credits">Educational Brain Training Game</div>
+        </div>
+    </div>
+
+
+    <!-- GAMEPLAY SCREEN -->
+    <div id="screen-game" class="screen">
+        <div class="top-bar">
+            <button id="btn-back-menu" class="icon-btn">🏠</button>
+            <div class="level-info">Level <span id="level-display">1</span> - <span id="mode-display">Maze</span></div>
+            <div id="timer-display" class="timer-display">⏱️ <span id="timer-value">0:00</span></div>
+            <div class="score-display">🚶 <span id="moves-display">0</span></div>
+            <div class="score-display">🔋 <span id="battery-display">100</span>%</div>
+        </div>
+
+
+        <div id="app-container">
+            <!-- Maze Game Content -->
+            <div id="maze-game" class="game-screen-content active">
+                <!-- Sidebar for Puzzle Pieces -->
+                <aside id="sidebar">
+                    <p class="palette-help">Tap or drag a block into the program.</p>
+                    <div class="piece-category">
+                        <h3>Actions</h3>
+                        <div class="pieces-list" id="block-palette">
+                            <button type="button" class="puzzle-piece action" data-type="move-forward" data-label="Move">
+                                <span class="icon" aria-hidden="true">➜</span> Move
+                            </button>
+                            <button type="button" class="puzzle-piece action" data-type="turn-left" data-label="Turn Left">
+                                <span class="icon" aria-hidden="true">↰</span> Turn Left
+                            </button>
+                            <button type="button" class="puzzle-piece action" data-type="turn-right" data-label="Turn Right">
+                                <span class="icon" aria-hidden="true">↱</span> Turn Right
+                            </button>
+                            <button type="button" class="puzzle-piece action jump" data-type="jump" data-label="Jump">
+                                <span class="icon" aria-hidden="true">🦘</span> Jump
+                            </button>
+                            <button type="button" class="puzzle-piece logic" data-type="loop" data-label="Loop">
+                                <span class="icon" aria-hidden="true">↻</span> Loop
+                            </button>
+                            <button type="button" class="puzzle-piece sensor" data-type="if-wall" data-label="If">
+                                <span class="icon" aria-hidden="true">🧱</span> If
+                            </button>
+                            <button type="button" class="puzzle-piece sensor" data-type="if-path" data-label="If Path">
+                                <span class="icon" aria-hidden="true">🛤</span> If Path
+                            </button>
+                        </div>
+                    </div>
+
+                    <button id="ai-generate-btn" type="button" class="glow-button">New Maze</button>
+                </aside>
+
+
+                <!-- Main Workspace -->
+                <main id="workspace">
+                    <button id="workspace-hint" type="button" class="workspace-hint">Tap a block to add it. Tap here if you are inside a loop.</button>
+                    <div id="canvas-area">
+                        <div id="start-node" class="puzzle-piece start">
+                            <span class="icon">▶</span> START
+                        </div>
+                    </div>
+
+                    <div id="controls">
+                        <button id="run-btn" type="button" class="action-button run">▶ RUN</button>
+                        <button id="reset-btn" type="button" class="action-button reset">↺ RESET</button>
+                    </div>
+                </main>
+
+
+                <!-- Preview/Game View -->
+                <section id="game-view">
+                    <div class="game-screen">
+                        <div id="player-character">🤖</div>
+                    </div>
+                    <div class="console-log">
+                        <p>> Ready to code...</p>
+                    </div>
+                </section>
+            </div>
+
+
+            <!-- Pattern Recognition Game -->
+            <div id="pattern-game" class="game-screen-content">
+                <div class="hint-system">
+                    <button class="hint-btn">💡</button>
+                    <span class="hint-text">Look for rotation patterns!</span>
+                </div>
+
+                <h3>Find the Missing Piece</h3>
+                <div class="pattern-grid" id="pattern-grid">
+                    <!-- Pattern cells will be generated here -->
+                </div>
+
+                <p>Select the correct answer:</p>
+                <div class="pattern-options" id="pattern-options">
+                    <!-- Options will be generated here -->
+                </div>
+            </div>
+
+
+            <!-- Deductive Logic Game -->
+            <div id="deduction-game" class="game-screen-content">
+                <div class="hint-system">
+                    <button class="hint-btn">💡</button>
+                    <span class="hint-text">Use process of elimination!</span>
+                </div>
+
+                <h3>Solve the Mystery</h3>
+                <div class="deduction-clues" id="deduction-clues">
+                    <!-- Clues will be generated here -->
+                </div>
+
+                <div class="deduction-grid" id="deduction-grid">
+                    <!-- Deduction grid will be generated here -->
+                </div>
+            </div>
+
+
+            <!-- Spatial Reasoning Game -->
+            <div id="spatial-game" class="game-screen-content">
+                <div class="hint-system">
+                    <button class="hint-btn">💡</button>
+                    <span class="hint-text">Watch the rotation direction!</span>
+                </div>
+
+                <h3>What Comes Next?</h3>
+                <div class="spatial-display">
+                    <div class="spatial-shape" id="spatial-shape-1">▲</div>
+                    <span class="spatial-arrow">→</span>
+                    <div class="spatial-shape" id="spatial-shape-2">▶</div>
+                    <span class="spatial-arrow">→</span>
+                    <div class="spatial-shape" id="spatial-shape-3">▼</div>
+                    <span class="spatial-arrow">=</span>
+                    <div class="spatial-shape">?</div>
+                </div>
+
+                <p>Select the correct transformation:</p>
+                <div class="spatial-options" id="spatial-options">
+                    <!-- Options will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- RESULT SCREEN -->
+    <div id="screen-result" class="screen">
+        <div class="result-card">
+            <h2 id="result-title">Level Complete!</h2>
+            <div class="stars" id="result-stars">⭐⭐⭐</div>
+
+            <div class="educational-feedback-content" id="educational-feedback">
+                <div class="feedback-icon" id="feedback-icon">🎉</div>
+                <div class="feedback-title" id="feedback-title">Excellent Work!</div>
+                <div class="feedback-message" id="feedback-message">You've completed this challenge!</div>
+                <div class="educational-tip" id="educational-tip">
+                    <h4>💡 Learning Moment</h4>
+                    <p id="tip-content">Pattern recognition helps train your brain to identify relationships between objects!</p>
+                </div>
+            </div>
+
+            <div class="score-detail">
+                <p>Score: <span id="final-score">85</span></p>
+                <p id="moves-used-display">Moves Used: <span id="moves-used">0</span></p>
+                <p id="time-used-display">Time: <span id="time-used">0.0</span>s</p>
+            </div>
+
+            <button id="btn-next-level" type="button" class="menu-btn primary">Next Level ➜</button>
+            <button id="btn-retry" type="button" class="menu-btn secondary">↺ Retry</button>
+            <button id="btn-menu-return" type="button" class="menu-btn">🏠 Menu</button>
+        </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="screen-settings" class="screen">
+        <div class="menu-content">
+            <h2>Settings</h2>
+            <p class="settings-note">Progress, programs, and settings stay on this device. Nothing is sent off the device.</p>
+            <label class="sound-toggle" for="setting-sound">
+                <input id="setting-sound" type="checkbox" checked>
+                Sound
+            </label>
+            <button id="btn-clear-data" type="button" class="menu-btn secondary">Clear All Data</button>
+            <div id="clear-confirm" class="confirm-box" hidden>
+                <p>Delete all on-device progress, achievements, and settings? This cannot be undone.</p>
+                <button id="btn-clear-confirm" type="button" class="menu-btn primary">Delete everything</button>
+                <button id="btn-clear-cancel" type="button" class="menu-btn secondary">Cancel</button>
+            </div>
+            <p id="clear-success" class="clear-success" hidden>All saved data was cleared. No progress was restored.</p>
+            <div class="legal-links">
+                <a id="link-privacy" class="legal-link" href="legal/privacy.html">Privacy Policy</a>
+                <a id="link-terms" class="legal-link" href="legal/terms.html">Terms of Service</a>
+            </div>
+            <button id="btn-settings-back" type="button" class="menu-btn">Back to menu</button>
+        </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div id="screen-progress" class="screen">
+        <div class="menu-content">
+            <h2>Progress</h2>
+            <div id="progress-body"></div>
+            <button id="btn-progress-back" type="button" class="menu-btn">Back to menu</button>
+        </div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div id="screen-achievements" class="screen">
+        <div class="menu-content">
+            <h2>Achievements</h2>
+            <ul id="achievements-list"></ul>
+            <button id="btn-achievements-back" type="button" class="menu-btn">Back to menu</button>
+        </div>
+    </div>
+
+    <!-- ERROR FALLBACK -->
+    <div id="error-fallback" class="screen">
+        <div class="menu-content">
+            <h2>Something went wrong</h2>
+            <p>The game hit an unexpected error. Your program stays on this device.</p>
+            <button id="btn-error-menu" type="button" class="menu-btn primary">Back to menu</button>
+        </div>
+    </div>
+
+    <script>
+        function recordGameError(error) {
+            try {
+                var message = 'unknown';
+                if (error && error.message) message = String(error.message);
+                else if (typeof error === 'string') message = error;
+                message = message.replace(/[A-Za-z]:\\[^\s]+/g, '[path]').slice(0, 240);
+                var raw = localStorage.getItem('logiclabs_error_log');
+                var list = raw ? JSON.parse(raw) : [];
+                if (!Array.isArray(list)) list = [];
+                list.push({ t: Date.now(), message: message });
+                localStorage.setItem('logiclabs_error_log', JSON.stringify(list.slice(-20)));
+            } catch (error_) {
+                // Private browsing can block storage; the fallback screen still appears.
+            }
+        }
+        window.showGameError = function (error) {
+            recordGameError(error);
+            var screens = document.querySelectorAll('.screen');
+            for (var screen of screens) screen.classList.remove('active');
+            var fallback = document.getElementById('error-fallback');
+            if (fallback) fallback.classList.add('active');
+        };
+        document.getElementById('btn-error-menu').addEventListener('click', function () {
+            window.location.href = 'index.html';
+        });
+        window.addEventListener('error', function (event) {
+            if (!event.error) return;
+            window.showGameError(event.error);
+        });
+        window.addEventListener('unhandledrejection', function (event) {
+            window.showGameError(event.reason);
+        });
+    </script>
+    <script type="module" src="dist/App.js"></script>
+</body>
+
+</html>

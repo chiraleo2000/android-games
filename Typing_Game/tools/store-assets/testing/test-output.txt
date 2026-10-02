@@ -1,0 +1,63 @@
+
+> wordsprint@2.0.0 test
+> jest --config jest.config.js --colors=false --runInBand
+
+ts-jest[config] (WARN) message TS151001: If you have issues related to imports, you should consider setting `esModuleInterop` to `true` in your TypeScript configuration file (usually `tsconfig.json`). See https://blogs.msdn.microsoft.com/typescript/2018/01/31/announcing-typescript-2-7/#easier-ecmascript-module-interoperability for more information.
+PASS tests/scoring.test.ts
+  Scoring System
+    calculateScore()
+      ΓêÜ returns base points and resets multiplier when streak is broken (1 ms)
+      ΓêÜ applies 1.5x multiplier on first streak hit
+      ΓêÜ compounds multiplier on consecutive hits (1 ΓåÆ 1.5 ΓåÆ 2.25) (1 ms)
+      ΓêÜ caps multiplier at MAX_MULTIPLIER (8.0)
+      ΓêÜ large multiplier with streak reset returns only base points
+    formatTime()
+      ΓêÜ formats 0 seconds
+      ΓêÜ formats 300 seconds as 05:00
+      ΓêÜ formats 65 seconds as 01:05 (1 ms)
+      ΓêÜ formats 9 seconds as 00:09
+    getComboMessage()
+      ΓêÜ returns empty string for streak 0 (1 ms)
+      ΓêÜ returns empty string for streak 1
+      ΓêÜ returns combo message for streak 2+
+      ΓêÜ returns LEGENDARY for streak 10+ (1 ms)
+    getAccuracy()
+      ΓêÜ returns 0 when no attempts
+      ΓêÜ returns 100 when all correct
+      ΓêÜ returns 50 when half correct
+      ΓêÜ rounds to nearest integer
+    getStarRating()
+      ΓêÜ returns 1 star for low score
+      ΓêÜ returns 2 stars for medium score (200+)
+      ΓêÜ returns 3 stars for high score (500+)
+    answer validation
+      ΓêÜ normalizes case and extra whitespace (1 ms)
+      ΓêÜ ignores simple punctuation and accents (3 ms)
+      ΓêÜ keeps numbers as exact normalized strings
+      ΓêÜ returns a stable normalized value for display-independent matching
+    getNextMistakeState()
+      ΓêÜ does not reveal before the fifth mistake (1 ms)
+      ΓêÜ reveals on the fifth mistake and caps the counter
+    difficulty filtering
+      ΓêÜ returns only words for the requested level (4 ms)
+    US-first vocabulary
+      ΓêÜ uses US-mainstream words for confusing common cases (10 ms)
+    dictionary category
+      ΓêÜ exposes thousands of dictionary words (2 ms)
+      ΓêÜ every dictionary entry has the required Word shape (41 ms)
+      ΓêÜ dictionary IDs are unique (5 ms)
+      ΓêÜ difficulty matches term length heuristic (271 ms)
+      ΓêÜ filtering dictionary by difficulty narrows correctly (2 ms)
+    global word integrity
+      ΓêÜ every word in every category passes type guards (554 ms)
+      ΓêÜ no duplicate IDs across the entire word set (4 ms)
+    scoring edge cases
+      ΓêÜ zero base points still respects multiplier shape
+      ΓêÜ negative streak start treated as a reset
+      ΓêÜ accuracy rounds half to nearest
+
+Test Suites: 1 passed, 1 total
+Tests:       38 passed, 38 total
+Snapshots:   0 total
+Time:        1.372 s, estimated 2 s
+Ran all test suites.

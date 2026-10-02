@@ -1,0 +1,24 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+
+# Capacitor and native build output
+android/.gradle/
+android/build/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+ios/App/Pods/
+ios/App/build/
+
+# Local signing secrets
+*.jks
+*.keystore
+android/keystore.properties
+!android/keystore.properties.example
+android/local.properties
+ios/App/Podfile.lock
+
+# Copyrighted dictionary sources must not be committed
+dictionary.json
+The_Oxford_English_Dictionary_Second_Edition.pdf

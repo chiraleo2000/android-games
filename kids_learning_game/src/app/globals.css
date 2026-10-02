@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+:root {
+  --font-nunito: "Segoe UI", "Arial Rounded MT Bold", system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-background: #f0f9ff;
+  --color-foreground: #1e293b;
+  --font-sans: var(--font-nunito);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-nunito), 'Arial Rounded MT Bold', Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Prevent iOS auto-zoom on input focus (requires font-size >= 16px) */
+input,
+textarea,
+select {
+  font-size: 16px;
+  touch-action: manipulation;
+}
+
+/* Snappy tap response on mobile */
+button,
+a {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}

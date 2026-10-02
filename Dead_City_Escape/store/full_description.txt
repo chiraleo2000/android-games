@@ -1,0 +1,17 @@
+Dead City Escape is a violent offline survival game. You are trapped in a ruined city full of zombies. Fight through the streets, then escape by helicopter, car, or the sewers.
+
+This game shows combat, weapons, and character death. It is not a children's app and it is not part of the Google Play Families program. There is no account and no login.
+
+Progress, settings, and generated cache stay on this device. The game does not send that data off the device. Settings can delete all local data after you confirm, then the game starts fresh with no restored run.
+
+Three escape routes:
+
+- Helicopter: find fuel, repair the radio, and hold the pad.
+- Car: find the key, gather repair parts, and clear the barricade.
+- Sewer: use lockpicks and a torch, and stay quiet.
+
+Each run builds a new city. Level and best time remain on the device until you delete them.
+
+Support: [SUPPORT_EMAIL]
+Publisher: [LEGAL_NAME]
+Effective date: [EFFECTIVE_DATE]

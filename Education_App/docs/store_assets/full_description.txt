@@ -1,0 +1,7 @@
+LogicLabs is an offline educational maze game. Pick a difficulty, drag or tap Move, Jump, Turn, Loop, and If blocks, then press Run. The robot follows your program until it reaches the star or runs out of battery, time, or moves.
+
+Learn sequencing, loops, and conditionals with a touch-friendly workspace. Easy mazes introduce the blocks. Higher difficulties add larger mazes, checkpoints, and tighter limits. Time Attack and Minimal Moves are optional challenge modes.
+
+Progress, stars, and achievements are stored only on your device. There is no account, no ads, and no off-device transmission of programs or scores. Sound is a simple on-device beep you can turn off. Clear All Data deletes saved progress after you confirm, and nothing is restored.
+
+Open Settings for the privacy policy and terms. LogicLabs works without a network connection.

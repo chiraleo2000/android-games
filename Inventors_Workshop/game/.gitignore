@@ -1,0 +1,17 @@
+node_modules/
+dist/
+*.local
+.DS_Store
+
+# Signing secrets and the real Gradle properties file
+android/gradle.properties
+android/local.properties
+*.jks
+*.keystore
+
+android/.gradle/
+android/build/
+android/app/build/
+android/captures/
+*.apk
+*.aab

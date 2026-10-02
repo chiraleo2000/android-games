@@ -1,0 +1,495 @@
+{
+  "generatedAt": "2026-05-20T15:58:48.705Z",
+  "app": "SpellingBee Dictionary - English Spelling Practice Game",
+  "requirements": {
+    "appIcon": "PNG, 512 x 512 px, <= 1 MB",
+    "featureGraphic": "PNG, 1024 x 500 px, <= 15 MB",
+    "screenshots": "PNG screenshots for phone/tablet in portrait and landscape"
+  },
+  "graphics": [
+    {
+      "label": "Google Play app icon",
+      "file": "tools/store-assets/app-icon/app-icon-512.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 18322
+    },
+    {
+      "label": "Google Play feature graphic",
+      "file": "tools/store-assets/feature-graphic/feature-graphic-1024x500.png",
+      "width": 1024,
+      "height": 500,
+      "bytes": 47818
+    }
+  ],
+  "screenshots": [
+    {
+      "label": "Phone (small) portrait - Start menu",
+      "file": "tools/store-assets/screenshots/phone/small/portrait/01-start-menu.png",
+      "width": 720,
+      "height": 1280,
+      "bytes": 126064,
+      "target": "phone-small-portrait",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 720,
+        "height": 1280
+      }
+    },
+    {
+      "label": "Phone (small) portrait - Active game",
+      "file": "tools/store-assets/screenshots/phone/small/portrait/02-active-game.png",
+      "width": 720,
+      "height": 1280,
+      "bytes": 180415,
+      "target": "phone-small-portrait",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 720,
+        "height": 1280
+      }
+    },
+    {
+      "label": "Phone (small) portrait - Game over",
+      "file": "tools/store-assets/screenshots/phone/small/portrait/03-game-over.png",
+      "width": 720,
+      "height": 1280,
+      "bytes": 119419,
+      "target": "phone-small-portrait",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 720,
+        "height": 1280
+      }
+    },
+    {
+      "label": "Phone (small) landscape - Start menu",
+      "file": "tools/store-assets/screenshots/phone/small/landscape/01-start-menu.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 116833,
+      "target": "phone-small-landscape",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "label": "Phone (small) landscape - Active game",
+      "file": "tools/store-assets/screenshots/phone/small/landscape/02-active-game.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 152370,
+      "target": "phone-small-landscape",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "label": "Phone (small) landscape - Game over",
+      "file": "tools/store-assets/screenshots/phone/small/landscape/03-game-over.png",
+      "width": 1280,
+      "height": 720,
+      "bytes": 98598,
+      "target": "phone-small-landscape",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 1280,
+        "height": 720
+      }
+    },
+    {
+      "label": "Phone (standard) portrait - Start menu",
+      "file": "tools/store-assets/screenshots/phone/standard/portrait/01-start-menu.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 196686,
+      "target": "phone-standard-portrait",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 1080,
+        "height": 1920
+      }
+    },
+    {
+      "label": "Phone (standard) portrait - Active game",
+      "file": "tools/store-assets/screenshots/phone/standard/portrait/02-active-game.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 334238,
+      "target": "phone-standard-portrait",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 1080,
+        "height": 1920
+      }
+    },
+    {
+      "label": "Phone (standard) portrait - Game over",
+      "file": "tools/store-assets/screenshots/phone/standard/portrait/03-game-over.png",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 254278,
+      "target": "phone-standard-portrait",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 1080,
+        "height": 1920
+      }
+    },
+    {
+      "label": "Phone (standard) landscape - Start menu",
+      "file": "tools/store-assets/screenshots/phone/standard/landscape/01-start-menu.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 191944,
+      "target": "phone-standard-landscape",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 1920,
+        "height": 1080
+      }
+    },
+    {
+      "label": "Phone (standard) landscape - Active game",
+      "file": "tools/store-assets/screenshots/phone/standard/landscape/02-active-game.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 259853,
+      "target": "phone-standard-landscape",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 1920,
+        "height": 1080
+      }
+    },
+    {
+      "label": "Phone (standard) landscape - Game over",
+      "file": "tools/store-assets/screenshots/phone/standard/landscape/03-game-over.png",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 174983,
+      "target": "phone-standard-landscape",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 1920,
+        "height": 1080
+      }
+    },
+    {
+      "label": "Phone (XL) portrait - Start menu",
+      "file": "tools/store-assets/screenshots/phone/xl/portrait/01-start-menu.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 573663,
+      "target": "phone-xl-portrait",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 1440,
+        "height": 2560
+      }
+    },
+    {
+      "label": "Phone (XL) portrait - Active game",
+      "file": "tools/store-assets/screenshots/phone/xl/portrait/02-active-game.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 824316,
+      "target": "phone-xl-portrait",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 1440,
+        "height": 2560
+      }
+    },
+    {
+      "label": "Phone (XL) portrait - Game over",
+      "file": "tools/store-assets/screenshots/phone/xl/portrait/03-game-over.png",
+      "width": 1440,
+      "height": 2560,
+      "bytes": 704355,
+      "target": "phone-xl-portrait",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 1440,
+        "height": 2560
+      }
+    },
+    {
+      "label": "Phone (XL) landscape - Start menu",
+      "file": "tools/store-assets/screenshots/phone/xl/landscape/01-start-menu.png",
+      "width": 2560,
+      "height": 1440,
+      "bytes": 372771,
+      "target": "phone-xl-landscape",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 2560,
+        "height": 1440
+      }
+    },
+    {
+      "label": "Phone (XL) landscape - Active game",
+      "file": "tools/store-assets/screenshots/phone/xl/landscape/02-active-game.png",
+      "width": 2560,
+      "height": 1440,
+      "bytes": 469885,
+      "target": "phone-xl-landscape",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 2560,
+        "height": 1440
+      }
+    },
+    {
+      "label": "Phone (XL) landscape - Game over",
+      "file": "tools/store-assets/screenshots/phone/xl/landscape/03-game-over.png",
+      "width": 2560,
+      "height": 1440,
+      "bytes": 480026,
+      "target": "phone-xl-landscape",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 2560,
+        "height": 1440
+      }
+    },
+    {
+      "label": "Tablet (7-inch) portrait - Start menu",
+      "file": "tools/store-assets/screenshots/tablet/7-inch/portrait/01-start-menu.png",
+      "width": 1200,
+      "height": 1920,
+      "bytes": 365049,
+      "target": "tablet-7-portrait",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 1200,
+        "height": 1920
+      }
+    },
+    {
+      "label": "Tablet (7-inch) portrait - Active game",
+      "file": "tools/store-assets/screenshots/tablet/7-inch/portrait/02-active-game.png",
+      "width": 1200,
+      "height": 1920,
+      "bytes": 523880,
+      "target": "tablet-7-portrait",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 1200,
+        "height": 1920
+      }
+    },
+    {
+      "label": "Tablet (7-inch) portrait - Game over",
+      "file": "tools/store-assets/screenshots/tablet/7-inch/portrait/03-game-over.png",
+      "width": 1200,
+      "height": 1920,
+      "bytes": 458207,
+      "target": "tablet-7-portrait",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 1200,
+        "height": 1920
+      }
+    },
+    {
+      "label": "Tablet (7-inch) landscape - Start menu",
+      "file": "tools/store-assets/screenshots/tablet/7-inch/landscape/01-start-menu.png",
+      "width": 1920,
+      "height": 1200,
+      "bytes": 284685,
+      "target": "tablet-7-landscape",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 1920,
+        "height": 1200
+      }
+    },
+    {
+      "label": "Tablet (7-inch) landscape - Active game",
+      "file": "tools/store-assets/screenshots/tablet/7-inch/landscape/02-active-game.png",
+      "width": 1920,
+      "height": 1200,
+      "bytes": 334878,
+      "target": "tablet-7-landscape",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 1920,
+        "height": 1200
+      }
+    },
+    {
+      "label": "Tablet (7-inch) landscape - Game over",
+      "file": "tools/store-assets/screenshots/tablet/7-inch/landscape/03-game-over.png",
+      "width": 1920,
+      "height": 1200,
+      "bytes": 335104,
+      "target": "tablet-7-landscape",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 1920,
+        "height": 1200
+      }
+    },
+    {
+      "label": "Tablet (10-inch) portrait - Start menu",
+      "file": "tools/store-assets/screenshots/tablet/10-inch/portrait/01-start-menu.png",
+      "width": 1600,
+      "height": 2560,
+      "bytes": 946046,
+      "target": "tablet-10-portrait",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 1600,
+        "height": 2560
+      }
+    },
+    {
+      "label": "Tablet (10-inch) portrait - Active game",
+      "file": "tools/store-assets/screenshots/tablet/10-inch/portrait/02-active-game.png",
+      "width": 1600,
+      "height": 2560,
+      "bytes": 1026088,
+      "target": "tablet-10-portrait",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 1600,
+        "height": 2560
+      }
+    },
+    {
+      "label": "Tablet (10-inch) portrait - Game over",
+      "file": "tools/store-assets/screenshots/tablet/10-inch/portrait/03-game-over.png",
+      "width": 1600,
+      "height": 2560,
+      "bytes": 1022019,
+      "target": "tablet-10-portrait",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 1600,
+        "height": 2560
+      }
+    },
+    {
+      "label": "Tablet (10-inch) landscape - Start menu",
+      "file": "tools/store-assets/screenshots/tablet/10-inch/landscape/01-start-menu.png",
+      "width": 2560,
+      "height": 1600,
+      "bytes": 802692,
+      "target": "tablet-10-landscape",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 2560,
+        "height": 1600
+      }
+    },
+    {
+      "label": "Tablet (10-inch) landscape - Active game",
+      "file": "tools/store-assets/screenshots/tablet/10-inch/landscape/02-active-game.png",
+      "width": 2560,
+      "height": 1600,
+      "bytes": 904713,
+      "target": "tablet-10-landscape",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 2560,
+        "height": 1600
+      }
+    },
+    {
+      "label": "Tablet (10-inch) landscape - Game over",
+      "file": "tools/store-assets/screenshots/tablet/10-inch/landscape/03-game-over.png",
+      "width": 2560,
+      "height": 1600,
+      "bytes": 883749,
+      "target": "tablet-10-landscape",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 2560,
+        "height": 1600
+      }
+    },
+    {
+      "label": "Tablet (pro / 12.9-inch) portrait - Start menu",
+      "file": "tools/store-assets/screenshots/tablet/pro/portrait/01-start-menu.png",
+      "width": 2048,
+      "height": 2732,
+      "bytes": 1310247,
+      "target": "tablet-pro-portrait",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 2048,
+        "height": 2732
+      }
+    },
+    {
+      "label": "Tablet (pro / 12.9-inch) portrait - Active game",
+      "file": "tools/store-assets/screenshots/tablet/pro/portrait/02-active-game.png",
+      "width": 2048,
+      "height": 2732,
+      "bytes": 1420787,
+      "target": "tablet-pro-portrait",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 2048,
+        "height": 2732
+      }
+    },
+    {
+      "label": "Tablet (pro / 12.9-inch) portrait - Game over",
+      "file": "tools/store-assets/screenshots/tablet/pro/portrait/03-game-over.png",
+      "width": 2048,
+      "height": 2732,
+      "bytes": 1379924,
+      "target": "tablet-pro-portrait",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 2048,
+        "height": 2732
+      }
+    },
+    {
+      "label": "Tablet (pro / 12.9-inch) landscape - Start menu",
+      "file": "tools/store-assets/screenshots/tablet/pro/landscape/01-start-menu.png",
+      "width": 2732,
+      "height": 2048,
+      "bytes": 1230407,
+      "target": "tablet-pro-landscape",
+      "screen": "01-start-menu",
+      "expected": {
+        "width": 2732,
+        "height": 2048
+      }
+    },
+    {
+      "label": "Tablet (pro / 12.9-inch) landscape - Active game",
+      "file": "tools/store-assets/screenshots/tablet/pro/landscape/02-active-game.png",
+      "width": 2732,
+      "height": 2048,
+      "bytes": 1313079,
+      "target": "tablet-pro-landscape",
+      "screen": "02-active-game",
+      "expected": {
+        "width": 2732,
+        "height": 2048
+      }
+    },
+    {
+      "label": "Tablet (pro / 12.9-inch) landscape - Game over",
+      "file": "tools/store-assets/screenshots/tablet/pro/landscape/03-game-over.png",
+      "width": 2732,
+      "height": 2048,
+      "bytes": 1312039,
+      "target": "tablet-pro-landscape",
+      "screen": "03-game-over",
+      "expected": {
+        "width": 2732,
+        "height": 2048
+      }
+    }
+  ]
+}

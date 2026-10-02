@@ -1,0 +1,9 @@
+Learning Gen Alpha is an educational adventure you can start immediately. Walk around a floating island and solve puzzles in math, science, logic, geography, words, code, fractions, and AI literacy.
+
+Every answer is checked on the device. Hints, score, and a finished state stay in local storage. You do not need an account or a server connection to play the solo world.
+
+Settings includes a privacy policy link and Clear All Data. Clearing data erases puzzle progress, and that progress is not restored.
+
+An optional online lobby remains in the app for people who want it. The store entry is solo play, so the app does not wait on a server connection screen.
+
+There are no ads and no analytics that leave the device.

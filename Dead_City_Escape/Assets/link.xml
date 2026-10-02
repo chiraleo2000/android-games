@@ -1,0 +1,30 @@
+<linker>
+  <!-- Preserve all types in the Logic assembly -->
+  <assembly fullname="DeadCityEscape.Logic" preserve="all"/>
+  
+  <!-- Preserve all types in the Runtime assembly -->
+  <assembly fullname="DeadCityEscape.Runtime" preserve="all"/>
+  
+  <!-- Preserve System assemblies needed for serialization -->
+  <assembly fullname="System" preserve="all"/>
+  <assembly fullname="System.Core" preserve="all"/>
+  <assembly fullname="System.Runtime.Serialization" preserve="all"/>
+  <assembly fullname="System.Xml" preserve="all"/>
+  
+  <!-- Preserve Unity assemblies -->
+  <assembly fullname="UnityEngine" preserve="all"/>
+  <assembly fullname="UnityEngine.CoreModule" preserve="all"/>
+  <assembly fullname="UnityEngine.PhysicsModule" preserve="all"/>
+  <assembly fullname="UnityEngine.AIModule" preserve="all"/>
+  <assembly fullname="UnityEngine.AudioModule" preserve="all"/>
+  <assembly fullname="UnityEngine.AnimationModule" preserve="all"/>
+  <assembly fullname="UnityEngine.UIModule" preserve="all"/>
+  <assembly fullname="UnityEngine.InputLegacyModule" preserve="all"/>
+  
+  <!-- Preserve Input System -->
+  <assembly fullname="Unity.InputSystem" preserve="all"/>
+  
+  <!-- Preserve URP -->
+  <assembly fullname="Unity.RenderPipelines.Universal.Runtime" preserve="all"/>
+  <assembly fullname="Unity.RenderPipelines.Core.Runtime" preserve="all"/>
+</linker>

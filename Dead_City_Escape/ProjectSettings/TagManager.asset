@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Zombie
+  - Survivor
+  - Pickup
+  - Explosive
+  - POI
+  - EscapeVehicle
+  - Weapon
+  - Interactable
+  - ZoneMarker
+  - Barricade
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Player
+  - Enemy
+  - Pickup
+  - Environment
+  - Projectile
+  - Trigger
+  - NPC
+  - IgnoreRaycast
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  sortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

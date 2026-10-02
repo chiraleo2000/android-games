@@ -1,0 +1,8 @@
+{
+  "appId": "com.wordblitz.kids",
+  "appName": "Word Blitz",
+  "webDir": "out",
+  "android": {
+    "path": "android"
+  }
+}

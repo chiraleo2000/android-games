@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">LogicLabs</string>
+    <string name="title_activity_main">LogicLabs</string>
+    <string name="package_name">com.logiclabs.codeescape</string>
+    <string name="custom_url_scheme">com.logiclabs.codeescape</string>
+</resources>

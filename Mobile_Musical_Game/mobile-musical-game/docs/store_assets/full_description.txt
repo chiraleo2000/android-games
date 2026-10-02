@@ -1,0 +1,9 @@
+Musical Instruments lets you explore Thai and international instruments on your device. Tap to strike, pluck, or press. Each instrument has its own synthesized tone, created in the app from oscillator waveforms. No recorded commercial samples are included.
+
+Open an instrument to orbit and zoom a generated 3D model, then play its notes. Read a short cultural note in Thai and English.
+
+At least six instruments cover striking, plucking, and pressing, with Thai and English names.
+
+Settings stores your volume and language choices on the device. Privacy Policy is linked from Settings. Clear All Data erases saved preferences and the last instrument. Nothing is restored after you clear data.
+
+There are no accounts, no ads, and no analytics that leave the device.

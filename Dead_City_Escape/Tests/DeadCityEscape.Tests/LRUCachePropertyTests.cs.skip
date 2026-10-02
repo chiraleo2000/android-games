@@ -1,0 +1,121 @@
+// ---------------------------------------------------------------------------
+// Dead City Escape - LRU Cache Property-Based Tests
+// Validates correctness properties using FsCheck.
+// ---------------------------------------------------------------------------
+using NUnit.Framework;
+using DeadCityEscape.Logic;
+using Prop = FsCheck.Prop;
+using Gen = FsCheck.Gen;
+using Arb = FsCheck.Arb;
+
+namespace DeadCityEscape.Tests
+{
+    [TestFixture]
+    [Category("Feature:dead-city-escape-mobile-overhaul")]
+    public class LRUCachePropertyTests
+    {
+        // Property 7: LRUCache Capacity Invariant
+        // For any sequence of Put operations on an LRUCache with capacity C,
+        // Count must never exceed C after any operation.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:7")]
+        public FsCheck.Property Property7_LRUCache_CapacityInvariant()
+        {
+            var operationsGen = Gen.Choose(1, 50)
+                .SelectMany(count => Gen.ArrayOf(count, Gen.Choose(0, 100)));
+
+            return Prop.ForAll(
+                Gen.Choose(1, 20),
+                Arb.From(operationsGen),
+                (capacity, keys) =>
+                {
+                    var cache = new LRUCache<int, string>(capacity);
+
+                    foreach (var key in keys)
+                    {
+                        cache.Put(key, $"value_{key}");
+                        if (cache.Count > capacity)
+                            return false;
+                    }
+
+                    return true;
+                });
+        }
+
+        // Property 8: LRUCache Eviction Callback Correctness
+        // For an LRUCache with capacity C, when a (C+1)th distinct key is inserted,
+        // the eviction callback must be invoked exactly once with the LRU entry.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:8")]
+        public FsCheck.Property Property8_LRUCache_EvictionCallbackCorrectness()
+        {
+            return Prop.ForAll(
+                Gen.Choose(2, 10),
+                capacity =>
+                {
+                    int evictionCount = 0;
+                    int? evictedKey = null;
+                    string? evictedValue = null;
+
+                    var cache = new LRUCache<int, string>(
+                        capacity,
+                        (k, v) =>
+                        {
+                            evictionCount++;
+                            evictedKey = k;
+                            evictedValue = v;
+                        });
+
+                    // Fill cache to capacity
+                    for (int i = 0; i < capacity; i++)
+                    {
+                        cache.Put(i, $"value_{i}");
+                    }
+
+                    // Should be no evictions yet
+                    if (evictionCount != 0)
+                        return false;
+
+                    // Add one more (should evict key 0, the LRU)
+                    cache.Put(capacity, $"value_{capacity}");
+
+                    // Should have exactly one eviction
+                    if (evictionCount != 1)
+                        return false;
+
+                    // Should have evicted key 0
+                    if (evictedKey != 0)
+                        return false;
+
+                    if (evictedValue != "value_0")
+                        return false;
+
+                    return true;
+                });
+        }
+
+        // Property 9: LRUCache Put-Then-Get Round-Trip
+        // For any key-value pair inserted into an LRUCache that has not been evicted,
+        // TryGet with that key must return true and the original value.
+        [FsCheck.NUnit.Property(MaxTest = 500)]
+        [Category("Property:9")]
+        public FsCheck.Property Property9_LRUCache_PutThenGetRoundTrip()
+        {
+            return Prop.ForAll(
+                Gen.Choose(5, 20),
+                Gen.Choose(0, 100),
+                (capacity, key) =>
+                {
+                    var cache = new LRUCache<int, string>(capacity);
+                    var value = $"test_value_{key}";
+
+                    cache.Put(key, value);
+
+                    if (!cache.TryGet(key, out var retrieved))
+                        return false;
+
+                    return retrieved == value;
+                });
+        }
+    }
+}
