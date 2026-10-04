@@ -526,7 +526,7 @@ const ES_ANIMALS: RawWord[] = [
   ['pulpo',         'Pulpo',         'Una criatura marina con ocho brazos.',                            '🐙'],
   ['medusa',        'Medusa',        'Una suave y brillante criatura marina con tentáculos.',            '🪼'],
   ['foca',          'Foca',          'Un ágil mamífero marino que equilibra objetos en la nariz.',      '🦭'],
-  ['pavo',          'Pavo',          'Un pájaro grande con plumas de colores brillantes.',              '🦚'],
+  ['pavo real',     'Pavo Real',     'Un pájaro con una enorme cola de plumas de colores.',              '🦚'],
 ];
 
 const ES_FOOD: RawWord[] = [
@@ -606,7 +606,7 @@ const ES_COLORS: RawWord[] = [
   ['lima',          'Lima',          'Un brillante color amarillo-verdoso.',                            '🌿'],
   ['coral',         'Coral',         'Un cálido color rosa-naranja como el arrecife de coral.',         '🪸'],
   ['salmon',        'Salmón',        'Un suave color rosa-naranja como el pez salmón.',                 '🐟'],
-  ['jade',          'Jade',          'Un suave color verde como la piedra preciosa jade.',              '💚'],
+  ['jade',          'Jade',          'Un suave color verde como la piedra preciosa jade.',              '🟩'],
   ['beige',         'Beige',         'Un pálido color arenoso casi blanco.',                            '🏖️'],
   ['lavanda',       'Lavanda',       'Un suave color morado claro.',                                    '💐'],
   ['carmesi',       'Carmesí',       'Un rico y profundo color rojo.',                                  '🌹'],

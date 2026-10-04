@@ -147,6 +147,13 @@ export class SaveManager {
   /**
    * Get total stars earned
    */
+  public addStars(stars: number): void {
+    if (stars <= 0) return;
+    const saveData = this.loadSaveData();
+    saveData.totalStars += stars;
+    this.saveSaveData(saveData);
+  }
+
   public getTotalStars(): number {
     const saveData = this.loadSaveData();
     return saveData.totalStars;

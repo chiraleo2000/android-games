@@ -38,12 +38,18 @@ function GameScreen({
     const scenario = career?.activeScenarios?.[scenarioIndex];
     const totalScenarios = career?.activeScenarios?.length || 40;
     const progress = ((scenarioIndex + 1) / totalScenarios) * 100;
+    const feedbackText = typeof feedback === 'string'
+        ? feedback
+        : (feedback?.[language] || feedback?.en || feedback?.th || feedback?.zh || '');
     
     // Determine feedback GIF category based on feedback content
     const getFeedbackGIFCategory = () => {
         if (!feedback) return null;
         
-        const feedbackText = (feedback?.[language] || feedback?.en || feedback || '').toLowerCase();
+        const feedbackText = (typeof feedback === 'string'
+            ? feedback
+            : (feedback?.[language] || feedback?.en || feedback?.th || feedback?.zh || '')
+        ).toLowerCase();
         
         // Check for positive indicators
         if (feedbackText.includes('great') || feedbackText.includes('excellent') || 
@@ -152,7 +158,7 @@ function GameScreen({
                                 </div>
                             )}
                             <p className="feedback-text">
-                                {feedback?.[language] || feedback?.en || feedback}
+                                {feedbackText || (language === 'th' ? 'คุณตัดสินใจแล้ว' : language === 'zh' ? '你做出了选择' : 'You made your choice.')}
                             </p>
                             <button className="feedback-continue-btn" onClick={onContinue}>
                                 {language === 'th' ? 'แตะเพื่อไปต่อ' : language === 'zh' ? '点击继续' : 'Tap to Continue'}

@@ -19,27 +19,49 @@ export function clearToken() {
   localStorage.removeItem('authToken');
 }
 
-async function request(method: string, path: string, body?: any) {
+const REQUEST_TIMEOUT_MS = 8000;
+
+async function request(method: string, path: string, body?: unknown, signal?: AbortSignal) {
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
   const token = getToken();
   if (token) headers['Authorization'] = `Bearer ${token}`;
 
-  const res = await fetch(`${API_URL}${path}`, {
-    method,
-    headers,
-    body: body ? JSON.stringify(body) : undefined,
-  });
+  const timeout = new AbortController();
+  const timer = setTimeout(() => timeout.abort(), REQUEST_TIMEOUT_MS);
+  const abortTimeout = () => timeout.abort();
+  signal?.addEventListener('abort', abortTimeout);
 
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || data.message || 'Request failed');
-  return data;
+  try {
+    const res = await fetch(`${API_URL}${path}`, {
+      method,
+      headers,
+      body: body ? JSON.stringify(body) : undefined,
+      signal: timeout.signal,
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || data.message || 'Request failed');
+    return data;
+  } catch (error) {
+    if (signal?.aborted) throw error;
+    if (timeout.signal.aborted) {
+      throw new Error('The server did not respond. Solo play does not need a connection.');
+    }
+    if (error instanceof TypeError) {
+      throw new Error('The server is not available. Solo play does not need a connection.');
+    }
+    throw error;
+  } finally {
+    clearTimeout(timer);
+    signal?.removeEventListener('abort', abortTimeout);
+  }
 }
 
 // Auth
 export const api = {
   /** Kahoot-style instant join — no email/password needed */
-  guestLogin: (nickname: string) =>
-    request('POST', '/auth/guest', { nickname }),
+  guestLogin: (nickname: string, signal?: AbortSignal) =>
+    request('POST', '/auth/guest', { nickname }, signal),
 
   register: (username: string, email: string, password: string) =>
     request('POST', '/auth/register', { username, email, password }),
@@ -80,8 +102,8 @@ export const api = {
     request('GET', `/chat/${encodeURIComponent(sessionId)}/history?limit=${limit || 50}`),
 
   // Progress
-  getProgress: (playerId: string) =>
-    request('GET', `/progress/${encodeURIComponent(playerId)}`),
+  getProgress: (playerId: string, signal?: AbortSignal) =>
+    request('GET', `/progress/${encodeURIComponent(playerId)}`, undefined, signal),
 
   getAchievements: (playerId: string) =>
     request('GET', `/progress/${encodeURIComponent(playerId)}/achievements`),

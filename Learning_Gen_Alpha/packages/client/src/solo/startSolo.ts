@@ -181,6 +181,11 @@ export function startSolo(options: SoloOptions): void {
       clearSoloData(localStorage);
       progress = emptyProgress();
       activeId = '';
+      hintShown = 0;
+      PUZZLES.forEach((puzzle, index) => {
+        paintBeacon(beacons.get(puzzle.id), BEACON_COLORS[index % BEACON_COLORS.length]);
+      });
+      status.textContent = '';
       showPuzzle(null);
       renderScore();
       const cleared = settingsPanel.querySelector('#solo-cleared');
@@ -256,13 +261,17 @@ export function startSolo(options: SoloOptions): void {
   };
 }
 
-function paintSolved(mesh: THREE.Mesh | undefined): void {
+function paintBeacon(mesh: THREE.Mesh | undefined, color: number): void {
   if (!mesh) return;
   const material = mesh.material;
   if (material instanceof THREE.MeshStandardMaterial) {
-    material.color.setHex(0x157a8a);
-    material.emissive.setHex(0x157a8a);
+    material.color.setHex(color);
+    material.emissive.setHex(color);
   }
+}
+
+function paintSolved(mesh: THREE.Mesh | undefined): void {
+  paintBeacon(mesh, 0x157a8a);
 }
 
 function showCrash(error: unknown, retry: () => void): void {
@@ -309,10 +318,13 @@ function escapeHtml(value: string): string {
 }
 
 window.addEventListener('error', (event) => {
-  const error = event.error instanceof Error ? event.error : new Error('Client error');
+  if (event.target !== window) return;
+  if (!(event.error instanceof Error)) return;
+  const message = event.error.message || '';
+  if (message.includes('ResizeObserver')) return;
   if (!lastOptions) {
-    recordLocalError(localStorage, error);
+    recordLocalError(localStorage, event.error);
     return;
   }
-  showCrash(error, () => startSolo(lastOptions as SoloOptions));
+  showCrash(event.error, () => startSolo(lastOptions as SoloOptions));
 });

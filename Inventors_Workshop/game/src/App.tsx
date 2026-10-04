@@ -12,6 +12,7 @@ import {
   type PartType,
 } from './logic/simulation';
 import {
+  browserStore,
   clearAllData,
   loadMachine,
   loadProgress,
@@ -83,8 +84,15 @@ function neighborDrive(machine: Machine, speeds: Record<string, number>, id: str
   return max;
 }
 
+function allocateId(prefix: 'p' | 'c', current: Machine): string {
+  const used = new Set([...current.parts.map((part) => part.id), ...current.connections.map((link) => link.id)]);
+  let n = 1;
+  while (used.has(`${prefix}${n}`)) n += 1;
+  return `${prefix}${n}`;
+}
+
 export function WorkshopApp() {
-  const store = window.localStorage;
+  const [store] = useState(browserStore);
   const [machine, setMachine] = useState<Machine>(() => loadMachine(store) ?? emptyMachine());
   const [progress, setProgress] = useState<string[]>(() => loadProgress(store));
   const [playing, setPlaying] = useState(false);
@@ -102,16 +110,7 @@ export function WorkshopApp() {
   const fileRef = useRef<HTMLInputElement>(null);
   const machineRef = useRef(machine);
   const drag = useRef<{ id: string; x: number; y: number; ox: number; oy: number; moved: boolean } | null>(null);
-
-  function nextId(prefix: 'p' | 'c'): string {
-    const used = new Set([
-      ...machine.parts.map((part) => part.id),
-      ...machine.connections.map((link) => link.id),
-    ]);
-    let n = 1;
-    while (used.has(`${prefix}${n}`)) n += 1;
-    return `${prefix}${n}`;
-  }
+  const pendingRef = useRef<string | null>(null);
 
   machineRef.current = machine;
   const speeds = useMemo(() => propagateSpeeds(machine), [machine]);
@@ -148,55 +147,74 @@ export function WorkshopApp() {
   }, [playing]);
 
   function place(type: PartType) {
-    const id = nextId('p');
-    const count = machine.parts.length;
-    const column = count % 4;
-    const row = Math.floor(count / 4) % 5;
-    const part: Part = {
-      id,
-      type,
-      x: 72 + column * 68,
-      y: 88 + row * 72,
-      rotation: 0,
-    };
-    setMachine({ ...machine, parts: [...machine.parts, part] });
+    let id = '';
+    setMachine((current) => {
+      id = allocateId('p', current);
+      const count = current.parts.length;
+      const column = count % 4;
+      const row = Math.floor(count / 4) % 5;
+      const part: Part = {
+        id,
+        type,
+        x: 72 + column * 68,
+        y: 88 + row * 72,
+        rotation: 0,
+      };
+      return { ...current, parts: [...current.parts, part] };
+    });
     setSelected(id);
     setNotice(`${type} placed.`);
   }
 
   function updatePart(id: string, patch: Partial<Part>) {
-    setMachine({
-      ...machine,
-      parts: machine.parts.map((part) => (part.id === id ? { ...part, ...patch } : part)),
-    });
+    setMachine((current) => ({
+      ...current,
+      parts: current.parts.map((part) => (part.id === id ? { ...part, ...patch } : part)),
+    }));
   }
 
   function removePart(id: string) {
-    setMachine({
-      parts: machine.parts.filter((part) => part.id !== id),
-      connections: machine.connections.filter((link) => link.from !== id && link.to !== id),
-    });
+    setMachine((current) => ({
+      parts: current.parts.filter((part) => part.id !== id),
+      connections: current.connections.filter((link) => link.from !== id && link.to !== id),
+    }));
     setSelected(null);
+    pendingRef.current = null;
     setPending(null);
   }
 
   function addConnection(a: string, b: string) {
     if (a === b) return;
-    const exists = machine.connections.some(
-      (link) => (link.from === a && link.to === b) || (link.from === b && link.to === a),
-    );
-    if (exists) {
-      setNotice('Those parts are already connected.');
-      return;
-    }
-    const link: Connection = { id: nextId('c'), from: a, to: b };
-    setMachine({ ...machine, connections: [...machine.connections, link] });
-    setNotice('Connected. Press Play to send motion across the link.');
+    let noticeText = 'Connected. Press Play to send motion across the link.';
+    setMachine((current) => {
+      const known = new Set(current.parts.map((part) => part.id));
+      if (!known.has(a) || !known.has(b)) {
+        noticeText = 'That part is no longer on the board.';
+        return current;
+      }
+      const exists = current.connections.some(
+        (link) => (link.from === a && link.to === b) || (link.from === b && link.to === a),
+      );
+      if (exists) {
+        noticeText = 'Those parts are already connected.';
+        return current;
+      }
+      const link: Connection = { id: allocateId('c', current), from: a, to: b };
+      return { ...current, connections: [...current.connections, link] };
+    });
+    setNotice(noticeText);
   }
 
   function onPartPointerDown(event: React.PointerEvent<HTMLButtonElement>, part: Part) {
     event.stopPropagation();
-    event.currentTarget.setPointerCapture(event.pointerId);
+    const node = event.currentTarget;
+    if (node && typeof node.setPointerCapture === 'function') {
+      try {
+        node.setPointerCapture(event.pointerId);
+      } catch {
+        // The pointer can already be inactive. Dragging still follows later move events.
+      }
+    }
     drag.current = { id: part.id, x: event.clientX, y: event.clientY, ox: part.x, oy: part.y, moved: false };
   }
 
@@ -216,19 +234,26 @@ export function WorkshopApp() {
     });
   }
 
+  function endDrag() {
+    drag.current = null;
+  }
+
   function onPartPointerUp(part: Part) {
     const current = drag.current;
     drag.current = null;
     if (current?.moved) return;
     setSelected(part.id);
     if (!connectMode) return;
-    if (!pending) {
+    const waiting = pendingRef.current;
+    if (!waiting || waiting === part.id) {
+      pendingRef.current = part.id;
       setPending(part.id);
       setNotice('Tap another part to connect.');
       return;
     }
-    addConnection(pending, part.id);
+    pendingRef.current = null;
     setPending(null);
+    addConnection(waiting, part.id);
   }
 
   function save() {
@@ -292,7 +317,11 @@ export function WorkshopApp() {
   }
 
   function finishTutorial() {
-    markTutorialSeen(store);
+    try {
+      markTutorialSeen(store);
+    } catch {
+      /* storage can be blocked; still leave the tutorial so the board is usable */
+    }
     setTutorialStep(-1);
   }
 
@@ -303,6 +332,7 @@ export function WorkshopApp() {
     setLive(blankLive());
     setPlaying(false);
     setSelected(null);
+    pendingRef.current = null;
     setPending(null);
     setConfirmClear(false);
     setClearedMsg('All data cleared. Nothing was restored.');
@@ -315,6 +345,15 @@ export function WorkshopApp() {
     .filter((part) => part.type.startsWith('gear'))
     .map((part) => `${part.type} ${Math.abs(speeds[part.id] ?? 0).toFixed(2)} rad/s`)
     .join(' · ');
+  const otherReadout = machine.parts
+    .filter((part) => !part.type.startsWith('gear'))
+    .map((part) => {
+      if (part.type === 'spring') return `spring ${Math.round((live.lift[part.id] ?? 0) * 100)}%`;
+      if (part.type === 'switch') return `switch ${live.switchOn[part.id] ? 'on' : 'off'}`;
+      return `${part.type} ${Math.abs(speeds[part.id] ?? 0).toFixed(2)} rad/s`;
+    })
+    .join(' · ');
+  const readout = [gearReadout, otherReadout].filter(Boolean).join(' · ');
 
   return (
     <div className="app">
@@ -407,6 +446,7 @@ export function WorkshopApp() {
                 onPointerDown={(event) => onPartPointerDown(event, part)}
                 onPointerMove={onPartPointerMove}
                 onPointerUp={() => onPartPointerUp(part)}
+                onPointerCancel={endDrag}
               >
                 <span>{part.type}</span>
                 {part.type === 'spring' && <i style={{ height: `${Math.round((live.lift[part.id] ?? 0) * 100)}%` }} />}
@@ -416,13 +456,21 @@ export function WorkshopApp() {
           })}
         </div>
         <div className="editbar">
-          <button type="button" className={connectMode ? 'primary' : ''} onClick={() => { setConnectMode((value) => !value); setPending(null); }}>
+          <button type="button" className={connectMode ? 'primary' : ''} onClick={() => { setConnectMode((value) => !value); pendingRef.current = null; setPending(null); }}>
             {connectMode ? 'Connecting…' : 'Connect'}
           </button>
           <button
             type="button"
             disabled={!selected}
-            onClick={() => selected && updatePart(selected, { rotation: ((machine.parts.find((part) => part.id === selected)?.rotation ?? 0) + 45) % 360 })}
+            onClick={() => {
+              if (!selected) return;
+              setMachine((current) => ({
+                ...current,
+                parts: current.parts.map((part) =>
+                  part.id === selected ? { ...part, rotation: (part.rotation + 45) % 360 } : part,
+                ),
+              }));
+            }}
           >
             Rotate
           </button>
@@ -432,9 +480,11 @@ export function WorkshopApp() {
           <button
             type="button"
             onClick={() => {
-              const last = machine.connections.at(-1);
-              if (!last) return;
-              setMachine({ ...machine, connections: machine.connections.filter((link) => link.id !== last.id) });
+              setMachine((current) => {
+                const last = current.connections.at(-1);
+                if (!last) return current;
+                return { ...current, connections: current.connections.filter((link) => link.id !== last.id) };
+              });
             }}
           >
             Undo link
@@ -443,7 +493,7 @@ export function WorkshopApp() {
       </div>
 
       <section className="readout">
-        <p>{gearReadout || 'Add a motor and gears, then connect them. Speeds show up here.'}</p>
+        <p>{readout || 'Add a motor and gears, then connect them. Speeds show up here.'}</p>
         <p className="goal">
           <strong>{active.title}.</strong> {active.prompt}
         </p>

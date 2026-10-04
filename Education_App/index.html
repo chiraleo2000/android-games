@@ -60,8 +60,10 @@
             </div>
 
             <div class="tutorial-nav">
-                <button id="btn-skip-tutorial" class="menu-btn secondary">Skip</button>
-                <button id="btn-complete-tutorial" class="menu-btn primary">Let's Go!</button>
+                <button id="btn-tutorial-back" type="button" class="menu-btn secondary" hidden>Back</button>
+                <button id="btn-skip-tutorial" type="button" class="menu-btn secondary">Skip</button>
+                <button id="btn-tutorial-next" type="button" class="menu-btn primary">Next</button>
+                <button id="btn-complete-tutorial" type="button" class="menu-btn primary" hidden>Let's Go!</button>
             </div>
         </div>
     </div>
@@ -232,7 +234,7 @@
             <!-- Pattern Recognition Game -->
             <div id="pattern-game" class="game-screen-content">
                 <div class="hint-system">
-                    <button class="hint-btn">💡</button>
+                    <button type="button" class="hint-btn" data-extra="Each column repeats the same turn. Match the question mark to that turn.">💡</button>
                     <span class="hint-text">Look for rotation patterns!</span>
                 </div>
 
@@ -251,7 +253,7 @@
             <!-- Deductive Logic Game -->
             <div id="deduction-game" class="game-screen-content">
                 <div class="hint-system">
-                    <button class="hint-btn">💡</button>
+                    <button type="button" class="hint-btn" data-extra="Choose one house for every pet. A clue that names a house settles that row.">💡</button>
                     <span class="hint-text">Use process of elimination!</span>
                 </div>
 
@@ -263,13 +265,14 @@
                 <div class="deduction-grid" id="deduction-grid">
                     <!-- Deduction grid will be generated here -->
                 </div>
+                <button id="btn-deduction-submit" type="button" class="menu-btn primary">Check answer</button>
             </div>
 
 
             <!-- Spatial Reasoning Game -->
             <div id="spatial-game" class="game-screen-content">
                 <div class="hint-system">
-                    <button class="hint-btn">💡</button>
+                    <button type="button" class="hint-btn" data-extra="Each arrow is one quarter turn clockwise.">💡</button>
                     <span class="hint-text">Watch the rotation direction!</span>
                 </div>
 

@@ -26,17 +26,21 @@ export function WordCard() {
   const [isCorrect, setIsCorrect] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const successTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setInputValue('');
     setIsCorrect(false);
     setIsWrong(false);
     const id = setTimeout(() => inputRef.current?.focus(), 50);
-    return () => clearTimeout(id);
+    return () => {
+      clearTimeout(id);
+      if (successTimer.current) clearTimeout(successTimer.current);
+    };
   }, [currentWordIndex]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (isCorrect) return;
+    if (isCorrect || !currentWord) return;
     const val = e.target.value;
     setInputValue(val);
     setIsWrong(false);
@@ -46,7 +50,11 @@ export function WordCard() {
 
     if (typed === target) {
       setIsCorrect(true);
-      setTimeout(() => handleWordSuccess(), FEEDBACK_DELAY_MS);
+      if (successTimer.current) clearTimeout(successTimer.current);
+      successTimer.current = setTimeout(() => {
+        successTimer.current = null;
+        if (useGameStore.getState().status === 'PLAYING') handleWordSuccess();
+      }, FEEDBACK_DELAY_MS);
     } else if (val.length >= currentWord.word.length && typed !== target) {
       setIsWrong(true);
       setTimeout(() => setIsWrong(false), 600);
@@ -100,7 +108,9 @@ export function WordCard() {
           {currentWord.meaning}
         </p>
         <p className="text-xs text-gray-400 mb-4">
-          {currentWord.word.length} letters
+          {currentWord.word.includes(' ')
+            ? `${currentWord.word.length} characters, including the space`
+            : `${currentWord.word.length} letters`}
         </p>
 
         {/* Input — font-size ≥ 16px prevents iOS auto-zoom */}
@@ -154,7 +164,7 @@ export function WordCard() {
                 className="text-gray-400 text-sm"
               >
                 {inputValue.length > 0
-                  ? `${inputValue.length} / ${currentWord.word.length} letters`
+                  ? `${inputValue.length} / ${currentWord.word.length}`
                   : '⌨️ Start typing…'}
               </motion.p>
             )}

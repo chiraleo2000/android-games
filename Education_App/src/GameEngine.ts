@@ -103,8 +103,8 @@ export class GameEngine {
     try {
       for (const block of blocks) {
         if (!this.state.isExecuting) break;
-        const result = await this.executeBlock(block, context);
-        onStep?.(context);
+        const result = await this.executeBlock(block, context, onStep);
+        if (this.state.isExecuting) onStep?.(context);
         if (result) return this.completeExecution(result.success, result.reason, context, onComplete);
         const limited = this.limitResult(context);
         if (limited) return this.completeExecution(limited.success, limited.reason, context, onComplete);
@@ -144,10 +144,11 @@ export class GameEngine {
    */
   private async executeBlock(
     block: Block,
-    context: PlayerState
+    context: PlayerState,
+    onStep?: (state: PlayerState) => void
   ): Promise<{ success: boolean; reason: string } | null> {
-    // Delay for animation
     await this.delay(this.stepDelayMs);
+    if (!this.state.isExecuting) return null;
 
     switch (block.type) {
       case BlockType.MOVE_FORWARD:
@@ -165,15 +166,15 @@ export class GameEngine {
         break;
 
       case BlockType.LOOP:
-        return await this.executeLoop(block, context);
+        return await this.executeLoop(block, context, onStep);
 
       case BlockType.IF_WALL:
       case BlockType.IF_GEM:
       case BlockType.IF_PATH:
-        return await this.executeIf(block, context);
+        return await this.executeIf(block, context, onStep);
 
       case BlockType.WHILE_LOOP:
-        return await this.executeWhile(block, context);
+        return await this.executeWhile(block, context, onStep);
     }
 
     return null;
@@ -267,16 +268,15 @@ export class GameEngine {
    */
   private async executeLoop(
     block: Block,
-    context: PlayerState
+    context: PlayerState,
+    onStep?: (state: PlayerState) => void
   ): Promise<{ success: boolean; reason: string } | null> {
     const iterations = block.loopCount || 3;
     const nestedBlocks = block.nestedBlocks || [];
 
     for (let i = 0; i < iterations; i++) {
-      for (const nested of nestedBlocks) {
-        const result = await this.executeBlock(nested, context);
-        if (result) return result;
-      }
+      const result = await this.runNested(nestedBlocks, context, onStep);
+      if (result || !this.state.isExecuting) return result;
     }
 
     return null;
@@ -287,19 +287,11 @@ export class GameEngine {
    */
   private async executeIf(
     block: Block,
-    context: PlayerState
+    context: PlayerState,
+    onStep?: (state: PlayerState) => void
   ): Promise<{ success: boolean; reason: string } | null> {
-    const condition = this.evaluateCondition(block.type, context);
-
-    if (condition) {
-      const nestedBlocks = block.nestedBlocks || [];
-      for (const nested of nestedBlocks) {
-        const result = await this.executeBlock(nested, context);
-        if (result) return result;
-      }
-    }
-
-    return null;
+    if (!this.evaluateCondition(block.type, context)) return null;
+    return this.runNested(block.nestedBlocks || [], context, onStep);
   }
 
   /**
@@ -307,20 +299,34 @@ export class GameEngine {
    */
   private async executeWhile(
     block: Block,
-    context: PlayerState
+    context: PlayerState,
+    onStep?: (state: PlayerState) => void
   ): Promise<{ success: boolean; reason: string } | null> {
-    const maxIterations = 100; // Prevent infinite loops
+    const maxIterations = 100;
     let iterations = 0;
 
-    while (this.evaluateCondition(block.type, context) && iterations < maxIterations) {
-      const nestedBlocks = block.nestedBlocks || [];
-      for (const nested of nestedBlocks) {
-        const result = await this.executeBlock(nested, context);
-        if (result) return result;
-      }
+    while (this.evaluateCondition(block.type, context) && iterations < maxIterations && this.state.isExecuting) {
+      const result = await this.runNested(block.nestedBlocks || [], context, onStep);
+      if (result || !this.state.isExecuting) return result;
       iterations++;
     }
 
+    return null;
+  }
+
+  private async runNested(
+    blocks: Block[],
+    context: PlayerState,
+    onStep?: (state: PlayerState) => void
+  ): Promise<{ success: boolean; reason: string } | null> {
+    for (const nested of blocks) {
+      if (!this.state.isExecuting) return null;
+      const result = await this.executeBlock(nested, context, onStep);
+      if (this.state.isExecuting || result) onStep?.(context);
+      if (result) return result;
+      const limited = this.limitResult(context);
+      if (limited) return limited;
+    }
     return null;
   }
 
@@ -338,7 +344,11 @@ export class GameEngine {
       case BlockType.IF_GEM:
         return cell === CellType.GOAL;
       case BlockType.IF_PATH:
-        return cell === CellType.PATH || cell === CellType.CHECKPOINT || cell === CellType.POWER_UP;
+        return cell === CellType.PATH
+          || cell === CellType.START
+          || cell === CellType.GOAL
+          || cell === CellType.CHECKPOINT
+          || cell === CellType.POWER_UP;
       default:
         return false;
     }

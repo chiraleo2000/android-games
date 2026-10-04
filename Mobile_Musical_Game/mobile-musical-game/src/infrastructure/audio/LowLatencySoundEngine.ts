@@ -79,8 +79,14 @@ export class LowLatencySoundEngine implements ISoundEngine {
     }
 
     const loadPromises = samples.map(async (sample) => {
+      let timer: ReturnType<typeof setTimeout> | undefined;
       try {
-        const response = await fetch(sample.filePath);
+        const response = await Promise.race([
+          fetch(sample.filePath),
+          new Promise<Response>((_resolve, reject) => {
+            timer = setTimeout(() => reject(new Error(`Audio fetch timed out: ${sample.filePath}`)), 800);
+          }),
+        ]);
         if (!response.ok) {
           throw new Error(`Failed to fetch audio: ${sample.filePath}`);
         }
@@ -90,6 +96,8 @@ export class LowLatencySoundEngine implements ISoundEngine {
       } catch (error) {
         this.storeSynthesizedSample(sample);
         console.warn(`Using synthesized timbre for ${sample.noteId}`, error);
+      } finally {
+        if (timer) clearTimeout(timer);
       }
     });
 

@@ -606,14 +606,21 @@ export function renderResultsOverlay(
 }
 
 // ─── LOADING SCREEN ────────────────────────────────────
-export function renderLoadingScreen(message = 'Loading...') {
+export function renderLoadingScreen(message = 'Loading...', onCancel?: () => void, cancelLabel = 'Play solo') {
   const app = getApp();
   app.innerHTML = `
-    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh">
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:16px;padding:24px">
       <div class="loading"><div class="spinner"></div></div>
       <p style="color:rgba(255,255,255,0.4);margin-top:12px">${escapeHtml(message)}</p>
     </div>
   `;
+  if (!onCancel) return;
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'btn btn-secondary';
+  button.textContent = cancelLabel;
+  button.addEventListener('click', onCancel);
+  app.firstElementChild?.appendChild(button);
 }
 
 // ─── Utility ───────────────────────────────────────────

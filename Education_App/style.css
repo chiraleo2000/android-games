@@ -454,11 +454,17 @@ body {
         height: auto;
     }
 
-    #sidebar,
-    #workspace,
+    #sidebar {
+        height: auto;
+        max-height: 280px;
+    }
+
+    #workspace {
+        height: 340px;
+    }
+
     #game-view {
-        height: 400px;
-        /* Fixed height for stacked elements */
+        height: 380px;
     }
 
     .diff-buttons,
@@ -943,6 +949,24 @@ body {
     flex-direction: column;
 }
 
+#maze-game.game-screen-content.active {
+    display: contents;
+}
+
+#pattern-game.game-screen-content.active,
+#deduction-game.game-screen-content.active,
+#spatial-game.game-screen-content.active {
+    grid-column: 1 / -1;
+    min-height: 0;
+    overflow: auto;
+}
+
+#sidebar,
+#workspace,
+#game-view {
+    min-height: 0;
+}
+
 /* Pattern Recognition Game */
 #pattern-game {
     padding: 1rem;
@@ -998,7 +1022,8 @@ body {
     margin-top: 1rem;
 }
 
-.pattern-option {
+.pattern-option,
+.spatial-option {
     width: 70px;
     height: 70px;
     background: white;
@@ -1008,8 +1033,28 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 2rem;
+    font-family: inherit;
+    padding: 0;
+    color: inherit;
     cursor: pointer;
     transition: all 0.2s ease;
+}
+
+.pattern-option.correct,
+.spatial-option.correct {
+    background: #dcfce7;
+    border-color: #22c55e;
+}
+
+.pattern-option.wrong,
+.spatial-option.wrong {
+    background: #fee2e2;
+    border-color: #ef4444;
+}
+
+.pattern-option:disabled,
+.spatial-option:disabled {
+    cursor: default;
 }
 
 .pattern-option:hover {
@@ -1073,17 +1118,32 @@ body {
     padding-right: 8px;
 }
 
+.deduction-house {
+    width: 64px;
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
 .deduction-cell {
-    width: 28px;
-    height: 28px;
+    width: 64px;
+    height: 48px;
     background: #e2e8f0;
-    border-radius: 4px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font: inherit;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: white;
     transition: all 0.2s ease;
+}
+
+#btn-deduction-submit {
+    margin-top: 0.5rem;
 }
 
 .deduction-cell:hover {

@@ -139,6 +139,16 @@ describe('GameEngine', () => {
     expect(taken.movesUsed).toBe(2);
   });
 
+  it('treats the goal as an open cell for If Path', async () => {
+    engine.loadLevel(levelFromRow([CellType.START, CellType.GOAL]));
+    const result = await engine.executeProgram([
+      block(BlockType.IF_PATH, { nestedBlocks: [block(BlockType.MOVE_FORWARD)] })
+    ]);
+    expect(result.success).toBe(true);
+    expect(result.reason).toBe('Level Complete!');
+    expect(result.movesUsed).toBe(1);
+  });
+
   it('jumps two cells and spends 3 battery', async () => {
     engine.loadLevel(levelFromRow([CellType.START, CellType.WALL, CellType.GOAL]));
     const result = await engine.executeProgram([block(BlockType.JUMP)]);

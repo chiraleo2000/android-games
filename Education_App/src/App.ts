@@ -11,6 +11,7 @@ import { SaveManager } from './SaveManager';
 import { SoundPlayer } from './Sound';
 import { ACHIEVEMENTS } from './achievements';
 import { LEGAL_LINKS } from './legal';
+import { PlayMode, PuzzleModes, PuzzleOutcome } from './PuzzleModes';
 import { Block, BlockType, ChallengeMode, Difficulty, ExecutionResult, ScreenType } from './types';
 
 const TRACKED_DIFFICULTIES: Difficulty[] = [
@@ -34,6 +35,11 @@ export class App {
   private startTime: number = 0;
   private runLock = false;
   private outcomeShown = false;
+  private playMode: PlayMode = 'maze';
+  private puzzleModes: PuzzleModes | null = null;
+  private puzzleRound = 1;
+  private session = 0;
+  private tutorialIndex = 0;
 
   constructor() {
     this.gameEngine = new GameEngine();
@@ -57,6 +63,8 @@ export class App {
     }
 
     this.setupEventListeners();
+    this.puzzles();
+    if (!saveData.tutorialCompleted) this.showTutorialSlide(0);
   }
 
   private showMainMenu(): void {
@@ -64,7 +72,119 @@ export class App {
     this.uiManager.showScreen(ScreenType.MENU);
   }
 
+  private leaveToMenu(): void {
+    this.session += 1;
+    this.gameEngine.stop();
+    this.runLock = false;
+    this.outcomeShown = false;
+    this.stopTimer();
+    this.setRunEnabled(true);
+    this.showMainMenu();
+  }
+
+  private puzzles(): PuzzleModes {
+    if (!this.puzzleModes) {
+      this.puzzleModes = new PuzzleModes(
+        (outcome) => this.finishPuzzle(outcome),
+        (message) => this.uiManager.showToast(message, 'info')
+      );
+    }
+    return this.puzzleModes;
+  }
+
+  private startPuzzle(): void {
+    if (this.playMode === 'maze') return;
+    this.session += 1;
+    this.gameEngine.stop();
+    this.stopTimer();
+    this.runLock = false;
+    this.outcomeShown = false;
+    this.puzzleRound = 1;
+    this.launchPuzzle();
+  }
+
+  private nextPuzzle(): void {
+    if (this.playMode === 'maze') return;
+    this.outcomeShown = false;
+    this.puzzleRound += 1;
+    this.launchPuzzle();
+  }
+
+  private resumePuzzle(): void {
+    if (this.playMode === 'maze') return;
+    this.outcomeShown = false;
+    this.puzzles().resetAttempt();
+    this.showInnerMode(this.playMode);
+    this.uiManager.showScreen(ScreenType.GAME);
+    if (this.currentChallengeMode === ChallengeMode.TIME_ATTACK) this.startTimer(60);
+  }
+
+  private launchPuzzle(): void {
+    if (this.playMode === 'maze') return;
+    this.stopTimer();
+    this.showInnerMode(this.playMode);
+    this.uiManager.updateLevelDisplay(this.puzzleRound, this.currentDifficulty);
+    this.uiManager.updateBatteryDisplay(100);
+    this.uiManager.updateMovesDisplay(0);
+    this.uiManager.showScreen(ScreenType.GAME);
+    this.puzzles().start(this.playMode, this.puzzleRound);
+    if (this.currentChallengeMode === ChallengeMode.TIME_ATTACK) this.startTimer(60);
+  }
+
+  private finishPuzzle(outcome: PuzzleOutcome): void {
+    if (this.outcomeShown) return;
+    this.outcomeShown = true;
+    this.stopTimer();
+    const tip = document.getElementById('tip-content');
+    if (tip) tip.textContent = outcome.tip;
+    this.uiManager.showResultScreen({
+      success: outcome.success,
+      reason: outcome.reason,
+      finalBattery: outcome.success ? 100 : 0,
+      movesUsed: 0,
+      timeUsed: 0,
+      stars: outcome.success ? 3 : 0,
+      efficiency: outcome.success ? 100 : 0
+    });
+    if (outcome.success) {
+      this.sound.playWin();
+      this.saveManager.addStars(3);
+      this.refreshMenuSummary();
+    } else {
+      this.sound.playLose();
+    }
+  }
+
+  private showInnerMode(mode: PlayMode): void {
+    document.querySelectorAll('.game-screen-content').forEach((element) => {
+      element.classList.toggle('active', element.id === `${mode}-game`);
+    });
+    const labels: Record<PlayMode, string> = {
+      maze: 'Maze',
+      pattern: 'Pattern',
+      deduction: 'Deduction',
+      spatial: 'Spatial'
+    };
+    const modeDisplay = document.getElementById('mode-display');
+    if (modeDisplay) modeDisplay.textContent = labels[mode];
+  }
+
+  private showTutorialSlide(index: number): void {
+    const slides = Array.from(document.querySelectorAll('.tutorial-slide'));
+    if (slides.length === 0) return;
+    this.tutorialIndex = Math.max(0, Math.min(index, slides.length - 1));
+    slides.forEach((slide, slideIndex) => {
+      slide.classList.toggle('active', slideIndex === this.tutorialIndex);
+    });
+    const last = this.tutorialIndex === slides.length - 1;
+    this.setHidden('btn-tutorial-back', this.tutorialIndex === 0);
+    this.setHidden('btn-tutorial-next', last);
+    this.setHidden('btn-complete-tutorial', !last);
+  }
+
   public async startGame(difficulty: Difficulty, challengeMode: ChallengeMode = ChallengeMode.NORMAL): Promise<void> {
+    const session = ++this.session;
+    this.playMode = 'maze';
     this.currentDifficulty = difficulty;
     this.currentChallengeMode = challengeMode;
     this.gameEngine.stop();
@@ -73,15 +193,13 @@ export class App {
     this.outcomeShown = false;
 
     this.uiManager.showLoadingScreen(0, 'Generating maze...');
+    for (const progress of [25, 50, 75, 100]) {
+      await this.delay(40);
+      if (session !== this.session) return;
+      this.uiManager.showLoadingScreen(progress);
+    }
     await this.delay(40);
-    this.uiManager.showLoadingScreen(25);
-    await this.delay(40);
-    this.uiManager.showLoadingScreen(50);
-    await this.delay(40);
-    this.uiManager.showLoadingScreen(75);
-    await this.delay(40);
-    this.uiManager.showLoadingScreen(100);
-    await this.delay(40);
+    if (session !== this.session) return;
 
     const levelData = this.levelManager.generateLevel(
       this.levelManager.getCurrentLevel(),
@@ -105,6 +223,7 @@ export class App {
       this.blockWorkspace.clear();
     }
 
+    this.showInnerMode('maze');
     this.uiManager.showScreen(ScreenType.GAME);
     this.uiManager.logMessage(levelData.hint);
     if (levelData.timeLimit) {
@@ -134,6 +253,7 @@ export class App {
       return;
     }
 
+    const session = this.session;
     this.runLock = true;
     this.outcomeShown = false;
     this.setRunEnabled(false);
@@ -153,24 +273,30 @@ export class App {
       await this.gameEngine.executeProgram(
         blocks,
         (state) => {
+          if (session !== this.session) return;
           this.uiManager.updateBatteryDisplay(state.battery);
           this.uiManager.updateMovesDisplay(state.movesCount, levelData?.moveLimit);
           this.uiManager.updateRobotPosition(state, gridSize, cellSize);
         },
         (result) => {
+          if (session !== this.session) return;
           this.finishRun(result, blocks);
         }
       );
     } catch (error) {
+      if (session !== this.session) return;
       this.uiManager.showToast('Could not run the program', 'error');
       window.showGameError?.(error);
     } finally {
-      this.runLock = false;
-      this.setRunEnabled(true);
+      if (session === this.session) {
+        this.runLock = false;
+        this.setRunEnabled(true);
+      }
     }
   }
 
   public resetLevel(): void {
+    this.session += 1;
     this.gameEngine.stop();
     this.runLock = false;
     this.outcomeShown = false;
@@ -251,7 +377,12 @@ export class App {
 
   private setupEventListeners(): void {
     const start = (difficulty: Difficulty) => {
-      void this.startGame(difficulty, this.currentChallengeMode).catch((error) => window.showGameError?.(error));
+      this.currentDifficulty = difficulty;
+      if (this.playMode === 'maze') {
+        void this.startGame(difficulty, this.currentChallengeMode).catch((error) => window.showGameError?.(error));
+      } else {
+        this.startPuzzle();
+      }
     };
 
     document.getElementById('btn-easy')?.addEventListener('click', () => start(Difficulty.EASY));
@@ -278,21 +409,17 @@ export class App {
         const mode = (button as HTMLElement).dataset.mode;
         document.querySelectorAll('.menu-btn.game-mode').forEach((el) => el.classList.remove('active'));
         button.classList.add('active');
-        if (mode && mode !== 'maze') {
-          this.uiManager.showToast('Maze Coding is the playable mode. Pick a difficulty to start.', 'info');
+        if (mode === 'pattern' || mode === 'deduction' || mode === 'spatial' || mode === 'maze') {
+          this.playMode = mode;
         }
       });
     });
 
     document.getElementById('btn-back-menu')?.addEventListener('click', () => {
-      this.gameEngine.stop();
-      this.runLock = false;
-      this.stopTimer();
-      this.showMainMenu();
+      this.leaveToMenu();
     });
     document.getElementById('btn-menu-return')?.addEventListener('click', () => {
-      this.stopTimer();
-      this.showMainMenu();
+      this.leaveToMenu();
     });
     document.getElementById('btn-settings-back')?.addEventListener('click', () => this.showMainMenu());
     document.getElementById('btn-progress-back')?.addEventListener('click', () => this.showMainMenu());
@@ -313,16 +440,27 @@ export class App {
     });
 
     document.getElementById('btn-next-level')?.addEventListener('click', () => {
-      void this.nextLevel();
+      if (this.playMode === 'maze') void this.nextLevel();
+      else this.nextPuzzle();
     });
     document.getElementById('btn-retry')?.addEventListener('click', () => {
-      this.resetLevel();
-      this.uiManager.showScreen(ScreenType.GAME);
+      if (this.playMode === 'maze') {
+        this.resetLevel();
+        this.uiManager.showScreen(ScreenType.GAME);
+      } else {
+        this.resumePuzzle();
+      }
     });
 
     document.getElementById('btn-skip-tutorial')?.addEventListener('click', () => {
       this.saveManager.completeTutorial();
       this.showMainMenu();
+    });
+    document.getElementById('btn-tutorial-back')?.addEventListener('click', () => {
+      this.showTutorialSlide(this.tutorialIndex - 1);
+    });
+    document.getElementById('btn-tutorial-next')?.addEventListener('click', () => {
+      this.showTutorialSlide(this.tutorialIndex + 1);
     });
     document.getElementById('btn-complete-tutorial')?.addEventListener('click', () => {
       this.saveManager.completeTutorial();
@@ -471,11 +609,16 @@ export class App {
 
   private startTimer(timeLimit: number): void {
     this.stopTimer();
+    const session = this.session;
     this.startTime = Date.now();
     const timerDisplay = document.getElementById('timer-display');
     if (timerDisplay) timerDisplay.style.display = 'flex';
 
     this.timerInterval = window.setInterval(() => {
+      if (session !== this.session) {
+        this.stopTimer();
+        return;
+      }
       const elapsed = (Date.now() - this.startTime) / 1000;
       const remaining = Math.max(0, timeLimit - elapsed);
       this.uiManager.updateTimerDisplay(remaining);

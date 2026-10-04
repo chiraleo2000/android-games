@@ -41,6 +41,39 @@ export function createMemoryStore(): KeyValueStore {
   };
 }
 
+/** localStorage when the browser allows it. A blocked store must not crash the workshop. */
+export function browserStore(): KeyValueStore {
+  try {
+    const storage = window.localStorage;
+    storage.getItem(STORAGE_KEYS.machine);
+    return {
+      getItem(key) {
+        try {
+          return storage.getItem(key);
+        } catch {
+          return null;
+        }
+      },
+      setItem(key, value) {
+        try {
+          storage.setItem(key, value);
+        } catch {
+          /* quota or private mode: keep the session running */
+        }
+      },
+      removeItem(key) {
+        try {
+          storage.removeItem(key);
+        } catch {
+          /* ignore */
+        }
+      },
+    };
+  } catch {
+    return createMemoryStore();
+  }
+}
+
 function isPart(value: unknown): value is Machine['parts'][number] {
   if (!value || typeof value !== 'object') return false;
   const part = value as Machine['parts'][number];

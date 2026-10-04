@@ -180,25 +180,35 @@ function destroyGameEngine() {
 }
 
 // ─── Guest Join Handlers ────────────────────────────────
+function leaveServerWait(abort: AbortController) {
+  abort.abort();
+  startSolo({ onMultiplayer: () => navigate('join') });
+}
+
 async function handleCreateGameAsGuest(nickname: string) {
-  renderLoadingScreen('Getting ready...');
+  const abort = new AbortController();
+  renderLoadingScreen('Getting ready...', () => leaveServerWait(abort));
   try {
-    const data = await api.guestLogin(nickname);
+    const data = await api.guestLogin(nickname, abort.signal);
+    if (abort.signal.aborted) return;
     setToken(data.accessToken);
     state.playerId = data.playerId;
     state.username = data.username || nickname;
     connectSocket();
     navigate('lobby');
   } catch (err: any) {
+    if (abort.signal.aborted) return;
     showToast(err.message || 'Failed to create game', 'error');
     navigate('join');
   }
 }
 
 async function handleJoinGameAsGuest(nickname: string, joinCode: string) {
-  renderLoadingScreen('Joining game...');
+  const abort = new AbortController();
+  renderLoadingScreen('Joining game...', () => leaveServerWait(abort));
   try {
-    const data = await api.guestLogin(nickname);
+    const data = await api.guestLogin(nickname, abort.signal);
+    if (abort.signal.aborted) return;
     setToken(data.accessToken);
     state.playerId = data.playerId;
     state.username = data.username || nickname;
@@ -206,8 +216,10 @@ async function handleJoinGameAsGuest(nickname: string, joinCode: string) {
     navigate('lobby');
     // Wait briefly for socket to connect, then auto-join the session
     await new Promise<void>(resolve => setTimeout(resolve, 400));
+    if (abort.signal.aborted) return;
     await handleJoinSession(joinCode);
   } catch (err: any) {
+    if (abort.signal.aborted) return;
     showToast(err.message || 'Failed to join game', 'error');
     navigate('join');
   }
@@ -467,9 +479,14 @@ async function handleViewProgress() {
     navigate('lobby');
     return;
   }
-  renderLoadingScreen('Loading your progress...');
+  const abort = new AbortController();
+  renderLoadingScreen('Loading your progress...', () => {
+    abort.abort();
+    navigate('lobby');
+  }, 'Back');
   try {
-    const data = await api.getProgress(state.playerId);
+    const data = await api.getProgress(state.playerId, abort.signal);
+    if (abort.signal.aborted) return;
     renderProgressScreen(
       {
         totalScore: data.progress?.totalScore || data.totalScore || 0,
@@ -486,6 +503,7 @@ async function handleViewProgress() {
       { onBack: () => navigate('lobby') },
     );
   } catch (err: unknown) {
+    if (abort.signal.aborted) return;
     console.error('Failed to load progress:', err);
     showToast('Could not load progress', 'error');
     navigate('lobby');

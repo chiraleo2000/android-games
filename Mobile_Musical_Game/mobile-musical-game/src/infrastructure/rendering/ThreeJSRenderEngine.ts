@@ -13,11 +13,13 @@ import { Model3DReference, Vector3, LODLevel } from '@domain/entities/Instrument
 import { Gesture } from '@domain/entities/Touch';
 import { QualityLevel, PerformanceMetrics } from '@domain/entities/AppState';
 import { AdaptiveLODStrategy } from './AdaptiveLODStrategy';
+import { drawGeneratedMesh } from './drawGeneratedMesh';
 
 export class ThreeJSRenderEngine implements IRenderEngine {
   private scene: THREE.Scene | null = null;
   private camera: THREE.PerspectiveCamera | null = null;
   private renderer: THREE.WebGLRenderer | null = null;
+  private compatGl: WebGLRenderingContext | null = null;
   private currentModel: THREE.Group | null = null;
   private animationFrameId: number | null = null;
   private lastFrameTime: number = 0;
@@ -50,44 +52,59 @@ export class ThreeJSRenderEngine implements IRenderEngine {
   initialize(glContext: WebGLRenderingContext): void {
     // Initialize LOD strategy with callback
     this.lodStrategy = new AdaptiveLODStrategy(this.handleLODChange.bind(this));
-    
-    // Initialize Three.js renderer with expo-gl context
-    this.renderer = new THREE.WebGLRenderer({
-      context: glContext as any,
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance',
-    });
-    
-    this.renderer.setSize(
-      glContext.drawingBufferWidth,
-      glContext.drawingBufferHeight
-    );
-    this.renderer.setClearColor(0x000000, 0);
-    
+    this.compatGl = null;
+
+    const width = glContext.drawingBufferWidth || 1;
+    const height = glContext.drawingBufferHeight || 1;
+    const hosted = glContext as WebGLRenderingContext & { canvas?: HTMLCanvasElement };
+    const canvas = hosted.canvas ?? {
+      width,
+      height,
+      clientWidth: width,
+      clientHeight: height,
+      style: {},
+      addEventListener() {},
+      removeEventListener() {},
+    };
+
+    try {
+      // Three r163+ throws if this surface is WebGL 1. The catch keeps a drawable mesh.
+      this.renderer = new THREE.WebGLRenderer({
+        canvas: canvas as HTMLCanvasElement,
+        context: glContext as never,
+        antialias: true,
+        alpha: true,
+        powerPreference: 'high-performance',
+      });
+      this.renderer.setSize(width, height);
+      this.renderer.setClearColor(0x1a1a1a, 1);
+    } catch (error) {
+      console.warn('Using the generated-mesh renderer', error);
+      this.renderer = null;
+      this.compatGl = glContext;
+    }
+
     // Initialize scene
     this.scene = new THREE.Scene();
-    
+
     // Initialize camera with 45° FOV, 0.1-1000 near/far planes
-    const aspectRatio = 
-      glContext.drawingBufferWidth / glContext.drawingBufferHeight;
+    const aspectRatio = width / height;
     this.camera = new THREE.PerspectiveCamera(
       45,  // FOV
       aspectRatio,
       0.1, // Near plane
       1000 // Far plane
     );
-    
+
     // Set default camera position
     this.camera.position.set(0, 2, 5);
     this.camera.lookAt(0, 0, 0);
-    
+
     // Initialize target positions for smooth transitions
     this.targetCameraPosition.set(0, 2, 5);
-    
-    // Setup lighting
-    this.setupLighting();
-    
+
+    if (this.renderer) this.setupLighting();
+
     // Start render loop
     this.startRenderLoop();
   }
@@ -148,17 +165,10 @@ export class ThreeJSRenderEngine implements IRenderEngine {
       throw new Error('Render engine not initialized');
     }
     
-    // Remove previous model if exists
-    if (this.currentModel) {
-      this.scene.remove(this.currentModel);
-      this.disposeModel(this.currentModel);
-      this.currentModel = null;
-    }
-    
     let loadedModel: THREE.Group;
-    
+
     try {
-      // Load model based on format
+      // Load model based on format. Missing files must not leave the view empty.
       const loader = this.getLoader(model.format);
       loadedModel = await this.loadModelAsync(loader, filePath);
     } catch (error) {
@@ -166,6 +176,7 @@ export class ThreeJSRenderEngine implements IRenderEngine {
       if (filePath.includes('error')) {
         throw error;
       }
+      if (this.currentModel) return;
       console.warn(`Failed to load 3D model from ${filePath}. Creating procedural fallback model. Error:`, error);
       loadedModel = this.createProceduralModel(model.modelId);
     }
@@ -187,7 +198,12 @@ export class ThreeJSRenderEngine implements IRenderEngine {
     
     // Center model
     this.centerModel(loadedModel);
-    
+
+    if (this.currentModel) {
+      this.scene.remove(this.currentModel);
+      this.disposeModel(this.currentModel);
+    }
+
     // Add to scene
     this.currentModel = loadedModel;
     this.scene.add(loadedModel);
@@ -240,16 +256,19 @@ export class ThreeJSRenderEngine implements IRenderEngine {
     filePath: string
   ): Promise<THREE.Group> {
     return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error(`Failed to load model: timed out ${filePath}`)), 800);
       loader.load(
         filePath,
         (result: any) => {
+          clearTimeout(timer);
           // Handle GLTF vs OBJ result structure
           const model = result.scene || result;
           resolve(model);
         },
         undefined,
         (error: any) => {
-          reject(new Error(`Failed to load model: ${error.message}`));
+          clearTimeout(timer);
+          reject(new Error(`Failed to load model: ${error?.message ?? 'unknown'}`));
         }
       );
     });
@@ -349,6 +368,19 @@ export class ThreeJSRenderEngine implements IRenderEngine {
    * Render the scene with delta time
    */
   render(_deltaTime: number): void {
+    if (this.compatGl && this.scene && this.camera && !this.renderer) {
+      this.applySmoothTransitions();
+      if (this.currentModel) {
+        drawGeneratedMesh(this.compatGl as never, this.currentModel, {
+          x: this.camera.position.x,
+          y: this.camera.position.y,
+          z: this.camera.position.z,
+        });
+      }
+      this.endExpoFrame(this.compatGl as { endFrameEXP?: () => void });
+      return;
+    }
+
     if (!this.scene || !this.camera || !this.renderer) {
       return;
     }
@@ -365,10 +397,15 @@ export class ThreeJSRenderEngine implements IRenderEngine {
     // Render the scene
     this.renderer.render(this.scene, this.camera);
     
-    // Flush GL commands for expo-gl
-    const gl = this.renderer.getContext() as any;
-    if (gl.endFrameEXP) {
+    this.endExpoFrame(this.renderer.getContext() as { endFrameEXP?: () => void });
+  }
+
+  private endExpoFrame(gl: { endFrameEXP?: () => void } | null): void {
+    if (!gl?.endFrameEXP) return;
+    try {
       gl.endFrameEXP();
+    } catch {
+      // expo-gl throws if a frame is ended twice. One successful call is enough.
     }
   }
   

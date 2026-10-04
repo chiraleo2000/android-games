@@ -8,6 +8,7 @@ export class SceneManager {
   private readonly clock: THREE.Clock;
   private readonly updateCallbacks: Array<(delta: number) => void> = [];
   private readonly onResize: () => void;
+  private reportedUpdateError = false;
 
   constructor(container: HTMLElement) {
     this.clock = new THREE.Clock();
@@ -89,7 +90,14 @@ export class SceneManager {
       this.animationId = requestAnimationFrame(animate);
       const delta = this.clock.getDelta();
       for (const cb of this.updateCallbacks) {
-        cb(delta);
+        try {
+          cb(delta);
+        } catch (error) {
+          if (!this.reportedUpdateError) {
+            this.reportedUpdateError = true;
+            console.error(error);
+          }
+        }
       }
       this.renderer.render(this.scene, this.camera);
     };

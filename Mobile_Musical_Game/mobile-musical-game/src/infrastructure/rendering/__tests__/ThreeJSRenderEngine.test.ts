@@ -192,12 +192,12 @@ describe('ThreeJSRenderEngine', () => {
     it('should initialize renderer with correct settings', () => {
       engine.initialize(mockGLContext);
       
-      expect(THREE.WebGLRenderer).toHaveBeenCalledWith({
+      expect(THREE.WebGLRenderer).toHaveBeenCalledWith(expect.objectContaining({
         context: mockGLContext,
         antialias: true,
         alpha: true,
         powerPreference: 'high-performance',
-      });
+      }));
     });
 
     it('should initialize scene', () => {

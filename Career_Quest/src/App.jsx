@@ -62,23 +62,50 @@ const shuffleArray = (array) => {
     return shuffled;
 };
 
+const FALLBACK_CONSEQUENCE = {
+    en: 'You made your choice. The situation moves on.',
+    th: 'คุณตัดสินใจแล้ว สถานการณ์เดินหน้าต่อ',
+    zh: '你做出了选择。情况继续发展。'
+};
+
+const consequenceFor = (option) => {
+    const consequence = option?.consequence;
+    if (typeof consequence === 'string' && consequence.trim()) {
+        return { en: consequence, th: consequence, zh: consequence };
+    }
+    if (consequence && typeof consequence === 'object') {
+        const text = consequence.en || consequence.th || consequence.zh;
+        if (typeof text === 'string' && text.trim()) return consequence;
+    }
+    return FALLBACK_CONSEQUENCE;
+};
+
 function App() {
     // Lazy loaded modules state
     const [gameContent, setGameContent] = useState(null);
     const [loadCareerQuestions, setLoadCareerQuestions] = useState(null);
     const [getShuffledQuestions, setGetShuffledQuestions] = useState(null);
     const [calculateMBTIType, setCalculateMBTIType] = useState(null);
+    const [contentError, setContentError] = useState(false);
 
     // Load modules on mount
     useEffect(() => {
+        let cancelled = false;
         Promise.all([gameContentPromise, mbtiQuestionsPromise, mbtiScoringPromise]).then(
             ([gameModule, mbtiModule, scoringModule]) => {
+                if (cancelled) return;
                 setGameContent(gameModule.gameContent);
                 setLoadCareerQuestions(() => gameModule.loadCareerQuestions);
                 setGetShuffledQuestions(() => mbtiModule.getShuffledQuestions);
                 setCalculateMBTIType(() => scoringModule.calculateMBTIType);
             }
-        );
+        ).catch((error) => {
+            console.error('Failed to load Career Quest:', error);
+            if (!cancelled) setContentError(true);
+        });
+        return () => {
+            cancelled = true;
+        };
     }, []);
 
     // Audio state
@@ -142,6 +169,7 @@ function App() {
     // Refs
     const lastActionTimeRef = useRef(0);
     const transitionTimerRef = useRef(null);
+    const answerLockedRef = useRef(false);
     const DEBOUNCE_MS = 300;
 
     // Check for saved session on load and when returning to home
@@ -178,25 +206,29 @@ function App() {
 
     // Auto-save game state
     useEffect(() => {
-        if (gameState === 'PLAYING' && currentCareer) {
-            const saveData = {
-                gameState,
-                currentCareer,
-                currentScenarioIndex,
-                stats,
-                feedback,
-                savedAt: new Date().toISOString()
-            };
-            localStorage.setItem('careerQuestState', JSON.stringify(saveData));
-        } else if (gameState === 'PERSONALITY_TEST') {
-            const saveData = {
-                gameState,
-                ptIndex,
-                ptAnswers,
-                ptQuestions,
-                savedAt: new Date().toISOString()
-            };
-            localStorage.setItem('careerQuestState', JSON.stringify(saveData));
+        try {
+            if (gameState === 'PLAYING' && currentCareer) {
+                const saveData = {
+                    gameState,
+                    currentCareer,
+                    currentScenarioIndex,
+                    stats,
+                    feedback,
+                    savedAt: new Date().toISOString()
+                };
+                localStorage.setItem('careerQuestState', JSON.stringify(saveData));
+            } else if (gameState === 'PERSONALITY_TEST') {
+                const saveData = {
+                    gameState,
+                    ptIndex,
+                    ptAnswers,
+                    ptQuestions,
+                    savedAt: new Date().toISOString()
+                };
+                localStorage.setItem('careerQuestState', JSON.stringify(saveData));
+            }
+        } catch (error) {
+            console.error('Failed to save game:', error);
         }
     }, [gameState, currentCareer, currentScenarioIndex, stats, feedback, ptIndex, ptAnswers, ptQuestions]);
 
@@ -235,6 +267,7 @@ function App() {
         if (now - lastActionTimeRef.current < DEBOUNCE_MS) return;
         lastActionTimeRef.current = now;
 
+        answerLockedRef.current = false;
         setGameState(GAME_STATES.HOME);
         setSelectedGroup(null);
         setCurrentCareer(null);
@@ -272,6 +305,7 @@ function App() {
         lastActionTimeRef.current = now;
 
         if (!loadCareerQuestions) return;
+        answerLockedRef.current = false;
 
         try {
             // Premium access check (secondary defense)
@@ -316,6 +350,10 @@ function App() {
         if (!getShuffledQuestions) return;
 
         const shuffled = getShuffledQuestions();
+        if (!Array.isArray(shuffled) || shuffled.length === 0) {
+            alert('The personality test is not ready yet.');
+            return;
+        }
         setPtQuestions(shuffled);
         setPtIndex(0);
         setPtAnswers({});
@@ -326,19 +364,21 @@ function App() {
     // Handle answer selection
     const handleAnswer = useCallback((option) => {
         const now = Date.now();
+        if (answerLockedRef.current || feedback) return;
         if (now - lastActionTimeRef.current < DEBOUNCE_MS) return;
-        if (feedback) return; // Prevent multiple clicks during feedback
+        if (!currentCareer?.activeScenarios?.length) return;
+        answerLockedRef.current = true;
         lastActionTimeRef.current = now;
 
         // Apply stat changes
         const newStats = { ...stats };
-        if (option.stats) {
+        if (option?.stats) {
             Object.keys(option.stats).forEach(key => {
                 newStats[key] = Math.max(0, Math.min(100, (newStats[key] || 50) + (option.stats[key] || 0)));
             });
         }
         setStats(newStats);
-        setFeedback(option.consequence);
+        setFeedback(consequenceFor(option));
 
         // Clear any existing timer
         if (transitionTimerRef.current) {
@@ -369,6 +409,7 @@ function App() {
             }, 2000);
         } else {
             transitionTimerRef.current = setTimeout(() => {
+                answerLockedRef.current = false;
                 setCurrentScenarioIndex(prev => prev + 1);
                 setFeedback(null);
                 transitionTimerRef.current = null;
@@ -377,14 +418,20 @@ function App() {
     }, [stats, currentScenarioIndex, currentCareer, feedback]);
 
     const handleContinue = useCallback(() => {
-        const now = Date.now();
-        if (now - lastActionTimeRef.current < DEBOUNCE_MS) return;
-        lastActionTimeRef.current = now;
+        if (!answerLockedRef.current) return;
+        answerLockedRef.current = false;
+        lastActionTimeRef.current = Date.now();
 
         // Clear automatic transition timer
         if (transitionTimerRef.current) {
             clearTimeout(transitionTimerRef.current);
             transitionTimerRef.current = null;
+        }
+
+        if (!currentCareer?.activeScenarios?.length) {
+            answerLockedRef.current = false;
+            setGameState(GAME_STATES.HOME);
+            return;
         }
 
         if (currentScenarioIndex >= currentCareer.activeScenarios.length - 1) {
@@ -406,6 +453,7 @@ function App() {
             localStorage.removeItem('careerQuestState');
             setTimeout(() => setShowConfetti(false), 5000);
         } else {
+            answerLockedRef.current = false;
             setCurrentScenarioIndex(prev => prev + 1);
             setFeedback(null);
         }
@@ -465,6 +513,7 @@ function App() {
                 setCurrentScenarioIndex(pendingSavedState.currentScenarioIndex || 0);
                 setStats(pendingSavedState.stats || DEFAULT_STATS);
                 setFeedback(pendingSavedState.feedback || null);
+                answerLockedRef.current = Boolean(pendingSavedState.feedback);
             } else if (pendingSavedState.gameState === 'PERSONALITY_TEST') {
                 setPtIndex(pendingSavedState.ptIndex || 0);
                 setPtAnswers(pendingSavedState.ptAnswers || {});
@@ -523,6 +572,24 @@ function App() {
             <div>Loading...</div>
         </div>
     );
+
+    if (contentError) {
+        return (
+            <div role="alert" style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '16px',
+                height: '100vh',
+                padding: '24px',
+                textAlign: 'center'
+            }}>
+                <p>Career Quest could not load. Please try again.</p>
+                <button type="button" onClick={() => window.location.reload()}>Try again</button>
+            </div>
+        );
+    }
 
     // Don't render until modules are loaded
     if (!gameContent || !loadCareerQuestions || !getShuffledQuestions || !calculateMBTIType) {

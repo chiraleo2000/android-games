@@ -53,12 +53,14 @@ export const useGameStore = create<GameState & GameActions>((set, get) => ({
 
   tick: () =>
     set((state) => {
+      if (state.status !== 'PLAYING') return {};
       if (state.timeLeft <= 1) return { status: 'FINISHED', timeLeft: 0 };
       return { timeLeft: state.timeLeft - 1 };
     }),
 
   handleWordSuccess: () => {
-    const { score, lastSuccessTime, words, currentWordIndex, wordsCompleted } = get();
+    const { status, score, lastSuccessTime, words, currentWordIndex, wordsCompleted } = get();
+    if (status !== 'PLAYING' || words.length === 0) return;
     const points = calculatePoints(score, lastSuccessTime);
     const nextIndex = currentWordIndex + 1;
     set({

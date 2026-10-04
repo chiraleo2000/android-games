@@ -205,7 +205,6 @@ namespace DeadCityEscape.Core
             {
                 _currentData = CreateDefault();
                 error = LogRedactor.Redact(ex.Message);
-                return false;
             }
             finally
             {
@@ -213,9 +212,61 @@ namespace DeadCityEscape.Core
                 Save();
             }
 
-            return _currentData != null
+            ApplyFreshRuntimeState();
+
+            var fresh = _currentData != null
                 && !HasRestorableRun
-                && _currentData.PlayerLevel == RunSaveSnapshot.Fresh().PlayerLevel;
+                && _currentData.PlayerLevel == RunSaveSnapshot.Fresh().PlayerLevel
+                && _currentData.TotalRunsCompleted == 0
+                && string.IsNullOrEmpty(_currentData.UnlockedSkillIds)
+                && FreshSaveOnDisk();
+            if (!fresh && string.IsNullOrEmpty(error))
+                error = "Local data could not be reset.";
+            return fresh;
+        }
+
+        bool FreshSaveOnDisk()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(_savePath) || !File.Exists(_savePath))
+                    return false;
+                var json = File.ReadAllText(_savePath);
+                var compact = json.Replace(" ", "").Replace("\r", "").Replace("\n", "").Replace("\t", "");
+                return compact.Contains("\"PlayerLevel\":1,")
+                    && compact.Contains("\"TotalRunsCompleted\":0,")
+                    && compact.Contains("\"RunInProgress\":false")
+                    && compact.Contains("\"ActiveRunSeed\":0,");
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        void ApplyFreshRuntimeState()
+        {
+            if (_currentData == null)
+                return;
+
+            try
+            {
+                var quality = FindAnyObjectByType<QualityManager>();
+                if (quality != null)
+                    quality.ApplyQualityLevel(_currentData.QualityLevel);
+
+                var audio = FindAnyObjectByType<Audio.AudioManager>();
+                if (audio != null)
+                {
+                    audio.SetVolume(Audio.AudioCategory.Master, _currentData.MasterVolume);
+                    audio.SetVolume(Audio.AudioCategory.Music, _currentData.MusicVolume);
+                    audio.SetVolume(Audio.AudioCategory.SFX, _currentData.SFXVolume);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"SaveSystem: Fresh state apply skipped: {LogRedactor.Redact(ex.Message)}");
+            }
         }
 
         private SaveData CreateDefault()

@@ -11,7 +11,7 @@ const translations = {
         startCareer: 'Career Simulation',
         careerDesc: 'Explore 64 career paths across 8 categories',
         startPersonality: 'Personality Test',
-        personalityDesc: '100-question MBTI assessment to discover your type',
+        personalityDesc: '60-question MBTI assessment to discover your type',
         features: ['Interactive Scenarios', 'Real Decisions', 'Personalized Results'],
         resume: 'Resume Session',
         resumeDesc: 'Continue where you left off'
@@ -22,7 +22,7 @@ const translations = {
         startCareer: 'จำลองอาชีพ',
         careerDesc: 'สำรวจ 64 เส้นทางอาชีพใน 8 หมวดหมู่',
         startPersonality: 'แบบทดสอบบุคลิกภาพ',
-        personalityDesc: 'แบบทดสอบ MBTI 100 ข้อเพื่อค้นพบตัวตนของคุณ',
+        personalityDesc: 'แบบทดสอบ MBTI 60 ข้อเพื่อค้นพบตัวตนของคุณ',
         features: ['สถานการณ์โต้ตอบ', 'การตัดสินใจจริง', 'ผลลัพธ์เฉพาะบุคคล'],
         resume: 'เล่นต่อ',
         resumeDesc: 'ทำต่อจากที่ค้างไว้'
@@ -33,7 +33,7 @@ const translations = {
         startCareer: '职业模拟',
         careerDesc: '探索8个类别中的64条职业道路',
         startPersonality: '性格测试',
-        personalityDesc: '100题MBTI评估，发现您的类型',
+        personalityDesc: '60题MBTI评估，发现您的类型',
         features: ['互动场景', '真实决策', '个性化结果'],
         resume: '继续会话',
         resumeDesc: '从上次停下的地方继续'
@@ -73,9 +73,10 @@ function HomeScreen({ onStartCareer, onStartPersonality, language, savedState, o
             };
         } else if (savedState.gameState === 'PERSONALITY_TEST') {
             const current = (savedState.ptIndex || 0) + 1;
+            const total = savedState.ptQuestions?.length || 60;
             return {
                 title: t.startPersonality,
-                desc: `${language === 'th' ? 'คำถามที่' : language === 'zh' ? '问题' : 'Question'} ${current} / 100`
+                desc: `${language === 'th' ? 'คำถามที่' : language === 'zh' ? '问题' : 'Question'} ${current} / ${total}`
             };
         }
 

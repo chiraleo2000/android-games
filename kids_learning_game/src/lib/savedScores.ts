@@ -37,15 +37,24 @@ function isSameRecentScore(last: SavedScoreRecord | undefined, record: SavedScor
 }
 
 export function rememberScore(record: SavedScoreRecord): void {
-  const all = loadSavedScores();
-  if (isSameRecentScore(all.at(-1), record)) return;
-  all.push(record);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(all.slice(-50)));
+  try {
+    const all = loadSavedScores();
+    if (isSameRecentScore(all.at(-1), record)) return;
+    all.push(record);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(all.slice(-50)));
+  } catch {
+    // Private browsing can block storage. The score still shows on the result screen.
+  }
 }
 
-export function clearSavedScores(): void {
-  localStorage.removeItem(STORAGE_KEY);
-  localStorage.removeItem("wordblitz_error_log");
+export function clearSavedScores(): boolean {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem("wordblitz_error_log");
+    return loadSavedScores().length === 0;
+  } catch {
+    return false;
+  }
 }
 
 export function bestSavedScore(): number | null {

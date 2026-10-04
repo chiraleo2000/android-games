@@ -116,7 +116,29 @@ export const GameBoard: React.FC = () => {
   }
 
   // === Phase: Playing ===
+  if (!currentWord) {
+    return (
+      <div className="relative flex min-h-screen items-center justify-center bg-[linear-gradient(135deg,#0c4a6e_0%,#0e7490_45%,#134e4a_100%)] p-6 text-white">
+        <div role="alert" className="max-w-md rounded-3xl bg-white/10 p-8 text-center">
+          <p className="font-baloo text-3xl font-black">No words are ready</p>
+          <p className="mt-2 font-nunito text-sky-100">This topic does not have a word for the selected level.</p>
+          <button
+            type="button"
+            className="mt-6 rounded-2xl bg-white px-6 py-3 font-baloo text-xl font-black text-teal-800"
+            onClick={() => {
+              resetGame();
+              setGameKey((key) => key + 1);
+            }}
+          >
+            Back to menu
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const handleSubmit = (inputValue: string) => {
+    if (!currentWord) return;
     const isCorrect = validateAnswer(currentWord.term, inputValue);
     if (isCorrect) {
       void playFeedbackHaptic('correct');

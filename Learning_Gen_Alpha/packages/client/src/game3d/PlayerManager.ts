@@ -113,9 +113,21 @@ export class PlayerManager {
     const canvas = document.createElement('canvas');
     canvas.width = 256;
     canvas.height = 64;
-    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      const texture = new THREE.CanvasTexture(canvas);
+      const mat = new THREE.SpriteMaterial({ map: texture, transparent: true });
+      const sprite = new THREE.Sprite(mat);
+      sprite.scale.set(2, 0.5, 1);
+      return sprite;
+    }
     ctx.fillStyle = 'rgba(0,0,0,0.6)';
-    ctx.roundRect(0, 0, 256, 64, 12);
+    ctx.beginPath();
+    if (typeof ctx.roundRect === 'function') {
+      ctx.roundRect(0, 0, 256, 64, 12);
+    } else {
+      ctx.rect(0, 0, 256, 64);
+    }
     ctx.fill();
     ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 28px sans-serif';

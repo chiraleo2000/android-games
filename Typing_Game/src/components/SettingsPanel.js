@@ -24,12 +24,12 @@ export function SettingsPanel({ onFreshStart, notice }) {
     ),
     React.createElement(
       'a',
-      { className: 'font-nunito font-extrabold text-teal-700 underline', href: PRIVACY_POLICY_URL },
+      { className: 'font-nunito font-extrabold text-teal-700 underline', href: PRIVACY_POLICY_URL, target: '_blank', rel: 'noreferrer' },
       'Privacy Policy'
     ),
     React.createElement(
       'a',
-      { className: 'font-nunito font-extrabold text-teal-700 underline', href: TERMS_OF_SERVICE_URL },
+      { className: 'font-nunito font-extrabold text-teal-700 underline', href: TERMS_OF_SERVICE_URL, target: '_blank', rel: 'noreferrer' },
       'Terms of Service'
     ),
     React.createElement(

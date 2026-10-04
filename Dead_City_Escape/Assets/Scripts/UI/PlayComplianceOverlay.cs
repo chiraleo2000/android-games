@@ -3,6 +3,7 @@
 // Settings entry for deleting local data, the privacy-policy link, and a
 // crash fallback that stays on device.
 // ---------------------------------------------------------------------------
+using System;
 using DeadCityEscape.Core;
 using DeadCityEscape.Logic;
 using UnityEngine;
@@ -273,8 +274,9 @@ namespace DeadCityEscape.UI
 
         void LoadFreshMainMenu()
         {
-            if (SceneManager.GetActiveScene().name != "MainMenu")
-                SceneManager.LoadScene("MainMenu");
+            Time.timeScale = 1f;
+            _pausedForUi = false;
+            SceneManager.LoadScene("MainMenu");
         }
 
         void PauseForUi()
@@ -329,21 +331,33 @@ namespace DeadCityEscape.UI
 
         bool EnsureUiInput()
         {
-            var es = FindAnyObjectByType<EventSystem>();
-            if (es == null)
+            try
             {
-                var go = new GameObject("EventSystem");
-                es = go.AddComponent<EventSystem>();
-            }
+                var es = FindAnyObjectByType<EventSystem>();
+                if (es == null)
+                {
+                    var go = new GameObject("EventSystem");
+                    es = go.AddComponent<EventSystem>();
+                }
 
-            if (es.GetComponent<InputSystemUIInputModule>() == null)
+                // The main menu already has an Input System module with its actions assigned.
+                // Leave that module alone. A second module, or disabling Standalone Input while
+                // the scene still depends on it, stops menu buttons from receiving clicks.
+                if (es.GetComponent<InputSystemUIInputModule>() != null)
+                    return true;
+
+                var standalone = es.GetComponent<StandaloneInputModule>();
+                if (standalone != null && standalone.enabled)
+                    return true;
+
                 es.gameObject.AddComponent<InputSystemUIInputModule>();
-
-            var standalone = es.GetComponent<StandaloneInputModule>();
-            if (standalone != null)
-                standalone.enabled = false;
-
-            return es.GetComponent<InputSystemUIInputModule>() != null;
+                return es.GetComponent<InputSystemUIInputModule>() != null;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning("[PlayCompliance] UI input setup skipped: " + ex.Message);
+                return true;
+            }
         }
 
         GameObject CreateModal(Transform parent, string name)

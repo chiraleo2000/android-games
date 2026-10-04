@@ -20,9 +20,28 @@ import { ThreeJSRenderEngine } from '@infrastructure/rendering/ThreeJSRenderEngi
 import { Gesture, TouchAction } from '@domain/entities/Touch';
 import { VisualFeedbackOverlay } from '@presentation/components/VisualFeedbackOverlay';
 import { CulturalInfoPanel } from '@presentation/components/CulturalInfoPanel';
+import { DeviceUtils } from '@infrastructure/utils/DeviceUtils';
+import { DeviceInfo } from '@domain/entities/AppState';
 
 interface InstrumentPlayScreenProps {
   onBack?: () => void;
+}
+
+function deviceForTouch(): DeviceInfo {
+  try {
+    const info = DeviceUtils.getDeviceInfo();
+    if (info.screenWidth > 0 && info.screenHeight > 0) return info;
+  } catch {
+    // Dimensions can be missing on the first frame. Zones still need a real size.
+  }
+  return {
+    screenWidth: 375,
+    screenHeight: 667,
+    screenDiagonal: 4.7,
+    pixelDensity: 2,
+    deviceType: 'phone',
+    platform: 'android',
+  };
 }
 
 export function InstrumentPlayScreen({ onBack }: InstrumentPlayScreenProps) {
@@ -42,52 +61,61 @@ export function InstrumentPlayScreen({ onBack }: InstrumentPlayScreenProps) {
     displayManagerRef.current.calculateLayout(orientation)
   );
   const [activeFeedback, setActiveFeedback] = useState<string[]>([]);
+  const volumeRef = useRef(volume);
+  volumeRef.current = volume;
 
   /**
-   * Initialize services when instrument is loaded
+   * Initialize services when instrument is loaded.
+   * Volume changes must not tear down the mesh or the loaded notes.
    */
   useEffect(() => {
     if (!selectedInstrument) return;
 
     const initializeServices = async () => {
       try {
-        // Initialize display manager
         displayManagerRef.current.initialize();
 
-        // Initialize sound engine
         const soundEngine = new LowLatencySoundEngine();
         await soundEngine.initialize();
         await soundEngine.loadAudioSamples(selectedInstrument.audioSamples.samples);
         for (const zone of selectedInstrument.interactionZones) {
           soundEngine.aliasNote(zone.noteId, zone.id);
         }
-        soundEngine.setVolume(volume);
+        soundEngine.setVolume(volumeRef.current);
         soundEngineRef.current = soundEngine;
 
-        // Initialize touch controller
         const touchController = new TouchController();
-        touchController.initialize(selectedInstrument);
+        touchController.initialize(selectedInstrument, deviceForTouch());
         touchControllerRef.current = touchController;
 
         setIsInitialized(true);
       } catch (error) {
         console.error('Failed to initialize services:', error);
+        setIsInitialized(true);
       }
     };
 
-    initializeServices();
+    void initializeServices();
 
-    // Cleanup on unmount
     return () => {
       if (soundEngineRef.current) {
         soundEngineRef.current.stopAll();
         soundEngineRef.current.dispose();
-      }
-      if (renderEngineRef.current) {
-        renderEngineRef.current.dispose();
+        soundEngineRef.current = null;
       }
     };
-  }, [selectedInstrument, volume]);
+  }, [selectedInstrument]);
+
+  useEffect(() => {
+    soundEngineRef.current?.setVolume(volume);
+  }, [volume]);
+
+  useEffect(() => {
+    return () => {
+      renderEngineRef.current?.dispose();
+      renderEngineRef.current = null;
+    };
+  }, []);
 
   /**
    * Handle orientation changes
@@ -115,18 +143,9 @@ export function InstrumentPlayScreen({ onBack }: InstrumentPlayScreenProps) {
         // Initialize render engine
         const renderEngine = new ThreeJSRenderEngine();
         renderEngine.initialize(gl);
-        await renderEngine.loadModel(selectedInstrument.model3D);
         renderEngineRef.current = renderEngine;
-
-        // Start render loop
-        const render = () => {
-          if (renderEngineRef.current) {
-            renderEngineRef.current.render(0.016); // ~60fps
-            gl.endFrameEXP();
-          }
-          requestAnimationFrame(render);
-        };
-        render();
+        await renderEngine.loadModel(selectedInstrument.model3D);
+        // The engine owns the frame loop and ends the GL frame once.
       } catch (error) {
         console.error('Failed to initialize render engine:', error);
       }
@@ -184,7 +203,9 @@ export function InstrumentPlayScreen({ onBack }: InstrumentPlayScreenProps) {
     if (action.type === 'release') {
       soundEngineRef.current.stopNote(noteId);
     } else {
-      soundEngineRef.current.playNote(noteId, action.velocity);
+      // A tap on a plucked string has almost no drag, which used to schedule a silent note.
+      const velocity = action.type === 'pluck' ? Math.max(action.velocity, 0.7) : action.velocity;
+      soundEngineRef.current.playNote(noteId, velocity);
     }
 
     // Show visual feedback

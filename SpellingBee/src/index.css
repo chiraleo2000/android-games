@@ -421,6 +421,10 @@ body::before {
   margin: 10px auto 16px;
 }
 
+.letter-gap {
+  width: 14px;
+}
+
 .letter-tile {
   align-items: center;
   aspect-ratio: 1;

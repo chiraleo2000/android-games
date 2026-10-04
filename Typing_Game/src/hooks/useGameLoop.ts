@@ -72,20 +72,25 @@ export const useGameLoop = (words: Word[]): UseGameLoopReturn => {
     }
   }, []);
 
+  const nextWordIndex = useCallback(
+    (index: number) => (words.length > 0 ? (index + 1) % words.length : 0),
+    [words.length]
+  );
+
   const advanceToNextWord = useCallback(() => {
     setState((current) => {
       if (current.isGameOver) return current;
 
       return {
         ...current,
-        currentWordIndex: (current.currentWordIndex + 1) % words.length,
+        currentWordIndex: nextWordIndex(current.currentWordIndex),
         currentWordMistakes: 0,
         isAnswerRevealed: false,
         lastFeedback: 'none',
       };
     });
     revealTimeoutRef.current = null;
-  }, [words.length]);
+  }, [nextWordIndex]);
 
   useEffect(() => {
     if (!state.isAnswerRevealed) return;
@@ -142,7 +147,7 @@ export const useGameLoop = (words: Word[]): UseGameLoopReturn => {
         score: prev.score + pointsGained,
         multiplier: nextMultiplier,
         streak: isWithinWindow ? prev.streak + 1 : 1,
-        currentWordIndex: (prev.currentWordIndex + 1) % words.length,
+        currentWordIndex: nextWordIndex(prev.currentWordIndex),
         currentWordMistakes: 0,
         isAnswerRevealed: false,
         totalCorrect: prev.totalCorrect + 1,
@@ -152,7 +157,7 @@ export const useGameLoop = (words: Word[]): UseGameLoopReturn => {
     });
 
     clearFeedback();
-  }, [words.length, clearFeedback]);
+  }, [nextWordIndex, clearFeedback]);
 
   // === Handle Wrong Answer ===
   const handleWrongAnswer = useCallback(() => {

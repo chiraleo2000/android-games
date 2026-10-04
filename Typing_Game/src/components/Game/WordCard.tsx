@@ -51,6 +51,7 @@ export const WordCard: React.FC<WordCardProps> = ({
   const [inputValue, setInputValue] = useState('');
   const [imgError, setImgError] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const submittingRef = useRef(false);
 
   const colors = categoryColors[word.category] ?? categoryColors.nature;
   const cardAnim = getCardAnimationClass(feedback);
@@ -59,13 +60,18 @@ export const WordCard: React.FC<WordCardProps> = ({
   const attemptNumbers = Array.from({ length: maxMistakes }, (_, index) => index + 1);
 
   useEffect(() => {
+    submittingRef.current = false;
+  }, [word.id, feedback]);
+
+  useEffect(() => {
     setImgError(false);
     setInputValue('');
     inputRef.current?.focus();
   }, [word.id]);
 
   const submitAnswer = () => {
-    if (inputValue.trim() === '' || isAnswerRevealed) return;
+    if (submittingRef.current || inputValue.trim() === '' || isAnswerRevealed || feedback !== 'none') return;
+    submittingRef.current = true;
 
     onSubmit(inputValue.trim());
     setInputValue('');
@@ -103,7 +109,7 @@ export const WordCard: React.FC<WordCardProps> = ({
         ) : (
           <img
             src={word.imageUrl}
-            alt={word.term}
+            alt=""
             className="w-full h-52 object-cover rounded-3xl border-4 border-gray-100 shadow-md dark:border-slate-700"
             onError={() => setImgError(true)}
           />

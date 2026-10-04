@@ -91,10 +91,22 @@ const getGameOverMessage = (reason: GameOverReason) => {
   return 'Round complete';
 };
 
+const normalizeSpelling = (value: string) => value.toLowerCase().replace(/[^a-z]/g, '');
+
+const answersMatch = (typed: string, expected: string) => {
+  const actual = normalizeSpelling(typed);
+  const target = normalizeSpelling(expected);
+  return actual.length > 0 && actual === target;
+};
+
 const renderLetterTiles = (word: string, difficulty: Difficulty) => {
   const revealIndexes = getRevealIndexes(word, difficulty);
 
   return word.split('').map((letter, index) => {
+    if (/\s/.test(letter)) {
+      return <span className="letter-gap" key={`gap-${index}`} aria-hidden="true" />;
+    }
+
     const isLetter = /[a-z]/i.test(letter);
     const isVisible = !isLetter || revealIndexes.has(index);
 
@@ -129,7 +141,25 @@ const App: React.FC = () => {
   const [freshNotice, setFreshNotice] = useState('');
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const resolvingRef = useRef(false);
+  const pendingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const difficultyMeta = getDifficultyMeta(difficulty);
+
+  const clearPendingTimer = () => {
+    if (pendingTimerRef.current) {
+      clearTimeout(pendingTimerRef.current);
+      pendingTimerRef.current = null;
+    }
+  };
+
+  const scheduleAfterFeedback = (delay: number, action: () => void) => {
+    clearPendingTimer();
+    pendingTimerRef.current = setTimeout(() => {
+      pendingTimerRef.current = null;
+      resolvingRef.current = false;
+      action();
+    }, delay);
+  };
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -138,7 +168,7 @@ const App: React.FC = () => {
 
   // Timer Effect
   useEffect(() => {
-    if (screen !== 'game' || feedback !== null) return;
+    if (screen !== 'game' || feedback !== null || !currentWord) return;
     
     if (timeLeft <= 0) {
       handleTimeout();
@@ -150,10 +180,10 @@ const App: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, screen, feedback]);
+  }, [timeLeft, screen, feedback, currentWord]);
 
   useEffect(() => {
-    if (screen !== 'game' || feedback !== null) return;
+    if (screen !== 'game' || feedback !== null || !currentWord) return;
 
     if (roundTimeLeft <= 0) {
       endGame('time');
@@ -165,7 +195,9 @@ const App: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [roundTimeLeft, screen, feedback]);
+  }, [roundTimeLeft, screen, feedback, currentWord]);
+
+  useEffect(() => () => clearPendingTimer(), []);
 
   // Focus input when game starts or word changes
   useEffect(() => {
@@ -178,6 +210,8 @@ const App: React.FC = () => {
   }, [screen, currentWord, feedback]);
 
   const handleFreshStart = () => {
+    clearPendingTimer();
+    resolvingRef.current = false;
     setTheme(getInitialTheme());
     setDifficulty('easy');
     setScore(0);
@@ -197,6 +231,8 @@ const App: React.FC = () => {
   };
 
   const startGame = () => {
+    clearPendingTimer();
+    resolvingRef.current = false;
     setFreshNotice('');
     setScore(0);
     setStreak(0);
@@ -221,30 +257,33 @@ const App: React.FC = () => {
   };
 
   const handleMiss = (result: 'wrong' | 'timeout') => {
+    if (resolvingRef.current) return;
+    resolvingRef.current = true;
     const nextMissesInRow = missesInRow + 1;
 
     setStreak(0);
     setMissesInRow(nextMissesInRow);
     setFeedback(result);
 
-    setTimeout(() => {
+    scheduleAfterFeedback(ANSWER_REVEAL_MS, () => {
       if (nextMissesInRow >= MAX_MISSES_IN_ROW) {
         endGame('misses');
         return;
       }
 
       nextWord();
-    }, ANSWER_REVEAL_MS);
+    });
   };
 
   const handleSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (!currentWord || feedback !== null || input.trim() === '') return;
+    if (!currentWord || resolvingRef.current || feedback !== null || input.trim() === '') return;
 
-    const isCorrect = input.toLowerCase().trim() === currentWord.english.toLowerCase();
+    const isCorrect = answersMatch(input, currentWord.english);
 
     if (isCorrect) {
-      const charCount = currentWord.english.length;
+      resolvingRef.current = true;
+      const charCount = normalizeSpelling(currentWord.english).length || currentWord.english.length;
       const streakMultiplier = Math.min(1 + streak * 0.1, 2.5); // Max 2.5x
       const points = Math.round(charCount * 10 * streakMultiplier);
       
@@ -259,15 +298,17 @@ const App: React.FC = () => {
       setWordsSpelled(prev => prev + 1);
       setFeedback('correct');
 
-      setTimeout(() => {
+      scheduleAfterFeedback(CORRECT_FEEDBACK_MS, () => {
         nextWord();
-      }, CORRECT_FEEDBACK_MS);
+      });
     } else {
       handleMiss('wrong');
     }
   };
 
   const endGame = (reason: GameOverReason = 'exit') => {
+    clearPendingTimer();
+    resolvingRef.current = false;
     setGameOverReason(reason);
     setFeedback(null);
     setScreen('gameover');
@@ -340,6 +381,20 @@ const App: React.FC = () => {
           </button>
 
           <SettingsPanel notice={freshNotice} onFreshStart={handleFreshStart} />
+        </div>
+      )}
+
+      {screen === 'game' && !currentWord && (
+        <div className="start-screen card" role="alert">
+          <h1>No word is ready</h1>
+          <p className="tagline">This round could not load a word.</p>
+          <button className="btn btn-primary" type="button" onClick={() => {
+            clearPendingTimer();
+            resolvingRef.current = false;
+            setScreen('start');
+          }}>
+            BACK TO MENU
+          </button>
         </div>
       )}
 

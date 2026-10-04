@@ -185,6 +185,9 @@ const ALL_STORAGE_KEYS = [
     'careerquest_career_results',
     'careerquest_personality_results',
     'careerquest_statistics_cache',
+    'careerquest_license',
+    'careerquest_receipt',
+    'careerquest_license_audit',
 ];
 
 export { ALL_STORAGE_KEYS };

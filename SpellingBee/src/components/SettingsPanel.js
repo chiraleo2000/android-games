@@ -15,8 +15,8 @@ export function SettingsPanel({ onFreshStart, notice }) {
     { className: 'settings-panel', 'aria-label': 'Settings' },
     React.createElement('h2', null, 'Settings'),
     React.createElement('p', null, 'Progress and preferences stay on this device.'),
-    React.createElement('a', { href: PRIVACY_POLICY_URL }, 'Privacy Policy'),
-    React.createElement('a', { href: TERMS_OF_SERVICE_URL }, 'Terms of Service'),
+    React.createElement('a', { href: PRIVACY_POLICY_URL, target: '_blank', rel: 'noreferrer' }, 'Privacy Policy'),
+    React.createElement('a', { href: TERMS_OF_SERVICE_URL, target: '_blank', rel: 'noreferrer' }, 'Terms of Service'),
     React.createElement('p', null, `Support: ${SUPPORT_EMAIL}`),
     notice ? React.createElement('p', { role: 'status' }, notice) : null,
     confirming

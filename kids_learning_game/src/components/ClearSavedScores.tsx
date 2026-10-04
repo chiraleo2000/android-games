@@ -8,7 +8,7 @@ type ClearSavedScoresProps = Readonly<{
 }>;
 
 export function ClearSavedScores({ onCleared }: ClearSavedScoresProps) {
-  const [step, setStep] = useState<"idle" | "confirm" | "done">("idle");
+  const [step, setStep] = useState<"idle" | "confirm" | "done" | "failed">("idle");
 
   if (step === "confirm") {
     return (
@@ -19,7 +19,10 @@ export function ClearSavedScores({ onCleared }: ClearSavedScoresProps) {
             type="button"
             className="flex-1 bg-red-500 text-white font-black py-3 rounded-xl"
             onClick={() => {
-              clearSavedScores();
+              if (!clearSavedScores()) {
+                setStep("failed");
+                return;
+              }
               setStep("done");
               onCleared?.();
             }}
@@ -34,6 +37,21 @@ export function ClearSavedScores({ onCleared }: ClearSavedScoresProps) {
             Cancel
           </button>
         </div>
+      </div>
+    );
+  }
+
+  if (step === "failed") {
+    return (
+      <div className="w-full bg-white/15 rounded-2xl p-4 text-left">
+        <p className="font-bold mb-3">Saved scores are still on this device.</p>
+        <button
+          type="button"
+          className="w-full bg-white text-violet-700 font-black py-3 rounded-xl"
+          onClick={() => setStep("confirm")}
+        >
+          Try again
+        </button>
       </div>
     );
   }

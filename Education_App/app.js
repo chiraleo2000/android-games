@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentMode: 'maze',
         score: 0,
         streak: 7
+    };
     // --- Game Mode Selection System ---
     // Game Mode Elements
     const modeButtons = document.querySelectorAll('.menu-btn.game-mode');
